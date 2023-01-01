@@ -1,73 +1,73 @@
-# Developer Guides
+# 开发人员指南
 
 ## BusyBox
 
-Magisk ships with a feature complete BusyBox binary (including full SELinux support). The executable is located at `/data/adb/magisk/busybox`. Magisk's BusyBox supports runtime toggle-able "ASH Standalone Shell Mode". What this standalone mode means is that when running in the `ash` shell of BusyBox, every single command will directly use the applet within BusyBox, regardless of what is set as `PATH`. For example, commands like `ls`, `rm`, `chmod` will **NOT** use what is in `PATH` (in the case of Android by default it will be `/system/bin/ls`, `/system/bin/rm`, and `/system/bin/chmod` respectively), but will instead directly call internal BusyBox applets. This makes sure that scripts always run in a predictable environment and always have the full suite of commands no matter which Android version it is running on. To force a command _not_ to use BusyBox, you have to call the executable with full paths.
+Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支持）。可执行文件位于 `/data/adb/magisk/busybox` 。Magisk 的 BusyBox 支持运行时可切换的“ASH独立外壳模式”。这种独立模式的意思是，当在 BusyBox 的 `ash` shell 中运行时，无论设置为 `PATH` ，每个命令都将直接使用 BusyBox 中的 applet。例如，像 `ls`、`rm`、`chmod` 这样的命令将**不使用** `PATH` 中的内容（在 Android 的情况下，默认情况下将分别为 `/system/bin/ls` 、`/system/bin/rm` 和 `/system/bin/chmod` ），而是直接调用内部 BusyBox 小程序。这确保脚本始终在可预测的环境中运行，并且无论在哪个 Android 版本上运行，都始终具有完整的命令集。要强制命令*不使用*BusyBox，必须使用完整路径调用可执行文件。
 
-Every single shell script running in the context of Magisk will be executed in BusyBox's `ash` shell with standalone mode enabled. For what is relevant to 3rd party developers, this includes all boot scripts and module installation scripts.
+在 Magisk 上下文中运行的每个 shell 脚本都将在启用独立模式（Standalone Mode）的 BusyBox 的 `ash` shell中执行。对于与第三方开发人员相关的内容，这包括所有启动脚本和模块安装脚本。
 
-For those who want to use this "Standalone Mode" feature outside of Magisk, there are 2 ways to enable it:
+对于那些想在 Magisk 之外使用“独立模式”功能的人，有两种方法可以启用它：
 
-1. Set environment variable `ASH_STANDALONE` to `1`<br>Example: `ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
-2. Toggle with command-line options:<br>`/data/adb/magisk/busybox sh -o standalone <script>`
+1. 将环境变量 `ASH_STANDALONE` 设置为 `1`<br>示例：`ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
+2. 使用命令行选项切换：<br>`/data/adb/magisk/busybox sh -o standalone <script>`
 
-To make sure all subsequent `sh` shell executed also runs in standalone mode, option 1 is the preferred method (and this is what Magisk and the Magisk app internally use) as environment variables are inherited down to child processes.
+为了确保所有后续执行的 `sh` shell 也以独立模式运行，选项1是首选方法（这是 Magisk 和 Magisk app 内部使用的方法），因为环境变量向下继承到子进程。
 
-## Magisk Modules
+## Magisk 模块
 
-A Magisk module is a folder placed in `/data/adb/modules` with the structure below:
+Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 
 ```
 /data/adb/modules
 ├── .
 ├── .
 |
-├── $MODID                  <--- The folder is named with the ID of the module
+├── $MODID                  <--- 文件夹以模块的ID命名
 │   │
-│   │      *** Module Identity ***
+│   │      *** 模块标识 ***
 │   │
-│   ├── module.prop         <--- This file stores the metadata of the module
+│   ├── module.prop         <--- 此文件存储模块的元数据（metadata）
 │   │
-│   │      *** Main Contents ***
+│   │      *** 主要内容 ***
 │   │
-│   ├── system              <--- This folder will be mounted if skip_mount does not exist
+│   ├── system              <--- 如果skip_mount不存在，将装入此文件夹
 │   │   ├── ...
 │   │   ├── ...
 │   │   └── ...
 │   │
-│   ├── zygisk              <--- This folder contains the module's Zygisk native libraries
+│   ├── zygisk              <--- 此文件夹包含模块的 Zygisk native 库
 │   │   ├── arm64-v8a.so
 │   │   ├── armeabi-v7a.so
 │   │   ├── x86.so
 │   │   ├── x86_64.so
-│   │   └── unloaded        <--- If exists, the native libraries are incompatible
+│   │   └── unloaded        <--- 如果存在，则 native 库不兼容
 │   │
-│   │      *** Status Flags ***
+│   │      *** 状态标志 ***
 │   │
-│   ├── skip_mount          <--- If exists, Magisk will NOT mount your system folder
-│   ├── disable             <--- If exists, the module will be disabled
-│   ├── remove              <--- If exists, the module will be removed next reboot
+│   ├── skip_mount          <--- 如果存在，Magisk将不会装载您的系统文件夹
+│   ├── disable             <--- 如果存在，模块将被禁用
+│   ├── remove              <--- 如果存在，模块将在下次重新启动时删除
 │   │
-│   │      *** Optional Files ***
+│   │      *** 可选文件 ***
 │   │
-│   ├── post-fs-data.sh     <--- This script will be executed in post-fs-data
-│   ├── service.sh          <--- This script will be executed in late_start service
-|   ├── uninstall.sh        <--- This script will be executed when Magisk removes your module
-│   ├── system.prop         <--- Properties in this file will be loaded as system properties by resetprop
-│   ├── sepolicy.rule       <--- Additional custom sepolicy rules
+│   ├── post-fs-data.sh     <--- 此脚本将在 post-fs-data 中执行
+│   ├── service.sh          <--- 此脚本将在 late_start 服务中执行
+|   ├── uninstall.sh        <--- 当Magisk删除您的模块时，将执行此脚本
+│   ├── system.prop         <--- resetprop 将此文件中的属性作为系统属性加载
+│   ├── sepolicy.rule       <--- 其他自定义 sepolicy 规则
 │   │
-│   │      *** Auto Generated, DO NOT MANUALLY CREATE OR MODIFY ***
+│   │      *** 自动生成，请勿手动创建或修改 ***
 │   │
-│   ├── vendor              <--- A symlink to $MODID/system/vendor
-│   ├── product             <--- A symlink to $MODID/system/product
-│   ├── system_ext          <--- A symlink to $MODID/system/system_ext
+│   ├── vendor              <--- $MODID/system/vendor 的符号链接
+│   ├── product             <--- $MODID/system/product 的符号链接
+│   ├── system_ext          <--- $MODID/system/system_ext 的符号链接
 │   │
-│   │      *** Any additional files / folders are allowed ***
+│   │      *** 允许任何其他文件/文件夹 ***
 │   │
 │   ├── ...
 │   └── ...
 |
-├── another_module
+├── 其他模块
 │   ├── .
 │   └── .
 ├── .
@@ -76,29 +76,30 @@ A Magisk module is a folder placed in `/data/adb/modules` with the structure bel
 
 #### module.prop
 
-This is the **strict** format of `module.prop`
+这是 `module.prop` **必须遵守的**格式`
 
+（以下代码块虽然标注为 js，但实际上是 prop，此操作仅为提供代码高亮）
+``` js
+id=<字符串> <string>
+name=<字符串> <string>
+version=<字符串> <string>
+versionCode=<整数> <int>
+author=<字符串> <string>
+description=<字符串> <string>
+updateJson=<链接> <url> (可选)
 ```
-id=<string>
-name=<string>
-version=<string>
-versionCode=<int>
-author=<string>
-description=<string>
-updateJson=<url> (optional)
-```
 
-- `id` has to match this regular expression: `^[a-zA-Z][a-zA-Z0-9._-]+$`<br>
-  ex: ✓ `a_module`, ✓ `a.module`, ✓ `module-101`, ✗ `a module`, ✗ `1_module`, ✗ `-a-module`<br>
-  This is the **unique identifier** of your module. You should not change it once published.
-- `versionCode` has to be an **integer**. This is used to compare versions
-- `updateJson` should point to a URL that downloads a JSON to provide info so the Magisk app can update the module.
-- Others that weren't mentioned above can be any **single line** string.
-- Make sure to use the `UNIX (LF)` line break type and not the `Windows (CR+LF)` or `Macintosh (CR)`.
+- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是开头必须为字母，后面的为字母、数字、点 `.` 、下划线 `_` 和减号 `-`）<br>
+  示例: `a_module` <Badge type="tip" text="✓" />、`a.module` <Badge type="tip" text="✓" />、`module-101` <Badge type="tip" text="✓" />、`a module` <Badge type="danger" text="✗" />、`1_module` <Badge type="danger" text="✗" />、`-a-module` <Badge type="danger" text="✗" /><br>
+  这是模块的**唯一标识符**。模块发布后，您不应更改它。
+- `versionCode `必须是**整数**。这用于对比版本
+- `updateJson` 应该指向一个 URL，该 URL 下载JSON 以提供信息，以便 Magisk app 可以更新模块。
+- 上面没有提到的其他字符串可以是任何**单行**字符串。
+- 确保使用 `UNIX (LF)` 换行类型，而不是 `Windows (CR+LF)` 或 `Macintosh (CR)`。
 
-Update JSON format:
+更新的JSON的格式：
 
-```
+``` json
 {
     "version": string,
     "versionCode": int,
@@ -107,60 +108,62 @@ Update JSON format:
 }
 ```
 
-#### Shell scripts (`*.sh`)
+#### Shell 脚本 (`*.sh`)
 
-Please read the [Boot Scripts](#boot-scripts) section to understand the difference between `post-fs-data.sh` and `service.sh`. For most module developers, `service.sh` should be good enough if you just need to run a boot script.
+请阅读[Boot Scripts](#boot-scripts) 部分，了解 `post-fs-data.sh` 和 `service.sh` 之间的区别。对于大多数模块开发人员来说，如果您只需要运行引导脚本，`service.sh` 应该足够好了。
 
-In all scripts of your module, please use `MODDIR=${0%/*}` to get your module's base directory path; do **NOT** hardcode your module path in scripts.
-If Zygisk is enabled, the environment variable `ZYGISK_ENABLED` will be set to `1`.
+在模块的所有脚本中，请使用 `MODDIR=${0%/*}` 获取模块的基本目录路径；**不要**在脚本中硬编码模块路径。<br>
+如果启用了Zygisk，则环境变量 `ZYGISK_ENABLED` 将设置为 `1` 。
 
-#### The `system` folder
+#### `system` 文件夹
 
 All files you want to replace/inject should be placed in this folder. This folder will be recursively merged into the real `/system`; that is: existing files in the real `/system` will be replaced by the one in the module's `system`, and new files in the module's `system` will be added to the real `/system`.
 
-If you place a file named `.replace` in any of the folders, instead of merging its contents, that folder will directly replace the one in the real system. This can be very handy for swapping out an entire folder.
+要替换/注入的所有文件都应放在此文件夹中。此文件夹将以递归方式合并到真正的 `/system` 中;也就是说：真实 `/system` 中的现有文件将被模块 `system` 中的文件替换，模块 `system` 中的新文件将被添加到真实 `/system` 中。
 
-If you want to replace files in `/vendor`, `/product`, or `/system_ext`, please place them under `system/vendor`, `system/product`, and `system/system_ext` respectively. Magisk will transparently handle whether these partitions are in a separate partition or not.
+如果您将名为 `.replace` 的文件放在任何文件夹中，而不是合并其内容，则该文件夹将直接替换实际系统中的文件夹。这对于交换整个文件夹非常方便。
+
+如果要替换 `/vendor` 、`/product` 或 `/system_ext` 中的文件，请分别将它们放在 `system/vendor` 、`system/product` 和 `system/system_ext` 下。Magisk 将透明地处理这些分区是否位于单独的分区中。
 
 #### Zygisk
 
-Zygisk is a feature of Magisk that allows advanced module developers to run code directly in every Android applications' processes before they are specialized and running. For more details about the Zygisk API and building a Zygisk module, please checkout the [Zygisk Module Sample](https://github.com/topjohnwu/zygisk-module-sample) project.
+Zygisk 是 Magisk 的一项功能，它允许高级模块开发人员在每个 Android 应用程序的进程中直接运行代码，然后再进行专业化和运行。有关 Zygisk API 和构建 Zygisk 模块的更多详细信息，请查看 [Zygisk 模块示例](https://github.com/topjohnwu/zygisk-module-sample)项目。
 
 #### system.prop
 
-This file follows the same format as `build.prop`. Each line comprises of `[key]=[value]`.
+此文件遵循与 `build.prop` 相同的格式。每行由 `[键 key]=[值 value]`组成。
 
 #### sepolicy.rule
 
-If your module requires some additional sepolicy patches, please add those rules into this file. Each line in this file will be treated as a policy statement. For more details about how a policy statement is formatted, please check [magiskpolicy](tools.md#magiskpolicy)'s documentation.
+如果您的模块需要一些额外的 sepolicy 补丁，请将这些规则添加到此文件中。此文件中的每一行都将被视为策略语句。有关如何格式化策略语句的更多详细信息，请查看[magiskpolicy](tools.md#magiskpolicy)的文档。
 
-## Magisk Module Installer
+## Magisk 模块安装程序
 
-A Magisk module installer is a Magisk module packaged in a zip file that can be flashed in the Magisk app or custom recoveries such as TWRP. The simplest Magisk module installer is just a Magisk module packed as a zip file, in addition to the following files:
+Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在 Magisk 应用程序或自定义recovery（如 TWRP）中刷入。最简单的 Magisk 模块安装程序只是一个打包为 zip 文件的 Magisk 模块，此外还有以下文件：
 
-- `update-binary`: Download the latest [module_installer.sh](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh) and rename/copy that script as `update-binary`
-- `updater-script`: This file should only contain the string `#MAGISK`
+- `update-binary`：下载最新的 [module_installer.sh](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh) 并将该脚本重命名/复制为 `update-binary`
+- `updater-script`：这个文件应该只包含字符串`#MAGISK`
 
-The module installer script will setup the environment, extract the module files from the zip file to the correct location, then finalizes the installation process, which should be good enough for most simple Magisk modules.
+模块安装程序脚本将设置环境，将模块文件从 zip 文件提取到正确的位置，然后完成安装过程，这对于大多数简单的 Magisk 模块来说应该足够好了。
 
 ```
-module.zip
+模块module.zip
 │
 ├── META-INF
 │   └── com
 │       └── google
 │           └── android
-│               ├── update-binary      <--- The module_installer.sh you downloaded
-│               └── updater-script     <--- Should only contain the string "#MAGISK"
+│               ├── update-binary      <--- 您下载 module_installer.sh
+│               └── updater-script     <--- 应仅包含字符串“#MAGISK”
 │
-├── customize.sh                       <--- (Optional, more details later)
-│                                           This script will be sourced by update-binary
+├── customize.sh                       <--- （可选，稍后将详细介绍）
+│                                           此脚本将来源于 update-binary
 ├── ...
-├── ...  /* The rest of module's files */
+├── ...  /* 模块的其余文件 */
 │
 ```
 
-#### Customization
+#### 定制
 
 If you need to customize the module installation process, optionally you can create a script in the installer named `customize.sh`. This script will be _sourced_ (not executed!) by the module installer script after all files are extracted and default permissions and secontext are applied. This is very useful if your module require additional setup based on the device ABI, or you need to set special permissions/secontext for some of your module files.
 

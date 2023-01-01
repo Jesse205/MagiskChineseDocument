@@ -4,9 +4,9 @@
 
 ### “Magisk tmpfs 目录”中的路径
 
-Magisk 将安装一个 `tmpfs` 目录来存储一些临时数据。对于带有 `/sbin` 文件夹的设备，将选择该文件夹，因为它还将充当将二进制文件注入 `PATH` 的覆盖层。从Android 11 开始，`/sbin` 文件夹可能不存在，因此 Magisk 将在 `/dev` 下随机创建一个文件夹，并将其用作基本文件夹。
+Magisk 将安装一个 `tmpfs` 目录来存储一些临时数据。对于带有 `/sbin` 文件夹的设备，将选择该文件夹，因为它还将充当将二进制文件注入 `PATH` 的覆盖层。从 Android 11 开始，`/sbin` 文件夹可能不存在，因此 Magisk 将在 `/dev` 下随机创建一个文件夹，并将其用作基本文件夹。
 
-```
+``` sh
 # 为了获得Magisk正在使用的当前基本文件夹，使用命令 `magisk--path`。
 # 二进制文件，如 magisk、magiskinit 和所有小程序的符号链接直接存储
 # 在此路径中。这意味着当这是/sbin，这些二进制文件将直接在 PATH 中。
@@ -18,7 +18,7 @@ MAGISKTMP=$MAGISKBASE/.magisk
 # Magisk 的 BusyBox 目录。在此文件夹中存储 busybox 二进制文件和指向
 # 其所有小程序的符号链接。
 # 不推荐使用此目录，请直接调用 /data/adb/magisk/busybox 并使用
-# Busybox 的 ASH 独立模式。将来将删除此路径的创建。
+# Busybox 的 ASH 独立模式。将来会删除此路径的创建。
 $MAGISKTMP/busybox
 
 # /data/adb/modules 将挂载到此处。
@@ -44,14 +44,14 @@ $MAGISKTMP/rootdir
 
 ### `/data` 中的路径
 
-一些二进制文件和文件应存储在 `/data` 中的非易失性存储中。为了防止检测，所有东西都必须存储在“/data”中安全且不可检测的地方。选择文件夹 `/data/adb` 是因为具有以下优点：
+一些二进制文件和文件应存储在 `/data` 中的非易失性存储中。为了防止检测，所有东西都必须存储在 `/data` 中安全且不可检测的地方。选 `/data/adb` 文件夹是因为其具有以下优点：
 
-- 它是现代安卓系统上的一个现有文件夹，因此不能作为Magisk存在的标志。
-- 文件夹的权限默认为 `700`，所有者为 `root`，因此非root进程无法以任何可能的方式进入、读取和写入文件夹。
-- 文件夹 secontext 标记为  `u:object_r:adb_data_file:s0`，很少有进程有权与该secontext进行任何交互。
-- 该文件夹位于 _设备加密存储区_ 中，因此一旦数据正确装载到FBE（基于文件的加密）设备中，即可访问该文件夹。
+- 它是现代安卓系统上的一个现有文件夹，因此不能作为 Magisk 存在的标志。
+- 文件夹的权限默认为 `700`，所有者为 `root`，因此非 root 进程无法以任何可能的方式进入、读取和写入文件夹。
+- 文件夹 secontext 标记为  `u:object_r:adb_data_file:s0`，很少有进程有权与该 secontext 进行任何交互。
+- 该文件夹位于*设备加密存储区*中，因此一旦数据正确装载到 FBE（File-Based Encryption，基于文件的加密）设备中，即可访问该文件夹。
 
-```
+``` sh
 SECURE_DIR=/data/adb
 
 # 存储常规 post-fs-data 脚本的文件夹
@@ -72,7 +72,7 @@ $SECURE_DIR/modules_update
 # 数据库存储设置和 Root 权限
 MAGISKDB=$SECURE_DIR/magisk.db
 
-# 所有与magisk相关的二进制文件，包括 busybox、脚本
+# 所有与 magisk 相关的二进制文件，包括 busybox、脚本
 # 和 magisk 二进制文件。用于支持模块安装、addon.d、 
 # Magisk app 等。
 DATABIN=$SECURE_DIR/magisk
@@ -81,27 +81,27 @@ DATABIN=$SECURE_DIR/magisk
 
 ## Magisk引导过程
 
-### 预初始化
+### 预初始化（Pre-Init）
 
-`magiskinit` will replace `init` as the first program to run.
+`magiskinit` 将替换 `init` 作为第一个运行的程序。
 
-- Early mount required partitions. On legacy system-as-root devices, we switch root to system; on 2SI devices, we patch the original `init` to redirect the 2nd stage init file to magiskinit and execute it to mount partitions for us.
-- Inject magisk services into `init.rc`
-- On devices using monolithic policy, load sepolicy from `/sepolicy`; otherwise we hijack nodes in selinuxfs with FIFO, set `LD_PRELOAD` to hook `security_load_policy` and assist hijacking on 2SI devices, and start a daemon to wait until init tries to load sepolicy.
-- Patch sepolicy rules. If we are using "hijack" method, load patched sepolicy into kernel, unblock init and exit daemon
-- Execute the original `init` to continue the boot process
+- 挂载早期所需的分区。在已停产 system-as-root 设备上，我们将 root 切换到系统；在 2SI 设备上，我们修补原始的 `init` ，将第二阶段的 init 文件重定向到 magiskinit，并执行它为我们装载分区。
+- 将 magisk 服务注入 `init.rc`
+- 在使用 monolithic 策略的设备上，从 `/sepolicy` 加载 sepolicy ；否则我们使用 FIFO 劫持 selinuxfs 中的节点，将 `LD_PRELOAD` 设置为钩住 `security_load_policy`，并在 2SI 设备上协助劫持，然后启动守护程序，等待 init 尝试加载 sepolicy。
+- 修补 sepolicy 规则。如果我们使用“劫持”方法，将修补的 sepolicy 加载到内核中，取消阻止 init 并退出守护进程
+- 执行原始的 `init` 以继续启动过程
 
-### post-fs-data
+### 解密后（post-fs-data）
 
-This triggers on `post-fs-data` when `/data` is decrypted and mounted. The daemon `magiskd` will be launched, post-fs-data scripts are executed, and module files are magic mounted.
+当 `/data` 被解密和装载时会在 `post-fs-data` 上触发。守护程序 `magiskd` 将被启动，执行 post-fs-data 脚本，并神奇地安装模块文件。
 
-### late_start
+### 后期启动（late_start）
 
-Later in the booting process, the class `late_start` will be triggered, and Magisk "service" mode will be started. In this mode, service scripts are executed.
+在稍后的引导过程中，将触发类 `late_start` ，并启动 Magisk “服务”模式。在此模式下，执行服务（service）脚本。
 
-## Resetprop
+## 重置属性（Resetprop）
 
-Usually, system properties are designed to only be updated by `init` and read-only to non-root processes. With root you can change properties by sending requests to `property_service` (hosted by `init`) using commands such as `setprop`, but changing read-only props (props that start with `ro.` like `ro.build.product`) and deleting properties are still prohibited.
+通常，系统属性（properties）被设计为仅由 `init` 更新，并且对非 root 进程是只读的。使用 root，您可以通过使用诸如 `setprop` 之类的命令向 `property_service`（由 `init` 托管）发送请求来更改属性，但仍然禁止更改只读属性（以`ro.`开头的属性，如`ro.build.product`）和删除属性。
 
 `resetprop` is implemented by distilling out the source code related to system properties from AOSP and patched to allow direct modification to property area, or `prop_area`, bypassing the need to go through `property_service`. Since we are bypassing `property_service`, there are a few caveats:
 
