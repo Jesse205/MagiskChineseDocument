@@ -1,0 +1,1 @@
+import{_ as l,c as a,o as e,a as i}from"./app.1dd0032b.js";const c=JSON.parse('{"title":"发布日志","description":"","frontmatter":{},"headers":[],"relativePath":"releases/index.md","lastUpdated":1672379788000}'),h={name:"releases/index.md"},t=i("",2),r=[t];function f(m,s,v,_,n,o){return e(),a("div",null,r)}const p=l(h,[["render",f]]);export{c as __pageData,p as default};

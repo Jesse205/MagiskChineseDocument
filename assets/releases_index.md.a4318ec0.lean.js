@@ -1,1 +1,0 @@
-import{_ as l,c as a,o as e,d as i}from"./app.f353d06f.js";const d=JSON.parse('{"title":"发布日志","description":"","frontmatter":{},"headers":[],"relativePath":"releases/index.md"}'),h={name:"releases/index.md"},t=i("",2),r=[t];function f(m,v,s,_,n,o){return e(),a("div",null,r)}const p=l(h,[["render",f]]);export{d as __pageData,p as default};
