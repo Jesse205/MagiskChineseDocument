@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Magisk 工具 | Magisk 中文文档</title>
+    <meta name="description" content="Magisk 中文文档，由 Jesse205 手动机翻。">
+    <link rel="preload stylesheet" href="/MagiskChineseDocument/assets/style.00def0d3.css" as="style">
+    <link rel="modulepreload" href="/MagiskChineseDocument/assets/app.f353d06f.js">
+    <link rel="modulepreload" href="/MagiskChineseDocument/assets/tools.md.c8effc53.lean.js">
+    
+    <script id="check-dark-light">(()=>{const e=localStorage.getItem("vitepress-theme-appearance")||"",a=window.matchMedia("(prefers-color-scheme: dark)").matches;(!e||e==="auto"?a:e==="dark")&&document.documentElement.classList.add("dark")})();</script>
+  </head>
+  <body>
+    <div id="app"><div class="Layout" data-v-e91e23b1><!--[--><!--]--><!--[--><span tabindex="-1" data-v-f637ee78></span><a href="#VPContent" class="VPSkipLink visually-hidden" data-v-f637ee78> Skip to content </a><!--]--><!----><header class="VPNav" data-v-e91e23b1 data-v-86afb924><div class="VPNavBar has-sidebar" data-v-86afb924 data-v-7a5a363d><div class="container" data-v-7a5a363d><div class="VPNavBarTitle has-sidebar" data-v-7a5a363d data-v-aaed7263><a class="title" href="/MagiskChineseDocument/" data-v-aaed7263><!--[--><!--]--><!--[--><img class="VPImage logo" src="/MagiskChineseDocument/logo.svg" alt data-v-dc109a54><!--]--><!--[-->Magisk 中文文档<!--]--><!--[--><!--]--></a></div><div class="content" data-v-7a5a363d><!--[--><!--]--><!----><nav aria-labelledby="main-nav-aria-label" class="VPNavBarMenu menu" data-v-7a5a363d data-v-d8cdd395><span id="main-nav-aria-label" class="visually-hidden" data-v-d8cdd395>Main Navigation</span><!--[--><!--]--></nav><!----><div class="VPNavBarAppearance appearance" data-v-7a5a363d data-v-d70ebc80><button class="VPSwitch VPSwitchAppearance" type="button" role="switch" aria-label="toggle dark mode" aria-checked="false" data-v-d70ebc80 data-v-9a8716a3 data-v-3258a739><span class="check" data-v-3258a739><span class="icon" data-v-3258a739><!--[--><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="sun" data-v-9a8716a3><path d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"></path><path d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"></path><path d="M12,24c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,23.6,12.6,24,12,24z"></path><path d="M5.6,6.6c-0.3,0-0.5-0.1-0.7-0.3L3.5,4.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C6.2,6.5,5.9,6.6,5.6,6.6z"></path><path d="M19.8,20.8c-0.3,0-0.5-0.1-0.7-0.3l-1.4-1.4c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C20.3,20.7,20,20.8,19.8,20.8z"></path><path d="M3,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S3.6,13,3,13z"></path><path d="M23,13h-2c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S23.6,13,23,13z"></path><path d="M4.2,20.8c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C4.7,20.7,4.5,20.8,4.2,20.8z"></path><path d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="moon" data-v-9a8716a3><path d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"></path></svg><!--]--></span></span></button></div><div class="VPSocialLinks VPNavBarSocialLinks social-links" data-v-7a5a363d data-v-6a2a6555 data-v-b8f6762d><!--[--><a class="VPSocialLink" href="https://github.com/Jesse205/MagiskChineseDocument" target="_blank" rel="noopener" data-v-b8f6762d data-v-179ad0ea><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="VPSocialLink" href="https://gitee.com/Jesse205/magisk-chinese-document" target="_blank" rel="noopener" data-v-b8f6762d data-v-179ad0ea>undefined</a><!--]--></div><div class="VPFlyout VPNavBarExtra extra" data-v-7a5a363d data-v-b390db70 data-v-aeb1c475><button type="button" class="button" aria-haspopup="true" aria-expanded="false" aria-label="extra navigation" data-v-aeb1c475><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="icon" data-v-aeb1c475><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="5" cy="12" r="2"></circle></svg></button><div class="menu" data-v-aeb1c475><div class="VPMenu" data-v-aeb1c475 data-v-079aa243><!----><!--[--><!--[--><!----><div class="group" data-v-b390db70><div class="item appearance" data-v-b390db70><p class="label" data-v-b390db70>Appearance</p><div class="appearance-action" data-v-b390db70><button class="VPSwitch VPSwitchAppearance" type="button" role="switch" aria-label="toggle dark mode" aria-checked="false" data-v-b390db70 data-v-9a8716a3 data-v-3258a739><span class="check" data-v-3258a739><span class="icon" data-v-3258a739><!--[--><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="sun" data-v-9a8716a3><path d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"></path><path d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"></path><path d="M12,24c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,23.6,12.6,24,12,24z"></path><path d="M5.6,6.6c-0.3,0-0.5-0.1-0.7-0.3L3.5,4.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C6.2,6.5,5.9,6.6,5.6,6.6z"></path><path d="M19.8,20.8c-0.3,0-0.5-0.1-0.7-0.3l-1.4-1.4c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C20.3,20.7,20,20.8,19.8,20.8z"></path><path d="M3,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S3.6,13,3,13z"></path><path d="M23,13h-2c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S23.6,13,23,13z"></path><path d="M4.2,20.8c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C4.7,20.7,4.5,20.8,4.2,20.8z"></path><path d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="moon" data-v-9a8716a3><path d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"></path></svg><!--]--></span></span></button></div></div></div><div class="group" data-v-b390db70><div class="item social-links" data-v-b390db70><div class="VPSocialLinks social-links-list" data-v-b390db70 data-v-b8f6762d><!--[--><a class="VPSocialLink" href="https://github.com/Jesse205/MagiskChineseDocument" target="_blank" rel="noopener" data-v-b8f6762d data-v-179ad0ea><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a><a class="VPSocialLink" href="https://gitee.com/Jesse205/magisk-chinese-document" target="_blank" rel="noopener" data-v-b8f6762d data-v-179ad0ea>undefined</a><!--]--></div></div></div><!--]--><!--]--></div></div></div><!--[--><!--]--><button type="button" class="VPNavBarHamburger hamburger" aria-label="mobile navigation" aria-expanded="false" aria-controls="VPNavScreen" data-v-7a5a363d data-v-6bee1efd><span class="container" data-v-6bee1efd><span class="top" data-v-6bee1efd></span><span class="middle" data-v-6bee1efd></span><span class="bottom" data-v-6bee1efd></span></span></button></div></div></div><!----></header><div class="VPLocalNav" data-v-e91e23b1 data-v-72f15439><button class="menu" aria-expanded="false" aria-controls="VPSidebarNav" data-v-72f15439><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" viewbox="0 0 24 24" class="menu-icon" data-v-72f15439><path d="M17,11H3c-0.6,0-1-0.4-1-1s0.4-1,1-1h14c0.6,0,1,0.4,1,1S17.6,11,17,11z"></path><path d="M21,7H3C2.4,7,2,6.6,2,6s0.4-1,1-1h18c0.6,0,1,0.4,1,1S21.6,7,21,7z"></path><path d="M21,15H3c-0.6,0-1-0.4-1-1s0.4-1,1-1h18c0.6,0,1,0.4,1,1S21.6,15,21,15z"></path><path d="M17,19H3c-0.6,0-1-0.4-1-1s0.4-1,1-1h14c0.6,0,1,0.4,1,1S17.6,19,17,19z"></path></svg><span class="menu-text" data-v-72f15439>Menu</span></button><a class="top-link" href="#" data-v-72f15439> Return to top </a></div><aside class="VPSidebar" data-v-e91e23b1 data-v-240a42a7><nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1" data-v-240a42a7><span class="visually-hidden" id="sidebar-aria-label" data-v-240a42a7> Sidebar Navigation </span><!--[--><!--]--><!--[--><div class="group" data-v-240a42a7><section class="VPSidebarGroup" data-v-240a42a7 data-v-a094e895><div class="title" data-v-a094e895><h2 class="title-text" data-v-a094e895>面向普通用户</h2><div class="action" data-v-a094e895><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" class="icon minus" data-v-a094e895><path d="M19,2H5C3.3,2,2,3.3,2,5v14c0,1.7,1.3,3,3,3h14c1.7,0,3-1.3,3-3V5C22,3.3,20.7,2,19,2zM20,19c0,0.6-0.4,1-1,1H5c-0.6,0-1-0.4-1-1V5c0-0.6,0.4-1,1-1h14c0.6,0,1,0.4,1,1V19z"></path><path d="M16,11H8c-0.6,0-1,0.4-1,1s0.4,1,1,1h8c0.6,0,1-0.4,1-1S16.6,11,16,11z"></path></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon plus" data-v-a094e895><path d="M19,2H5C3.3,2,2,3.3,2,5v14c0,1.7,1.3,3,3,3h14c1.7,0,3-1.3,3-3V5C22,3.3,20.7,2,19,2z M20,19c0,0.6-0.4,1-1,1H5c-0.6,0-1-0.4-1-1V5c0-0.6,0.4-1,1-1h14c0.6,0,1,0.4,1,1V19z"></path><path d="M16,11h-3V8c0-0.6-0.4-1-1-1s-1,0.4-1,1v3H8c-0.6,0-1,0.4-1,1s0.4,1,1,1h3v3c0,0.6,0.4,1,1,1s1-0.4,1-1v-3h3c0.6,0,1-0.4,1-1S16.6,11,16,11z"></path></svg></div></div><div class="items" data-v-a094e895><!--[--><!--[--><a class="VPLink link link" href="/MagiskChineseDocument/install.html" style="padding-left:0px;" tabindex="-1" data-v-e49051b6 data-v-97a44ddd><!--[--><span class="link-text" data-v-e49051b6>安装说明</span><!--]--><!----></a><!----><!--]--><!--[--><a class="VPLink link link" href="/MagiskChineseDocument/faq.html" style="padding-left:0px;" tabindex="-1" data-v-e49051b6 data-v-97a44ddd><!--[--><span class="link-text" data-v-e49051b6>常见问题</span><!--]--><!----></a><!----><!--]--><!--[--><a class="VPLink link link" href="/MagiskChineseDocument/releases/index.html" style="padding-left:0px;" tabindex="-1" data-v-e49051b6 data-v-97a44ddd><!--[--><span class="link-text" data-v-e49051b6>发布日志</span><!--]--><!----></a><!----><!--]--><!--[--><a class="VPLink link link" href="/MagiskChineseDocument/changes.html" style="padding-left:0px;" tabindex="-1" data-v-e49051b6 data-v-97a44ddd><!--[--><span class="link-text" data-v-e49051b6>Magisk  更新日志</span><!--]--><!----></a><!----><!--]--><!--]--></div></section></div><div class="group" data-v-240a42a7><section class="VPSidebarGroup" data-v-240a42a7 data-v-a094e895><div class="title" data-v-a094e895><h2 class="title-text" data-v-a094e895>面向开发人员</h2><div class="action" data-v-a094e895><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" class="icon minus" data-v-a094e895><path d="M19,2H5C3.3,2,2,3.3,2,5v14c0,1.7,1.3,3,3,3h14c1.7,0,3-1.3,3-3V5C22,3.3,20.7,2,19,2zM20,19c0,0.6-0.4,1-1,1H5c-0.6,0-1-0.4-1-1V5c0-0.6,0.4-1,1-1h14c0.6,0,1,0.4,1,1V19z"></path><path d="M16,11H8c-0.6,0-1,0.4-1,1s0.4,1,1,1h8c0.6,0,1-0.4,1-1S16.6,11,16,11z"></path></svg><svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon plus" data-v-a094e895><path d="M19,2H5C3.3,2,2,3.3,2,5v14c0,1.7,1.3,3,3,3h14c1.7,0,3-1.3,3-3V5C22,3.3,20.7,2,19,2z M20,19c0,0.6-0.4,1-1,1H5c-0.6,0-1-0.4-1-1V5c0-0.6,0.4-1,1-1h14c0.6,0,1,0.4,1,1V19z"></path><path d="M16,11h-3V8c0-0.6-0.4-1-1-1s-1,0.4-1,1v3H8c-0.6,0-1,0.4-1,1s0.4,1,1,1h3v3c0,0.6,0.4,1,1,1s1-0.4,1-1v-3h3c0.6,0,1-0.4,1-1S16.6,11,16,11z"></path></svg></div></div><div class="items" data-v-a094e895><!--[--><!--[--><a class="VPLink link link" href="/MagiskChineseDocument/guides.html" style="padding-left:0px;" tabindex="-1" data-v-e49051b6 data-v-97a44ddd><!--[--><span class="link-text" data-v-e49051b6>开发人员指南</span><!--]--><!----></a><!----><!--]--><!--[--><a class="VPLink link link active" href="/MagiskChineseDocument/tools.html" style="padding-left:0px;" tabindex="-1" data-v-e49051b6 data-v-97a44ddd><!--[--><span class="link-text" data-v-e49051b6>Magisk 工具</span><!--]--><!----></a><!----><!--]--><!--[--><a class="VPLink link link" href="/MagiskChineseDocument/details.html" style="padding-left:0px;" tabindex="-1" data-v-e49051b6 data-v-97a44ddd><!--[--><span class="link-text" data-v-e49051b6>内部细节</span><!--]--><!----></a><!----><!--]--><!--[--><a class="VPLink link link" href="/MagiskChineseDocument/boot.html" style="padding-left:0px;" tabindex="-1" data-v-e49051b6 data-v-97a44ddd><!--[--><span class="link-text" data-v-e49051b6>Android 引导神器</span><!--]--><!----></a><!----><!--]--><!--]--></div></section></div><!--]--><!--[--><!--]--></nav></aside><div class="VPContent has-sidebar" id="VPContent" data-v-e91e23b1 data-v-d9661cd3><div class="VPDoc has-sidebar has-aside" data-v-d9661cd3 data-v-6b6fcb79><div class="container" data-v-6b6fcb79><div class="aside" data-v-6b6fcb79><div class="aside-curtain" data-v-6b6fcb79></div><div class="aside-container" data-v-6b6fcb79><div class="aside-content" data-v-6b6fcb79><div class="VPDocAside" data-v-6b6fcb79 data-v-c8158c08><!--[--><!--]--><!--[--><!--]--><div class="VPDocAsideOutline" data-v-c8158c08 data-v-1c535019><div class="content" data-v-1c535019><div class="outline-marker" data-v-1c535019></div><div class="outline-title" data-v-1c535019>本页内容</div><nav aria-labelledby="doc-outline-aria-label" data-v-1c535019><span class="visually-hidden" id="doc-outline-aria-label" data-v-1c535019> Table of Contents for current page </span><ul class="root" data-v-1c535019 data-v-f1f7b818><!--[--><!--]--></ul></nav></div></div><!--[--><!--]--><div class="spacer" data-v-c8158c08></div><!--[--><!--]--><!----><!--[--><!--]--><!--[--><!--]--></div></div></div></div><div class="content" data-v-6b6fcb79><div class="content-container" data-v-6b6fcb79><!--[--><!--]--><main class="main" data-v-6b6fcb79><div style="position:relative;" class="vp-doc _MagiskChineseDocument_tools" data-v-6b6fcb79><div><h1 id="magisk-工具" tabindex="-1">Magisk 工具 <a class="header-anchor" href="#magisk-工具" aria-hidden="true">#</a></h1><p>Magisk 为开发人员提供了大量安装工具、守护程序和实用程序。本文档涵盖了4个二进制文件和所有包含的小程序。二进制文件和小程序如下所示：</p><div class="language-"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki material-palenight"><code><span class="line"><span style="color:#A6ACCD;">magiskboot                 /* binary */</span></span>
+<span class="line"><span style="color:#A6ACCD;">magiskinit                 /* binary */</span></span>
+<span class="line"><span style="color:#A6ACCD;">magiskpolicy               /* binary */</span></span>
+<span class="line"><span style="color:#A6ACCD;">supolicy -&gt; magiskpolicy</span></span>
+<span class="line"><span style="color:#A6ACCD;">magisk                     /* binary */</span></span>
+<span class="line"><span style="color:#A6ACCD;">resetprop -&gt; magisk</span></span>
+<span class="line"><span style="color:#A6ACCD;">su -&gt; magisk</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span></code></pre></div><h3 id="magiskboot" tabindex="-1">magiskboot <a class="header-anchor" href="#magiskboot" aria-hidden="true">#</a></h3><p>一个用于解压缩/重新打包 boot 映像、解析/修补/解压缩 cpio 、修补 dtb 、十六进制修补二进制文件，以及使用多种算法压缩/解压缩文件的工具。</p><p><code>magiskboot</code> 支持常见的压缩格式（这意味着它不依赖于外部工具），包括 <code>gzip</code>、<code>lz4</code>、<code>lz4_legacy</code>（<a href="https://events.static.linuxfound.org/sites/events/files/lcjpcojp13_klee.pdf" target="_blank" rel="noreferrer">仅在LG上使用</a>)、<code>lzma</code>、<code>xz</code> 和 <code>bzip2</code>。</p><p><code>magiskboot</code> 的概念是使 boot 映像修改更简单。对于解包，它解析标头并提取映像中的所有部分，如果在任何部分中检测到压缩，则会立即解压缩。对于重新打包，需要原始 boot 映像，以便可以使用原始标头，只需更改必要的内容，如节大小和校验和。如果需要，所有部分将被压缩回原始格式。该工具还支持许多 CPIO 和 DTB 操作。</p><div class="language-"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki material-palenight"><code><span class="line"><span style="color:#A6ACCD;">用法: ./magiskboot &lt;action&gt; [args...]</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">支持的操作:</span></span>
+<span class="line"><span style="color:#A6ACCD;">  unpack [-n] [-h] &lt;bootimg&gt;</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Unpack &lt;bootimg&gt; to its individual components, each component to</span></span>
+<span class="line"><span style="color:#A6ACCD;">    a file with its corresponding file name in the current directory.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Supported components: kernel, kernel_dtb, ramdisk.cpio, second,</span></span>
+<span class="line"><span style="color:#A6ACCD;">    dtb, extra, and recovery_dtbo.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    By default, each component will be automatically decompressed</span></span>
+<span class="line"><span style="color:#A6ACCD;">    on-the-fly before writing to the output file.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    If &#39;-n&#39; is provided, all decompression operations will be skipped;</span></span>
+<span class="line"><span style="color:#A6ACCD;">    each component will remain untouched, dumped in its original format.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    If &#39;-h&#39; is provided, the boot image header information will be</span></span>
+<span class="line"><span style="color:#A6ACCD;">    dumped to the file &#39;header&#39;, which can be used to modify header</span></span>
+<span class="line"><span style="color:#A6ACCD;">    configurations during repacking.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Return values:</span></span>
+<span class="line"><span style="color:#A6ACCD;">    0:valid    1:error    2:chromeos</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  repack [-n] &lt;origbootimg&gt; [outbootimg]</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Repack boot image components using files from the current directory</span></span>
+<span class="line"><span style="color:#A6ACCD;">    to [outbootimg], or &#39;new-boot.img&#39; if not specified.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    &lt;origbootimg&gt; is the original boot image used to unpack the components.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    By default, each component will be automatically compressed using its</span></span>
+<span class="line"><span style="color:#A6ACCD;">    corresponding format detected in &lt;origbootimg&gt;. If a component file</span></span>
+<span class="line"><span style="color:#A6ACCD;">    in the current directory is already compressed, then no addition</span></span>
+<span class="line"><span style="color:#A6ACCD;">    compression will be performed for that specific component.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    If &#39;-n&#39; is provided, all compression operations will be skipped.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    If env variable PATCHVBMETAFLAG is set to true, all disable flags in</span></span>
+<span class="line"><span style="color:#A6ACCD;">    the boot image&#39;s vbmeta header will be set.</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  hexpatch &lt;file&gt; &lt;hexpattern1&gt; &lt;hexpattern2&gt;</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Search &lt;hexpattern1&gt; in &lt;file&gt;, and replace it with &lt;hexpattern2&gt;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  cpio &lt;incpio&gt; [commands...]</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Do cpio commands to &lt;incpio&gt; (modifications are done in-place)</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Each command is a single argument, add quotes for each command.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Supported commands:</span></span>
+<span class="line"><span style="color:#A6ACCD;">      exists ENTRY</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Return 0 if ENTRY exists, else return 1</span></span>
+<span class="line"><span style="color:#A6ACCD;">      rm [-r] ENTRY</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Remove ENTRY, specify [-r] to remove recursively</span></span>
+<span class="line"><span style="color:#A6ACCD;">      mkdir MODE ENTRY</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Create directory ENTRY in permissions MODE</span></span>
+<span class="line"><span style="color:#A6ACCD;">      ln TARGET ENTRY</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Create a symlink to TARGET with the name ENTRY</span></span>
+<span class="line"><span style="color:#A6ACCD;">      mv SOURCE DEST</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Move SOURCE to DEST</span></span>
+<span class="line"><span style="color:#A6ACCD;">      add MODE ENTRY INFILE</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Add INFILE as ENTRY in permissions MODE; replaces ENTRY if exists</span></span>
+<span class="line"><span style="color:#A6ACCD;">      extract [ENTRY OUT]</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Extract ENTRY to OUT, or extract all entries to current directory</span></span>
+<span class="line"><span style="color:#A6ACCD;">      test</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Test the cpio&#39;s status</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Return value is 0 or bitwise or-ed of following values:</span></span>
+<span class="line"><span style="color:#A6ACCD;">        0x1:Magisk    0x2:unsupported    0x4:Sony</span></span>
+<span class="line"><span style="color:#A6ACCD;">      patch</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Apply ramdisk patches</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Configure with env variables: KEEPVERITY KEEPFORCEENCRYPT</span></span>
+<span class="line"><span style="color:#A6ACCD;">      backup ORIG</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Create ramdisk backups from ORIG</span></span>
+<span class="line"><span style="color:#A6ACCD;">      restore</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Restore ramdisk from ramdisk backup stored within incpio</span></span>
+<span class="line"><span style="color:#A6ACCD;">      sha1</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Print stock boot SHA1 if previously backed up in ramdisk</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  dtb &lt;file&gt; &lt;action&gt; [args...]</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Do dtb related actions to &lt;file&gt;</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Supported actions:</span></span>
+<span class="line"><span style="color:#A6ACCD;">      print [-f]</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Print all contents of dtb for debugging</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Specify [-f] to only print fstab nodes</span></span>
+<span class="line"><span style="color:#A6ACCD;">      patch</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Search for fstab and remove verity/avb</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Modifications are done directly to the file in-place</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Configure with env variables: KEEPVERITY</span></span>
+<span class="line"><span style="color:#A6ACCD;">      test</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Test the fstab&#39;s status</span></span>
+<span class="line"><span style="color:#A6ACCD;">        Return values:</span></span>
+<span class="line"><span style="color:#A6ACCD;">        0:valid    1:error</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  split &lt;file&gt;</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Split image.*-dtb into kernel + kernel_dtb</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  sha1 &lt;file&gt;</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Print the SHA1 checksum for &lt;file&gt;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  cleanup</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Cleanup the current working directory</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  compress[=format] &lt;infile&gt; [outfile]</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Compress &lt;infile&gt; with [format] to [outfile].</span></span>
+<span class="line"><span style="color:#A6ACCD;">    &lt;infile&gt;/[outfile] can be &#39;-&#39; to be STDIN/STDOUT.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    If [format] is not specified, then gzip will be used.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    If [outfile] is not specified, then &lt;infile&gt; will be replaced</span></span>
+<span class="line"><span style="color:#A6ACCD;">    with another file suffixed with a matching file extension.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Supported formats: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg </span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">  decompress &lt;infile&gt; [outfile]</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Detect format and decompress &lt;infile&gt; to [outfile].</span></span>
+<span class="line"><span style="color:#A6ACCD;">    &lt;infile&gt;/[outfile] can be &#39;-&#39; to be STDIN/STDOUT.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    If [outfile] is not specified, then &lt;infile&gt; will be replaced</span></span>
+<span class="line"><span style="color:#A6ACCD;">    with another file removing its archive format file extension.</span></span>
+<span class="line"><span style="color:#A6ACCD;">    Supported formats: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg </span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span></code></pre></div><h3 id="magiskinit" tabindex="-1">magiskinit <a class="header-anchor" href="#magiskinit" aria-hidden="true">#</a></h3><p>这个二进制文件将替换 Magisk 补丁启动映像的 ramdisk 中的 <code>init</code>。它最初是为支持以 system-as-root 的设备而创建的，但该工具被扩展为支持所有设备，并成为 Magisk 的关键部分。更多详细信息可以在 <a href="./details.html#magisk-booting-process">Micsk Booting Process</a> 中的 <strong>Pre-Init</strong> 部分找到。</p><h3 id="magiskpolicy" tabindex="-1">magiskpolicy <a class="header-anchor" href="#magiskpolicy" aria-hidden="true">#</a></h3><p>（此工具别名为 <code>supolicy</code>，以与 SuperSU 的 sepolicy 工具兼容）</p><p>This tool could be used for advanced developers to modify SELinux policies. In common scenarios like Linux server admins, they would directly modify the SELinux policy sources (<code>*.te</code>) and recompile the <code>sepolicy</code> binary, but here on Android we directly patch the binary file (or runtime policies).</p><p>All processes spawned from the Magisk daemon, including root shells and all its forks, are running in the context <code>u:r:magisk:s0</code>. The rule used on all Magisk installed systems can be viewed as stock <code>sepolicy</code> with these patches: <code>magiskpolicy --magisk &#39;allow magisk * * *&#39;</code>.</p><div class="language-"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki material-palenight"><code><span class="line"><span style="color:#A6ACCD;">用法: ./magiskpolicy [--options...] [policy statements...]</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Options:</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --help            show help message for policy statements</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --load FILE       load monolithic sepolicy from FILE</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --load-split      load from precompiled sepolicy or compile</span></span>
+<span class="line"><span style="color:#A6ACCD;">                     split cil policies</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --compile-split   compile split cil policies</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --save FILE       dump monolithic sepolicy to FILE</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --live            immediately load sepolicy into the kernel</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --magisk          apply built-in Magisk sepolicy rules</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --apply FILE      apply rules from FILE, read and parsed</span></span>
+<span class="line"><span style="color:#A6ACCD;">                     line by line as policy statements</span></span>
+<span class="line"><span style="color:#A6ACCD;">                     (multiple --apply are allowed)</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">If neither --load, --load-split, nor --compile-split is specified,</span></span>
+<span class="line"><span style="color:#A6ACCD;">it will load from current live policies (/sys/fs/selinux/policy)</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">One policy statement should be treated as one parameter;</span></span>
+<span class="line"><span style="color:#A6ACCD;">this means each policy statement should be enclosed in quotes.</span></span>
+<span class="line"><span style="color:#A6ACCD;">Multiple policy statements can be provided in a single command.</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Statements has a format of &quot;&lt;rule_name&gt; [args...]&quot;.</span></span>
+<span class="line"><span style="color:#A6ACCD;">Arguments labeled with (^) can accept one or more entries. Multiple</span></span>
+<span class="line"><span style="color:#A6ACCD;">entries consist of a space separated list enclosed in braces ({}).</span></span>
+<span class="line"><span style="color:#A6ACCD;">Arguments labeled with (*) are the same as (^), but additionally</span></span>
+<span class="line"><span style="color:#A6ACCD;">support the match-all operator (*).</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Example: &quot;allow { s1 s2 } { t1 t2 } class *&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">Will be expanded to:</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">allow s1 t1 class { all-permissions-of-class }</span></span>
+<span class="line"><span style="color:#A6ACCD;">allow s1 t2 class { all-permissions-of-class }</span></span>
+<span class="line"><span style="color:#A6ACCD;">allow s2 t1 class { all-permissions-of-class }</span></span>
+<span class="line"><span style="color:#A6ACCD;">allow s2 t2 class { all-permissions-of-class }</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Supported policy statements:</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;allow *source_type *target_type *class *perm_set&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;deny *source_type *target_type *class *perm_set&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;auditallow *source_type *target_type *class *perm_set&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;dontaudit *source_type *target_type *class *perm_set&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;allowxperm *source_type *target_type *class operation xperm_set&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;auditallowxperm *source_type *target_type *class operation xperm_set&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;dontauditxperm *source_type *target_type *class operation xperm_set&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">- The only supported operation is &#39;ioctl&#39;</span></span>
+<span class="line"><span style="color:#A6ACCD;">- xperm_set format is either &#39;low-high&#39;, &#39;value&#39;, or &#39;*&#39;.</span></span>
+<span class="line"><span style="color:#A6ACCD;">  &#39;*&#39; will be treated as &#39;0x0000-0xFFFF&#39;.</span></span>
+<span class="line"><span style="color:#A6ACCD;">  All values should be written in hexadecimal.</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;permissive ^type&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;enforce ^type&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;typeattribute ^type ^attribute&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;type type_name ^(attribute)&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">- Argument &#39;attribute&#39; is optional, default to &#39;domain&#39;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;attribute attribute_name&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;type_transition source_type target_type class default_type (object_name)&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">- Argument &#39;object_name&#39; is optional</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;type_change source_type target_type class default_type&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;type_member source_type target_type class default_type&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">&quot;genfscon fs_name partial_path fs_context&quot;</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span></code></pre></div><h3 id="magisk" tabindex="-1">magisk <a class="header-anchor" href="#magisk" aria-hidden="true">#</a></h3><p>当使用名称 <code>magisk</code> 调用magisk二进制文件时，它作为一个实用工具，具有许多助手函数和几个 Magisk 服务的入口点。</p><div class="language-"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki material-palenight"><code><span class="line"><span style="color:#A6ACCD;">用法: magisk [applet [arguments]...]</span></span>
+<span class="line"><span style="color:#A6ACCD;">   或: magisk [options]...</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Options:</span></span>
+<span class="line"><span style="color:#A6ACCD;">   -c                        print current binary version</span></span>
+<span class="line"><span style="color:#A6ACCD;">   -v                        print running daemon version</span></span>
+<span class="line"><span style="color:#A6ACCD;">   -V                        print running daemon version code</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --list                    list all available applets</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --remove-modules          remove all modules and reboot</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --install-module ZIP      install a module zip file</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Advanced Options (Internal APIs):</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --daemon                  manually start magisk daemon</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --stop                    remove all magisk changes and stop daemon</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --[init trigger]          callback on init triggers. Valid triggers:</span></span>
+<span class="line"><span style="color:#A6ACCD;">                             post-fs-data, service, boot-complete, zygote-restart</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --unlock-blocks           set BLKROSET flag to OFF for all block devices</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --restorecon              restore selinux context on Magisk files</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --clone-attr SRC DEST     clone permission, owner, and selinux context</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --clone SRC DEST          clone SRC to DEST</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --sqlite SQL              exec SQL commands to Magisk database</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --path                    print Magisk tmpfs mount path</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --denylist ARGS           denylist config CLI</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Available applets:</span></span>
+<span class="line"><span style="color:#A6ACCD;">    su, resetprop</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Usage: magisk --denylist [action [arguments...] ]</span></span>
+<span class="line"><span style="color:#A6ACCD;">Actions:</span></span>
+<span class="line"><span style="color:#A6ACCD;">   status          Return the enforcement status</span></span>
+<span class="line"><span style="color:#A6ACCD;">   enable          Enable denylist enforcement</span></span>
+<span class="line"><span style="color:#A6ACCD;">   disable         Disable denylist enforcement</span></span>
+<span class="line"><span style="color:#A6ACCD;">   add PKG [PROC]  Add a new target to the denylist</span></span>
+<span class="line"><span style="color:#A6ACCD;">   rm PKG [PROC]   Remove target(s) from the denylist</span></span>
+<span class="line"><span style="color:#A6ACCD;">   ls              Print the current denylist</span></span>
+<span class="line"><span style="color:#A6ACCD;">   exec CMDs...    Execute commands in isolated mount</span></span>
+<span class="line"><span style="color:#A6ACCD;">                   namespace and do all unmounts</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span></code></pre></div><h3 id="su" tabindex="-1">su <a class="header-anchor" href="#su" aria-hidden="true">#</a></h3><p>MagiskSU 入口点 <code>magisk</code> 的小程序。不错的旧 <code>su</code> 命令。</p><div class="language-"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki material-palenight"><code><span class="line"><span style="color:#A6ACCD;">用法: su [options] [-] [user [argument...]]</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Options:</span></span>
+<span class="line"><span style="color:#A6ACCD;">  -c, --command COMMAND         pass COMMAND to the invoked shell</span></span>
+<span class="line"><span style="color:#A6ACCD;">  -h, --help                    display this help message and exit</span></span>
+<span class="line"><span style="color:#A6ACCD;">  -, -l, --login                pretend the shell to be a login shell</span></span>
+<span class="line"><span style="color:#A6ACCD;">  -m, -p,</span></span>
+<span class="line"><span style="color:#A6ACCD;">  --preserve-environment        preserve the entire environment</span></span>
+<span class="line"><span style="color:#A6ACCD;">  -s, --shell SHELL             use SHELL instead of the default /system/bin/sh</span></span>
+<span class="line"><span style="color:#A6ACCD;">  -v, --version                 display version number and exit</span></span>
+<span class="line"><span style="color:#A6ACCD;">  -V                            display version code and exit</span></span>
+<span class="line"><span style="color:#A6ACCD;">  -mm, -M,</span></span>
+<span class="line"><span style="color:#A6ACCD;">  --mount-master                force run in the global mount namespace</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span></code></pre></div><p>Note: even though the <code>-Z, --context</code> option is not listed above, the option still exists for CLI compatibility with apps designed for SuperSU. However the option is silently ignored since it&#39;s no longer relevant.</p><h3 id="resetprop" tabindex="-1">resetprop <a class="header-anchor" href="#resetprop" aria-hidden="true">#</a></h3><p><code>magisk</code> 的小程序。高级系统属性操作实用程序。查看 <a href="./details.html#resetprop">Resetprop详细信息</a> 以了解更多背景信息。</p><div class="language-"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki material-palenight"><code><span class="line"><span style="color:#A6ACCD;">用法: resetprop [flags] [options...]</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Options:</span></span>
+<span class="line"><span style="color:#A6ACCD;">   -h, --help        show this message</span></span>
+<span class="line"><span style="color:#A6ACCD;">   (no arguments)    print all properties</span></span>
+<span class="line"><span style="color:#A6ACCD;">   NAME              get property</span></span>
+<span class="line"><span style="color:#A6ACCD;">   NAME VALUE        set property entry NAME with VALUE</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --file FILE       load props from FILE</span></span>
+<span class="line"><span style="color:#A6ACCD;">   --delete NAME     delete property</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">Flags:</span></span>
+<span class="line"><span style="color:#A6ACCD;">   -v      print verbose output to stderr</span></span>
+<span class="line"><span style="color:#A6ACCD;">   -n      set props without going through property_service</span></span>
+<span class="line"><span style="color:#A6ACCD;">           (this flag only affects setprop)</span></span>
+<span class="line"><span style="color:#A6ACCD;">   -p      read/write props from/to persistent storage</span></span>
+<span class="line"><span style="color:#A6ACCD;">           (this flag only affects getprop and delprop)</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span></code></pre></div></div></div></main><!--[--><!--]--><footer class="VPDocFooter" data-v-6b6fcb79 data-v-ae0105da><!----><div class="prev-next" data-v-ae0105da><div class="pager" data-v-ae0105da><a class="pager-link prev" href="/MagiskChineseDocument/guides.html" data-v-ae0105da><span class="desc" data-v-ae0105da>上一篇</span><span class="title" data-v-ae0105da>开发人员指南</span></a></div><div class="has-prev pager" data-v-ae0105da><a class="pager-link next" href="/MagiskChineseDocument/details.html" data-v-ae0105da><span class="desc" data-v-ae0105da>下一篇</span><span class="title" data-v-ae0105da>内部细节</span></a></div></div></footer><!--[--><!--]--></div></div></div></div></div><footer class="VPFooter has-sidebar" data-v-e91e23b1 data-v-13fad65a><div class="container" data-v-13fad65a><p class="message" data-v-13fad65a>原始文档版本：2022年11月16日</p><!----></div></footer><!--[--><!--]--></div></div>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"boot.md\":\"a754c124\",\"changes.md\":\"345d8fc3\",\"details.md\":\"34443ec0\",\"faq.md\":\"bb192a9f\",\"releases_18100.md\":\"77808415\",\"releases_19000.md\":\"472408a6\",\"releases_19100.md\":\"18b3081f\",\"releases_19200.md\":\"35eaaae6\",\"releases_19300.md\":\"25964083\",\"releases_19400.md\":\"91c3b398\",\"releases_20000.md\":\"22d115cd\",\"releases_20100.md\":\"05012bd3\",\"releases_20200.md\":\"b8b4248c\",\"releases_20300.md\":\"7d349d18\",\"releases_20400.md\":\"68d1beca\",\"releases_21000.md\":\"727d1afe\",\"releases_21100.md\":\"2d15c885\",\"releases_21200.md\":\"6eeb0a7e\",\"releases_21400.md\":\"26785c95\",\"releases_22000.md\":\"5b5c1f72\",\"guides.md\":\"c75bdfc8\",\"releases_22100.md\":\"c7033f61\",\"app_changes.md\":\"3bcad8ad\",\"tools.md\":\"c8effc53\",\"readme.md\":\"4743611e\",\"index.md\":\"346d1fe7\",\"install.md\":\"31906f67\",\"ota.md\":\"6844fd49\",\"releases_24000.md\":\"e13bd583\",\"releases_24200.md\":\"10a79e5c\",\"releases_24300.md\":\"25e141ba\",\"releases_25000.md\":\"b7905c62\",\"releases_25100.md\":\"d7e553f0\",\"releases_25200.md\":\"39971b9a\",\"releases_index.md\":\"a4318ec0\",\"releases_24100.md\":\"2e3444e1\",\"releases_18000.md\":\"35acf53b\",\"releases_23000.md\":\"6600c760\"}")</script>
+    <script type="module" async src="/MagiskChineseDocument/assets/app.f353d06f.js"></script>
+    
+  </body>
+</html>
