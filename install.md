@@ -14,7 +14,7 @@
 
 下载并安装最新的 [Magisk app](https://github.com/topjohnwu/Magisk/releases/latest). 在主屏幕中，您应该看到：
 
-<p align="center"><img src="images/device_info.png" width="500"/></p>
+<p align="center"><img src="/images/device_info.png" width="500"/></p>
 
 **Ramdisk** 的结果确定您的设备在引导分区中是否有 Ramdisk。如果您的设备没有启动 ramdisk，请在继续之前阅读 [Recovery 中的 Magisk](#recovery-中的-magisk) 部分。
 

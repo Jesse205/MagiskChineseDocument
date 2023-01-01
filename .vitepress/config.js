@@ -2,6 +2,7 @@ export default {
     lang: 'zh-CN',
     title: 'Magisk 中文文档',
     description: 'Magisk 中文文档，由 Jesse205 手动机翻。',
+    base: '/MagiskChineseDocument/',
     themeConfig: {
         logo: '/logo.svg',
         outlineTitle: '本页内容',
@@ -11,7 +12,8 @@ export default {
             next: '下一篇'
         },
         socialLinks: [
-            { icon: 'github', link: '' },
+            { icon: 'github', link: 'https://github.com/Jesse205/MagiskChineseDocument' },
+            { icon: 'gitee', link: 'https://gitee.com/Jesse205/magisk-chinese-document' },
         ],
         nav: [
         ],

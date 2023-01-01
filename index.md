@@ -3,7 +3,7 @@ aside: false
 ---
 
 # Magisk 中文文档 (由 Jesse205 翻译)
-![logo](images/logo.png)
+![logo](/images/logo.png)
 
 - [安装说明](install.md)
 - [常见问题](faq.md)

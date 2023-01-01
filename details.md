@@ -42,7 +42,7 @@ $MAGISKTMP/block
 $MAGISKTMP/rootdir
 ```
 
-### `/data`中的路径
+### `/data` 中的路径
 
 一些二进制文件和文件应存储在 `/data` 中的非易失性存储中。为了防止检测，所有东西都必须存储在“/data”中安全且不可检测的地方。选择文件夹 `/data/adb` 是因为具有以下优点：
 

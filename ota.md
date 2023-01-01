@@ -6,11 +6,11 @@ Magisk 不修改大多数只读分区，这意味着应用官方 OTA 要简单�
 ## 必要条件
 - 请在开发人员选项中禁用*自动系统更新*，这样在未经您确认的情况下，它不会安装 OTA。
 
-<p align="center"><img src="images/disable_auto_ota.png" width="250"/></p>
+<p align="center"><img src="/images/disable_auto_ota.png" width="250"/></p>
 
 - 当OTA可用时，首先转到（Magisk app → 卸载 → 恢复映像）**不要重新启动，否则将卸载 Magisk。**这将使 Magisk 修改的分区从安装时的生成备份恢复到官方，以便通过 OTA 前的块验证**在执行以下步骤之前，需要执行此步骤**
 
-<p align="center"><img src="images/restore_img.png" width="300"/></p>
+<p align="center"><img src="/images/restore_img.png" width="300"/></p>
 
 ## 带A/B分区的设备
 
@@ -19,11 +19,11 @@ Magisk 不修改大多数只读分区，这意味着应用官方 OTA 要简单�
 - 恢复官方映像后，按正常方式应用 OTA（设置 → 系统 → 系统更新）。
 - 等待安装完成（OTA 的 步骤1 和 步骤2），**不要按“立即重新启动”或“重新启动”按钮！**相反，请转到（Magisk app → 安装 → 安装到非活动插槽）将 Magisk 安装到更新的插槽。
 
-<p align="center"><img src="images/ota_done.png" width="250"/> <img src="images/install_inactive_slot.png" width="250"/></p>
+<p align="center"><img src="/images/ota_done.png" width="250"/> <img src="/images/install_inactive_slot.png" width="250"/></p>
 
 - 安装完成后，按下 Magisk app 中的重新启动按钮。在 hood 下，Magisk app 强制您的设备切换到更新的插槽，绕过任何可能的 OTA 后验证。
 
-<p align="center"><img src="images/manager_reboot.png" width="250"/></p>
+<p align="center"><img src="/images/manager_reboot.png" width="250"/></p>
 
 ## “非 A/B” 设备
 不幸的是，在这些设备上应用 OTA 并没有真正好的方法。以下教程不会保留 Magisk；升级后，您必须手动重新 root 设备，这将需要通过电脑。这些只是“最佳实践”。
