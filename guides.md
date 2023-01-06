@@ -6,7 +6,7 @@ Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支�
 
 在 Magisk 上下文中运行的每个 shell 脚本都将在启用独立模式（Standalone Mode）的 BusyBox 的 `ash` shell中执行。对于与第三方开发人员相关的内容，这包括所有启动脚本和模块安装脚本。
 
-对于那些想在 Magisk 之外使用“独立模式”功能的人，有两种方法可以启用它：
+对于想在 Magisk 之外使用“独立模式”功能的开发者，有两种方法可以启用它：
 
 1. 将环境变量 `ASH_STANDALONE` 设置为 `1`<br>示例：`ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
 2. 使用命令行选项切换：<br>`/data/adb/magisk/busybox sh -o standalone <script>`
@@ -22,7 +22,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 ├── .
 ├── .
 |
-├── $MODID                  <--- 文件夹以模块的ID命名
+├── $MODID                  <--- 文件夹以模块的 ID 命名
 │   │
 │   │      *** 模块标识 ***
 │   │
@@ -30,7 +30,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 │   │
 │   │      *** 主要内容 ***
 │   │
-│   ├── system              <--- 如果skip_mount不存在，将装入此文件夹
+│   ├── system              <--- 如果 skip_mount 不存在，将装入此文件夹
 │   │   ├── ...
 │   │   ├── ...
 │   │   └── ...
@@ -44,7 +44,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 │   │
 │   │      *** 状态标志 ***
 │   │
-│   ├── skip_mount          <--- 如果存在，Magisk将不会装载您的系统文件夹
+│   ├── skip_mount          <--- 如果存在，Magisk 将不会装载您的系统文件夹
 │   ├── disable             <--- 如果存在，模块将被禁用
 │   ├── remove              <--- 如果存在，模块将在下次重新启动时删除
 │   │
@@ -52,7 +52,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 │   │
 │   ├── post-fs-data.sh     <--- 此脚本将在 post-fs-data 中执行
 │   ├── service.sh          <--- 此脚本将在 late_start 服务中执行
-|   ├── uninstall.sh        <--- 当Magisk删除您的模块时，将执行此脚本
+|   ├── uninstall.sh        <--- 当 Magisk 删除您的模块时，将执行此脚本
 │   ├── system.prop         <--- resetprop 将此文件中的属性作为系统属性加载
 │   ├── sepolicy.rule       <--- 其他自定义 sepolicy 规则
 │   │
@@ -76,7 +76,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 
 #### module.prop
 
-这是 `module.prop` **必须遵守的**格式`
+这是 `module.prop` **必须遵守的**格式
 
 （以下代码块虽然标注为 js，但实际上是 prop，此操作仅为提供代码高亮）
 ``` js
@@ -89,11 +89,11 @@ description=<字符串> <string>
 updateJson=<链接> <url> (可选)
 ```
 
-- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是开头必须为字母，后面的为字母、数字、点 `.` 、下划线 `_` 和减号 `-`）<br>
+- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是开头必须为字母，后面为字母、数字、点 `.` 、下划线 `_` 和减号 `-`）<br>
   示例: `a_module` <Badge type="tip" text="✓" />、`a.module` <Badge type="tip" text="✓" />、`module-101` <Badge type="tip" text="✓" />、`a module` <Badge type="danger" text="✗" />、`1_module` <Badge type="danger" text="✗" />、`-a-module` <Badge type="danger" text="✗" /><br>
   这是模块的**唯一标识符**。模块发布后，您不应更改它。
-- `versionCode `必须是**整数**。这用于对比版本
-- `updateJson` 应该指向一个 URL，该 URL 下载JSON 以提供信息，以便 Magisk app 可以更新模块。
+- `versionCode `必须是**整数**。这用于对比版本，以便检查更新。
+- `updateJson` 应该指向一个 URL，该 URL 下载 JSON 以提供信息，以便 Magisk app 可以更新模块。
 - 上面没有提到的其他字符串可以是任何**单行**字符串。
 - 确保使用 `UNIX (LF)` 换行类型，而不是 `Windows (CR+LF)` 或 `Macintosh (CR)`。
 
@@ -110,16 +110,14 @@ updateJson=<链接> <url> (可选)
 
 #### Shell 脚本 (`*.sh`)
 
-请阅读[Boot Scripts](#boot-scripts) 部分，了解 `post-fs-data.sh` 和 `service.sh` 之间的区别。对于大多数模块开发人员来说，如果您只需要运行引导脚本，`service.sh` 应该足够好了。
+请阅读 [Boot Scripts](#boot-scripts) 部分，了解 `post-fs-data.sh` 和 `service.sh` 之间的区别。对于大多数模块开发人员来说，如果您只需要运行引导脚本，`service.sh` 应该足够好了。
 
 在模块的所有脚本中，请使用 `MODDIR=${0%/*}` 获取模块的基本目录路径；**不要**在脚本中硬编码模块路径。<br>
 如果启用了Zygisk，则环境变量 `ZYGISK_ENABLED` 将设置为 `1` 。
 
 #### `system` 文件夹
 
-All files you want to replace/inject should be placed in this folder. This folder will be recursively merged into the real `/system`; that is: existing files in the real `/system` will be replaced by the one in the module's `system`, and new files in the module's `system` will be added to the real `/system`.
-
-要替换/注入的所有文件都应放在此文件夹中。此文件夹将以递归方式合并到真正的 `/system` 中;也就是说：真实 `/system` 中的现有文件将被模块 `system` 中的文件替换，模块 `system` 中的新文件将被添加到真实 `/system` 中。
+要替换/注入的所有文件都应放在此文件夹中。此文件夹将以递归方式合并到真正的 `/system` 中，也就是说：真实 `/system` 中的现有文件将被模块 `system` 中的文件替换，模块 `system` 中的新文件将被添加到真实 `/system` 中。
 
 如果您将名为 `.replace` 的文件放在任何文件夹中，而不是合并其内容，则该文件夹将直接替换实际系统中的文件夹。这对于交换整个文件夹非常方便。
 
@@ -127,7 +125,7 @@ All files you want to replace/inject should be placed in this folder. This folde
 
 #### Zygisk
 
-Zygisk 是 Magisk 的一项功能，它允许高级模块开发人员在每个 Android 应用程序的进程中直接运行代码，然后再进行专业化和运行。有关 Zygisk API 和构建 Zygisk 模块的更多详细信息，请查看 [Zygisk 模块示例](https://github.com/topjohnwu/zygisk-module-sample)项目。
+Zygisk 是 Magisk 的一项功能，它允许高级模块开发人员在每个 Android 应用程序的进程中直接运行代码，然后再进行专业化和运行。有关 Zygisk API 和构建 Zygisk 模块的更多详细信息，请查看 [Zygisk 模块示例](https://github.com/topjohnwu/zygisk-module-sample) 项目。
 
 #### system.prop
 
@@ -135,16 +133,16 @@ Zygisk 是 Magisk 的一项功能，它允许高级模块开发人员在每个 A
 
 #### sepolicy.rule
 
-如果您的模块需要一些额外的 sepolicy 补丁，请将这些规则添加到此文件中。此文件中的每一行都将被视为策略语句。有关如何格式化策略语句的更多详细信息，请查看[magiskpolicy](tools.md#magiskpolicy)的文档。
+如果您的模块需要一些额外的 sepolicy 补丁，请将这些规则添加到此文件中。此文件中的每一行都将被视为策略语句。有关如何格式化策略语句的更多详细信息，请查看 [magiskpolicy](tools.md#magiskpolicy) 的文档。
 
 ## Magisk 模块安装程序
 
-Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在 Magisk 应用程序或自定义recovery（如 TWRP）中刷入。最简单的 Magisk 模块安装程序只是一个打包为 zip 文件的 Magisk 模块，此外还有以下文件：
+Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在 Magisk 应用程序或第三方recovery（如 TWRP）中刷入。最简单的 Magisk 模块安装程序只是一个打包为 zip 文件的 Magisk 模块，此外还有以下文件：
 
 - `update-binary`：下载最新的 [module_installer.sh](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh) 并将该脚本重命名/复制为 `update-binary`
-- `updater-script`：这个文件应该只包含字符串`#MAGISK`
+- `updater-script`：这个文件应该只包含字符串 `#MAGISK`
 
-模块安装程序脚本将设置环境，将模块文件从 zip 文件提取到正确的位置，然后完成安装过程，这对于大多数简单的 Magisk 模块来说应该足够好了。
+模块安装程序脚本将会设置环境，将模块文件从 zip 文件提取到正确的位置，然后完成安装过程，这对于大多数简单的 Magisk 模块来说应该足够好了。
 
 ```
 模块module.zip

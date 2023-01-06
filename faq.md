@@ -10,6 +10,7 @@
 
 Magisk 不再处理 Root 隐藏。有大量 Magisk/Zygisk 模块专门提供这些功能，请在网络上查找它们。😉（您可以在酷安或者哔哩哔哩中搜索）
 
+比较流行的模块是 [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases/latest) 。
 
 ### Q: 在我隐藏 Magisk App 后，应用图标已损坏。
 

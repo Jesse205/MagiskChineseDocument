@@ -33,7 +33,7 @@ $MAGISKTMP/config
 # 例如 system，system_ext，vendor，data ...
 $MAGISKTMP/mirror
 
-# Magisk在内部创建用于挂载映像的 Block 设备。
+# Magisk 在内部创建用于挂载映像的 Block 设备。
 $MAGISKTMP/block
 
 # 根目录修补程序文件
