@@ -1,26 +1,27 @@
-# Android Booting Shenanigans
+# Android 引导诡计
 
-## Terminologies
+## 术语
 
-- **rootdir**: the root directory (`/`). All files/folders/filesystems are stored in or mounted under rootdir. On Android, the filesystem may be either `rootfs` or the `system` partition.
-- **`initramfs`**: a section in Android's boot image that the Linux kernel will use as `rootfs`. People also use the term **ramdisk** interchangeably
-- **`recovery` and `boot` partition**: these 2 are actually very similar: both are Android boot images containing ramdisk and Linux kernel (plus some other stuff). The only difference is that booting `boot` partition will bring us to Android, while `recovery` has a minimalist self contained Linux environment for repairing and upgrading the device.
-- **SAR**: System-as-root. That is, the device uses `system` as rootdir instead of `rootfs`
-- **A/B, A-only**: For devices supporting [Seamless System Updates](https://source.android.com/devices/tech/ota/ab), it will have 2 slots of all read-only partitions; we call these **A/B devices**. To differentiate, non A/B devices will be called **A-only**
-- **2SI**: Two Stage Init. The way Android 10+ boots. More info later.
+- **rootdir**：根目录 (`/`)。所有 文件、文件夹或文件系统 都存储在 rootdir 中或挂载在 rootdir 下。在 Android 上，文件系统可以是 `rootfs` 或 `system` 分区。
+- **`initramfs`**：Android 启动映像中的一个部分，Linux 内核将使用它作为`rootfs`。人们也可以使用术语 **ramdisk**
+- **`recovery` 和 `boot` 分区**：这两个实际上非常相似：都是包含 ramdisk 和 Linux 内核的 Android 启动映像（加上其他一些东西）。
+唯一的区别是，启动 `boot` 分区将把我们带到 Android，而 `recovery` 有一个用于修复和升级设备的极简自带 Linux 环境。
+- **SAR**：系统作为根（System-as-root）。也就是说，设备使用 `system` 作为rootdir，而不是 `rootfs`
+- **A/B, A-only**：对于支持[无缝系统更新](https://source.android.google.cn/docs/core/ota/ab)的设备，它将具有所有只读分区的2个插槽（partition）；我们称这些为**A/B设备**。为了区分，非A/B设备将称为**A-only**
+- **2SI**：两阶段初始化。Android 10+ 的启动方式。稍后提供更多信息。
 
-Here are a few parameters to more precisely define a device's Android version:
+以下是一些参数，可帮助您更精确地定义设备的 Android 版本：
 
-- **LV**: Launch Version. The Android version the device is **launched** with. That is, the Android version pre-installed when the device first hit the market.
-- **RV**: Running Version. The Android version the device is currently running on.
+- **LV**：推出版本。设备**推出**时使用的安卓版本。也就是说，设备首次上市时预装的 Android 版本。
+- **RV**：运行版本。设备当前运行的 Android 版本。
 
-We will use **Android API level** to represent LV and RV. The mapping between API level and Android versions can be seen in [this table](https://source.android.com/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases). For example: Pixel XL is released with Android 7.1, and is running Android 10, these parameters will be `(LV = 25, RV = 29)`
+我们将使用 **Android API 级别** 来表示 LV 和 RV 。API 级别和 Android 版本之间的映射可以在(https://source.android.com/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases)中看到。例如：Pixel XL 随 Android 7.1 发布，并运行 Android 10，这些参数将为 `(LV = 25, RV = 29)` 。
 
-## Boot Methods
+## 引导方法
 
-Android booting can be roughly categorized into 3 major different methods. We provide a general rule of thumb to determine which method your device is most likely using, with exceptions listed separately.
+Android 启动可以大致分为 3 种主要的不同方法。我们提供了一个一般的经验法则，以确定您的设备最有可能使用哪种方法，但例外情况单独列出。
 
-Method | Initial rootdir | Final rootdir
+方法 | 初始根目录 | 最终根目录
 :---: | --- | ---
 **A** | `rootfs` | `rootfs`
 **B** | `system` | `system`
@@ -38,18 +39,18 @@ Method | Initial rootdir | Final rootdir
 	- Devices with `(LV < 28, RV >= 29)`, excluding those that were already using Method B
 	- Google: Pixel 3 and 3a with `(RV >= 29)`
 
-### Discussion
+### 讨论
 
-From documents online, Google's definition of SAR only considers how the kernel boots the device (**Initial rootdir** in the table above), meaning that only devices using **Method B** is *officially* considered an SAR device from Google's standpoint.
+从文档来看，谷歌对 SAR 的定义只考虑了内核如何引导设备（上表中的**初始根目录**），这意味着从谷歌的角度来看，只有使用**方法B**的设备才被正式视为 SAR 设备。
 
-However for Magisk, the real difference lies in what the device ends up using when fully booted (**Final rootdir** in the table above), meaning that **as far as Magisk's concern, both Method B and C is a form of SAR**, but just implemented differently. Every instance of SAR later mentioned in this document will refer to **Magisk's definition** unless specifically says otherwise.
+然而，对于 Magisk 来说，真正的区别在于设备在完全启动时使用的是什么（上表中的**最终根目录**），这意味着**就Magisk而言，方法 B 和方法 C 都是 SAR 的一种形式**，但实施方式不同。除非另有特别说明，否则本文件后面提到的每一个 SAR 实例都将参考 **Magisk 的定义**。
 
-The criteria for Method C is a little complicated, in layman's words: either your device is modern enough to launch with Android 10+, or you are running an Android 10+ custom ROM on a device that was using Method A.
+通俗地说，方法 C 的标准有点复杂：您的设备足够现代，可以使用 Android 10+ 启动，或者您在使用方法 A 的设备上运行 Android 10+ 第三方 ROM。
 
-- Any Method A device running Android 10+ will automatically be using Method C
-- **Method B devices are stuck with Method B**, with the only exception being Pixel 3 and 3a, which Google retrofitted the device to adapt the new method.
+- 任何运行 Android 10+ 的设备都将自动使用方法 C
+- **方法 B 设备卡在方法 B 上**，唯一的例外是 Pixel 3 和 3a，Google 对设备进行了改造以适应新方法。
 
-SAR is a very important part of [Project Treble](https://source.android.com/devices/architecture#hidl) as rootdir should be tied to the platform. This is also the reason why Method B and C comes with `(LV >= ver)` criterion as Google has enforced all OEMs to comply with updated requirements every year.
+SAR 是 [Project Treble](https://source.android.google.cn/devices/architecture#hidl) 中非常重要的一部分，因为 rootdir 应该与平台绑定。这也是方法 B 和 C 带有 `(LV >= ver)` 标准的原因，因为 Google 每年都强制所有 OEM 遵守更新的要求。
 
 ## Some History
 
@@ -82,3 +83,6 @@ These types are ordered chronologically by the time they were first available.
 Further details on Type III devices: Magisk is always installed in the ramdisk of a boot image. For all other device types, because their `boot` partition have ramdisk included, Magisk can be easily installed by patching boot image through the Magisk app or flash zip in custom recovery. However for Type III devices, they are **limited to install Magisk into the `recovery` partition**. Magisk will not function when booted normally; instead Type III device owners have to always reboot to recovery to maintain Magisk access.
 
 Some Type III devices' bootloader will still accept and provide `initramfs` that was manually added to the `boot` image to the kernel (e.g. some Xiaomi phones), but many device don't (e.g. Samsung S10, Note 10). It solely depends on how the OEM implements its bootloader.
+
+## 参考链接
+[Magisk Android Booting Shenanigans](https://topjohnwu.github.io/Magisk/boot.html)

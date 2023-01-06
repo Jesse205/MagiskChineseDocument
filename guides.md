@@ -4,7 +4,7 @@
 
 Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支持）。可执行文件位于 `/data/adb/magisk/busybox` 。Magisk 的 BusyBox 支持运行时可切换的“ASH独立外壳模式”。这种独立模式的意思是，当在 BusyBox 的 `ash` shell 中运行时，无论设置为 `PATH` ，每个命令都将直接使用 BusyBox 中的 applet。例如，像 `ls`、`rm`、`chmod` 这样的命令将**不使用** `PATH` 中的内容（在 Android 的情况下，默认情况下将分别为 `/system/bin/ls` 、`/system/bin/rm` 和 `/system/bin/chmod` ），而是直接调用内部 BusyBox 小程序。这确保脚本始终在可预测的环境中运行，并且无论在哪个 Android 版本上运行，都始终具有完整的命令集。要强制命令*不使用*BusyBox，必须使用完整路径调用可执行文件。
 
-在 Magisk 上下文中运行的每个 shell 脚本都将在启用独立模式（Standalone Mode）的 BusyBox 的 `ash` shell中执行。对于与第三方开发人员相关的内容，这包括所有启动脚本和模块安装脚本。
+在 Magisk 上下文中运行的每个 shell 脚本都将在启用独立模式（Standalone Mode）的 BusyBox 的 `ash` shell 中执行。对于与第三方开发人员相关的内容，这包括所有启动脚本和模块安装脚本。
 
 对于想在 Magisk 之外使用“独立模式”功能的开发者，有两种方法可以启用它：
 
@@ -301,3 +301,5 @@ on early-init
 service myservice ${MAGISKTMP}/myscript.sh
     oneshot
 ```
+## 参考链接
+[Magisk Developer Guides](https://topjohnwu.github.io/Magisk/guides.html)

@@ -12,7 +12,7 @@ resetprop -> magisk
 su -> magisk
 ```
 
-### magiskboot
+## magiskboot
 
 一个用于解压缩/重新打包 boot 映像、解析/修补/解压缩 cpio 、修补 dtb 、十六进制修补二进制文件，以及使用多种算法压缩/解压缩文件的工具。
 
@@ -126,11 +126,11 @@ su -> magisk
     Supported formats: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
 ```
 
-### magiskinit
+## magiskinit
 
 这个二进制文件将替换 Magisk 补丁启动映像的 ramdisk 中的 `init`。它最初是为支持以 system-as-root 的设备而创建的，但该工具被扩展为支持所有设备，并成为 Magisk 的关键部分。更多详细信息可以在 [Micsk Booting Process](details.md#magisk-booting-process) 中的 **Pre-Init** 部分找到。
 
-### magiskpolicy
+## magiskpolicy
 
 （此工具别名为 `supolicy`，以与 SuperSU 的 sepolicy 工具兼容）
 
@@ -209,7 +209,7 @@ Supported policy statements:
 "genfscon fs_name partial_path fs_context"
 ```
 
-### magisk
+## magisk
 
 当使用名称 `magisk` 调用magisk二进制文件时，它作为一个实用工具，具有许多助手函数和几个 Magisk 服务的入口点。
 
@@ -253,7 +253,7 @@ Actions:
                    namespace and do all unmounts
 ```
 
-### su
+## su
 
 MagiskSU 入口点 `magisk` 的小程序。不错的旧 `su` 命令。
 
@@ -275,7 +275,7 @@ Options:
 
 Note: even though the `-Z, --context` option is not listed above, the option still exists for CLI compatibility with apps designed for SuperSU. However the option is silently ignored since it's no longer relevant.
 
-### resetprop
+## resetprop
 
 `magisk` 的小程序。高级系统属性操作实用程序。查看 [Resetprop详细信息](details.md#resetprop) 以了解更多背景信息。
 
@@ -297,3 +297,5 @@ Flags:
    -p      read/write props from/to persistent storage
            (this flag only affects getprop and delprop)
 ```
+## 参考链接
+[Magisk Tools](https://topjohnwu.github.io/Magisk/tools.html)

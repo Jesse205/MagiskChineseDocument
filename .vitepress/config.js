@@ -5,8 +5,12 @@ export default {
     base: '/MagiskChineseDocument/',
     ignoreDeadLinks: true,
     lastUpdated: true,
+    head: [
+        ['link', { rel: 'icon', href: '/MagiskChineseDocument/favicon.ico', sizes:'any' }],
+        ['link', { rel: 'apple-touch-icon', href: '/MagiskChineseDocument/apple-touch-icon.png' }],
+    ],
     themeConfig: {
-        logo: '/logo.svg',
+        logo: '/favicon.ico',
         outlineTitle: '本页内容',
         lastUpdatedText: '更新时间',
         docFooter: {
@@ -45,7 +49,7 @@ export default {
                     { text: '开发人员指南', link: '/guides.md' },
                     { text: 'Magisk 工具', link: '/tools.md' },
                     { text: '内部细节', link: '/details.md' },
-                    { text: 'Android 引导神器', link: '/boot.md' },
+                    { text: 'Android 引导诡计', link: '/boot.md' },
                 ]
             }
         ],

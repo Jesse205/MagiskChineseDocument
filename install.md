@@ -7,7 +7,7 @@
 开始之前：
 
 - 本教程假设您了解如何使用 `adb` 和 `fastboot`
-- 如果您还要安装第三方内核（kernels），请在安装它之后安装Magisk
+- 如果您还要安装第三方内核（kernels），请在安装它之后安装 Magisk
 - 必须解锁设备的引导程序（bootloader）
 
 ---
@@ -19,7 +19,7 @@
 **Ramdisk** 的结果确定您的设备在引导分区（boot）中是否有 Ramdisk。如果您的设备没有 boot ramdisk，请在继续之前阅读 [Recovery 中的 Magisk](#recovery-中的-magisk) 部分。
 
 ::: info 信息
-不幸的是，有些设备的 bootloader 接受 ramdisk，即使它不应该接受。在这种情况下，您必须按照说明进行操作，就好像您的设备的 boot 分区**不**包含 ramdisk 一样。没有什么方法可以检测到这一点，因此唯一确定的方法是实际尝试。据我们所知，只有一些小米设备具有此属性，所以大多数用户可以忽略这条信息。
+不幸的是，有些设备的 bootloader 接受 ramdisk，即使它不应该接受。在这种情况下，您必须按照说明进行操作，就好像您的设备的 boot 分区**不包含 ramdisk** 一样。没有什么方法可以检测到这一点，因此唯一确定的方法是实际尝试。据我们所知，只有一些小米设备具有此属性，所以大多数用户可以忽略这条信息。
 :::
 
 如果您使用的是 Android 9.0 或更高版本的三星设备，您可以浏览[属于它的部分](#三星-system-as-root)。
@@ -39,7 +39,7 @@
 
 快速回顾一下，此时，您应该已经知道并准备好了：
 
-1. 设备是否具有 boot ramdisk
+1. 设备是否具有启动 ramdisk
 2. 设备是否有单独的 `vbmeta` 分区
 3. 基于 (1) 的 `boot.img` 或 `recovery.img`
 
@@ -71,7 +71,7 @@
 
 ## 卸载
 
-卸载 Magisk 的最简单方法是直接通过 Magisk App 卸载。如果您坚持使用第三方 Recovery，请将 Magisk APK 重命名为 `uninstall.zip` 后像其他普通的刷机包一样刷它。
+卸载 Magisk 的最简单方法是直接通过 Magisk App 卸载。如果您坚持使用第三方 Recovery，请将 Magisk APK 文件 重命名为 `uninstall.zip` 后像其他普通的刷机包一样刷入。
 
 ## Recovery 中的 Magisk
 
@@ -151,3 +151,7 @@
 ::: warning 注意
 模块的 `sepolicy.rule` 文可能存储在 `cache` 分区中。请不要擦除 `CACHE` 分区。
 :::
+
+## 参考链接
+[Magisk Installation](https://topjohnwu.github.io/Magisk/install.html)<br>
+[Magisk 安装指南](https://cnoim.coding.net/s/41961bff-16f8-4370-9e0c-af8390a6ec89)

@@ -20,7 +20,7 @@ titleTemplate: Magisk 中文文档
 - [开发人员指南](guides.md)
 - [Magisk 工具](tools.md)
 - [内部细节](details.md)
-- [Android 引导神器](boot.md)
+- [Android 引导诡计](boot.md)
 
 #### 相关链接
 
@@ -40,7 +40,6 @@ Magisk，包括所有 git 子模块都是自由软件：
 你应该已经收到了GNU通用公共许可证的副本以及这个程序。如果没有，请参见
 <http://www.gnu.org/licenses/>.
 ```
-
 
 ### 英文原版
 ```

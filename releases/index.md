@@ -26,3 +26,6 @@
 - [v19.0](19000.md)
 - [v18.1](18100.md)
 - [v18.0](18000.md)
+
+## 参考链接
+[Magisk Release Notes](https://topjohnwu.github.io/Magisk/releases/)
