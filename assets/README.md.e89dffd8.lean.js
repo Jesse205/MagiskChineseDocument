@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,a as r}from"./app.e80040ee.js";const d=JSON.parse('{"title":"Magisk 中文文档","description":"","frontmatter":{},"headers":[],"relativePath":"README.md","lastUpdated":1672592264000}'),s={name:"README.md"},i=r("",5),o=[i];function n(h,_,c,p,l,g){return a(),t("div",null,o)}const k=e(s,[["render",n]]);export{d as __pageData,k as default};
