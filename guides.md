@@ -1,8 +1,8 @@
-# 开发人员指南
+# 开发者指南
 
 ## BusyBox
 
-Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支持）。可执行文件位于 `/data/adb/magisk/busybox` 。Magisk 的 BusyBox 支持运行时可切换的“ASH独立外壳模式”。这种独立模式的意思是，当在 BusyBox 的 `ash` shell 中运行时，无论设置为 `PATH` ，每个命令都将直接使用 BusyBox 中的 applet。例如，像 `ls`、`rm`、`chmod` 这样的命令将**不使用** `PATH` 中的内容（在 Android 的情况下，默认情况下将分别为 `/system/bin/ls` 、`/system/bin/rm` 和 `/system/bin/chmod` ），而是直接调用内部 BusyBox 小程序。这确保脚本始终在可预测的环境中运行，并且无论在哪个 Android 版本上运行，都始终具有完整的命令集。要强制命令*不使用*BusyBox，必须使用完整路径调用可执行文件。
+Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支持）。可执行文件位于 `/data/adb/magisk/busybox` 。Magisk 的 BusyBox 支持运行时可切换的“ASH独立外壳模式”。这种独立模式的意思是，当在 BusyBox 的 `ash` shell 中运行时，无论设置为 `PATH` ，每个命令都将直接使用 BusyBox 中的 applet。例如，像 `ls`、`rm`、`chmod` 这样的命令将**不使用** `PATH` 中的内容（在 Android 的情况下，默认情况下将分别为 `/system/bin/ls` 、`/system/bin/rm` 和 `/system/bin/chmod` ），而是直接调用内部 BusyBox 小程序。这确保脚本始终在可预测的环境中运行，并且无论在哪个 Android 版本上运行，都始终具有完整的命令集。要*强制命令不使用BusyBox*，必须使用完整路径调用可执行文件。
 
 在 Magisk 上下文中运行的每个 shell 脚本都将在启用独立模式（Standalone Mode）的 BusyBox 的 `ash` shell 中执行。对于与第三方开发人员相关的内容，这包括所有启动脚本和模块安装脚本。
 
@@ -44,7 +44,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 │   │
 │   │      *** 状态标志 ***
 │   │
-│   ├── skip_mount          <--- 如果存在，Magisk 将不会装载您的系统文件夹
+│   ├── skip_mount          <--- 如果存在，Magisk 将不会装载您的 system 文件夹
 │   ├── disable             <--- 如果存在，模块将被禁用
 │   ├── remove              <--- 如果存在，模块将在下次重新启动时删除
 │   │
@@ -79,7 +79,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 这是 `module.prop` **必须遵守的**格式
 
 （以下代码块虽然标注为 js，但实际上是 prop，此操作仅为提供代码高亮）
-``` js
+``` js:line-numbers
 id=<字符串> <string>
 name=<字符串> <string>
 version=<字符串> <string>
@@ -99,7 +99,7 @@ updateJson=<链接> <url> (可选)
 
 更新的JSON的格式：
 
-``` json
+``` json:line-numbers
 {
     "version": string,
     "versionCode": int,
@@ -123,13 +123,13 @@ updateJson=<链接> <url> (可选)
 
 如果要替换 `/vendor` 、`/product` 或 `/system_ext` 中的文件，请分别将它们放在 `system/vendor` 、`system/product` 和 `system/system_ext` 下。Magisk 将透明地处理这些分区是否位于单独的分区中。
 
-#### Zygisk
+#### zygisk
 
 Zygisk 是 Magisk 的一项功能，它允许高级模块开发人员在每个 Android 应用程序的进程中直接运行代码，然后再进行专业化和运行。有关 Zygisk API 和构建 Zygisk 模块的更多详细信息，请查看 [Zygisk 模块示例](https://github.com/topjohnwu/zygisk-module-sample) 项目。
 
 #### system.prop
 
-此文件遵循与 `build.prop` 相同的格式。每行由 `[键 key]=[值 value]`组成。
+此文件遵循与 `build.prop` 相同的格式。每行由 `[key]=[value]`组成。
 
 #### sepolicy.rule
 
@@ -139,8 +139,8 @@ Zygisk 是 Magisk 的一项功能，它允许高级模块开发人员在每个 A
 
 Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在 Magisk 应用程序或第三方recovery（如 TWRP）中刷入。最简单的 Magisk 模块安装程序只是一个打包为 zip 文件的 Magisk 模块，此外还有以下文件：
 
-- `update-binary`：下载最新的 [module_installer.sh](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh) 并将该脚本重命名/复制为 `update-binary`
-- `updater-script`：这个文件应该只包含字符串 `#MAGISK`
+- `update-binary`：下载最新的 [module_installer.sh](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh) 并将该脚本重命名或复制为 `update-binary`
+- `updater-script`：这个文件应该只包含字符串 “`#MAGISK`”
 
 模块安装程序脚本将会设置环境，将模块文件从 zip 文件提取到正确的位置，然后完成安装过程，这对于大多数简单的 Magisk 模块来说应该足够好了。
 
@@ -163,134 +163,149 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 
 #### 定制
 
-If you need to customize the module installation process, optionally you can create a script in the installer named `customize.sh`. This script will be _sourced_ (not executed!) by the module installer script after all files are extracted and default permissions and secontext are applied. This is very useful if your module require additional setup based on the device ABI, or you need to set special permissions/secontext for some of your module files.
+如果需要自定义模块安装过程，可以选择在安装程序中创建名为 `customize.sh` 的脚本。在提取所有文件并设置默认权限和 secontext 后，该脚本将由模块安装程序脚本*提供*（未执行！）。如果您的模块需要基于设备 ABI 进行其他设置，或者您需要为某些模块文件设置特殊权限/secontext，这将非常有用。
 
-If you would like to fully control and customize the installation process, declare `SKIPUNZIP=1` in `customize.sh` to skip all default installation steps. By doing so, your `customize.sh` will be responsible to install everything by itself.
+如果要完全控制和自定义安装过程，请在 `customize.sh` 中声明 `SKIPUNZIP=1` 以跳过所有默认安装步骤。这样，您的 `customize.sh` 将负责自行安装所有内容。
 
-The `customize.sh` script runs in Magisk's BusyBox `ash` shell with "Standalone Mode" enabled. The following variables and functions are available:
+`customize.sh` 脚本在 Magisk 的 BusyBox `ash` shell 中运行，并启用了“独立模式”。以下变量和函数可用：
 
-##### Variables
+##### 变量
 
-- `MAGISK_VER` (string): the version string of current installed Magisk (e.g. `v20.0`)
-- `MAGISK_VER_CODE` (int): the version code of current installed Magisk (e.g. `20000`)
-- `BOOTMODE` (bool): `true` if the module is being installed in the Magisk app
-- `MODPATH` (path): the path where your module files should be installed
-- `TMPDIR` (path): a place where you can temporarily store files
-- `ZIPFILE` (path): your module's installation zip
-- `ARCH` (string): the CPU architecture of the device. Value is either `arm`, `arm64`, `x86`, or `x64`
-- `IS64BIT` (bool): `true` if `$ARCH` is either `arm64` or `x64`
-- `API` (int): the API level (Android version) of the device (e.g. `21` for Android 5.0)
+- `MAGISK_VER` (string): 当前安装的 Magisk 的版本字符串（例如 `v20.0` ）
+- `MAGISK_VER_CODE` (int): 当前安装的Magisk的版本代码（例如 `20000` ）
+- `BOOTMODE` (bool): 如果模块在 Magisk app 中安装，则为 `true`
+- `MODPATH` (path): 模块文件应安装的路径
+- `TMPDIR` (path): 可以临时存储文件的地方
+- `ZIPFILE` (path): your module's installation zip 模块的压缩文件
+- `ARCH` (string): 设备的 CPU 架构。值为 `arm` 、`arm64` 、`x86` 或 `x64`
+- `IS64BIT` (bool): 如果 `$ARCH` 是 `arm64` 或 `x64` ，则为 `true`
+- `API` (int): 设备的 API 级别（安卓版本）（例如，Android 5.0 的 `21` ）
 
-##### Functions
+::: tip 提示
+您可以在 [这里](https://source.android.google.cn/docs/setup/about/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases) 找到所有 Android 版本对应的 API 级别
+:::
+##### 函数
 
-```
+``` shell
 ui_print <msg>
-    print <msg> to console
-    Avoid using 'echo' as it will not display in custom recovery's console
+    输出 <msg> 到控制台
+    请避免使用“echo”，因为它不会显示在第三方 recovery 的控制台中
 
 abort <msg>
-    print error message <msg> to console and terminate the installation
-    Avoid using 'exit' as it will skip the termination cleanup steps
+    将错误消息 <msg> 输出到控制台并终止安装
+    请避免使用“exit”，因为它会跳过终止清理步骤
 
 set_perm <target> <owner> <group> <permission> [context]
-    if [context] is not set, the default is "u:object_r:system_file:s0"
-    this function is a shorthand for the following commands:
+    如果未设置 [context]，则默认值为“u:object_r:system_file:s0”
+    此函数是以下命令的简写：
        chown owner.group target
        chmod permission target
        chcon context target
 
 set_perm_recursive <directory> <owner> <group> <dirpermission> <filepermission> [context]
-    if [context] is not set, the default is "u:object_r:system_file:s0"
-    for all files in <directory>, it will call:
+    如果未设置 [context]，则默认值为“u:object_r:system_file:s0”
+    对于 <directory> 中的所有文件，它将调用：
        set_perm file owner group filepermission context
-    for all directories in <directory> (including itself), it will call:
+    对于 <directory> 中的所有目录（包括自身），它将调用：
        set_perm dir owner group dirpermission context
 ```
 
-For convenience, you can also declare a list of folders you want to replace in the variable name `REPLACE`. The module installer script will create the `.replace` file into the folders listed in `REPLACE`. For example:
+为方便起见，您还可以在变量名称 `REPLACE` 中声明要替换的文件夹列表。模块安装程序脚本会将 `.replace` 文件创建到 `REPLACE` 中列出的文件夹中。例如：
 
-```
+``` sh
 REPLACE="
 /system/app/YouTube
 /system/app/Bloatware
 "
 ```
 
-The list above will result in the following files being created: `$MODPATH/system/app/YouTube/.replace` and `$MODPATH/system/app/Bloatware/.replace`.
+上面的列表将对应创建以下文件：`$MODPATH/system/app/YouTube/.replace` 和 `$MODPATH/system/app/Bloatware/.replace` 。
 
-#### Notes
+#### 注意
 
-- When your module is downloaded with the Magisk app, `update-binary` will be **forcefully** replaced with the latest [`module_installer.sh`](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh). **DO NOT** try to add any custom logic in `update-binary`.
-- Due to historical reasons, **DO NOT** add a file named `install.sh` in your module installer zip.
-- **DO NOT** call `exit` at the end of `customize.sh`. The module installer script has to perform some cleanups before exiting.
+- 使用 Magisk 应用程序下载模块时，`update-binary` 将**强制替换为最新的 [`module_installer.sh`](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh)** 。 **不要尝试在 `update-binary` 中添加任何自定义逻辑**。
+- 由于历史原因，**请勿在模块 zip 中添加名为 `install.sh` 的文件**。
+- **不要在 `customize.sh` 末尾调用 `exit`** 。模块安装程序脚本必须在退出之前执行一些清理。
 
-## Boot Scripts
+## 启动脚本
 
-In Magisk, you can run boot scripts in 2 different modes: **post-fs-data** and **late_start service** mode.
+在Magisk中，您可以以两种不同的模式运行启动脚本：**post-fs-data** 和 **late_start service** 模式。
 
-- post-fs-data mode
-  - This stage is BLOCKING. The boot process is paused before execution is done, or 10 seconds have passed.
-  - Scripts run before any modules are mounted. This allows a module developer to dynamically adjust their modules before it gets mounted.
-  - This stage happens before Zygote is started, which pretty much means everything in Android
-  - **WARNING:** using `setprop` will deadlock the boot process! Please use `resetprop -n <prop_name> <prop_value>` instead.
-  - **Only run scripts in this mode if necessary.**
-- late_start service mode
-  - This stage is NON-BLOCKING. Your script runs in parallel with the rest of the booting process.
-  - **This is the recommended stage to run most scripts.**
+- post-fs-data 模式
+  - 此阶段会阻塞。启动过程在执行完成，或过 10 秒前暂停。
+  - 脚本在装入任何模块之前运行。这允许模块开发人员在安装模块之前动态调整其模块。
+  - 这个阶段发生在 Zygote 启动之前，这几乎意味着是 Android 的一切
+  - **警告**：使用 `setprop` 将导致启动过程死锁！请改用 `resetprop -n <prop_name> <prop_value>` 。
+  - **仅在必要时在此模式下运行脚本**。
+- late_start service 模式
+  - 此阶段为非阻塞。脚本与引导过程的其余部分并行运行。
+  - **建议大多数脚本在此阶段运行**
 
-In Magisk, there are also 2 kinds of scripts: **general scripts** and **module scripts**.
+在 Magisk 中，还有 2 种脚本：**通用脚本**和**模块脚本**。
 
-- General Scripts
-  - Placed in `/data/adb/post-fs-data.d` or `/data/adb/service.d`
-  - Only executed if the script is set as executable (`chmod +x script.sh`)
-  - Scripts in `post-fs-data.d` runs in post-fs-data mode, and scripts in `service.d` runs in late_start service mode.
-  - Modules should **NOT** add general scripts during installation
-- Module Scripts
-  - Placed in the module's own folder
-  - Only executed if the module is enabled
-  - `post-fs-data.sh` runs in post-fs-data mode, and `service.sh` runs in late_start service mode.
+- 通用脚本
+  - 放置在 `/data/adb/post-fs-data.d` 或 `/data/adb/service.d` 中
+  - 仅当脚本设置为可执行文件时才执行（`chmod +x script.sh`）
+  - `post-fs-data.d` 中的脚本以 post-fs-data 模式运行，`service.d` 的脚本以 late_start service 模式运行。
+  - 模块**不应在安装过程中添加常规脚本**
+- 模块脚本
+  - 放置在模块自己的文件夹中
+  - 仅在启用模块时执行
+  - `post-fs-data.sh` 以 post-fs-data 模式运行，而 `service.sh` 以 late_start service 模式运行。
 
-All boot scripts will run in Magisk's BusyBox `ash` shell with "Standalone Mode" enabled.
+所有启动脚本都将在 Magisk 的 BusyBox `ash` shell 中运行，并启用“独立模式”。
 
-## Root Directory Overlay System
+## 根目录覆盖系统
 
-Since `/` is read-only on system-as-root devices, Magisk provides an overlay system to enable developers to replace files in rootdir or add new `*.rc` scripts. This feature is designed mostly for custom kernel developers.
+由于 `/` 在 system-as-root 设备上是只读的，因此 Magisk 提供了一个覆盖系统，使开发者能够替换根目录中的文件或添加新的 `*.rc` 脚本。此功能主要为第三方内核开发者设计。
 
-Overlay files shall be placed in the `overlay.d` folder in boot image ramdisk, and they follow these rules:
+覆盖文件应放在 boot 映像 ramdisk 的 `overlay.d` 文件夹中，并遵循以下规则：
 
-1. All `*.rc` files in `overlay.d` will be read and concatenated **AFTER** `init.rc`
-2. Existing files can be replaced by files located at the same relative path
-3. Files that correspond to a non-existing file will be ignored
+1. `overlay.d` 中的所有 `*.rc` 文件将在 **`init.rc` 之后**被读取并链接 
+2. 现有文件可以替换为位于相同相对路径的文件
+3. 与不存在的文件对应的文件将被忽略
 
-To add additional files which you can refer to in your custom `*.rc` scripts, add them into `overlay.d/sbin`. The 3 rules above do not apply to anything in this folder; instead, they will be directly copied to Magisk's internal `tmpfs` directory (which used to always be `/sbin`).
+要添加您在自定义 `*.rc` 脚本中引用的其他文件，请将它们添加到 `overlay.d/sbin` 中。上面的 3 条规则不适用于此文件夹中的任何内容；相反，它们将直接复制到Magisk 的内部 `tmpfs` 目录（以前是 `/sbin` ）。
 
-Starting from Android 11, the `/sbin` folder may no longer exists, and in that scenario, Magisk randomly generates a different `tmpfs` folder each boot. Every occurrence of the pattern `${MAGISKTMP}` in your `*.rc` scripts will be replaced with the Magisk `tmpfs` folder when `magiskinit` injects it into `init.rc`. On pre Android 11 devices, `${MAGISKTMP}` will simply be replaced with `/sbin`, so **NEVER** hardcode `/sbin` in the `*.rc` scripts when referencing these additional files.
+从 Android 11 开始，`/sbin` 文件夹可能不再存在，在这种情况下，Magisk 会在每次启动时随机生成一个不同的 `tmpfs` 文件夹。当 `magiskinit` 将其注入 `init.rc` 时，`*.rc` 脚本中的 `${MAGISKTMP}` 都将替换为 Magisk  `tmpfs` 文件夹。在 Android 11 之前的设备上，`${MAGISKTMP}` 将简单地替换为 `/sbin` 。因此在引用这些附加文件时，`*.rc` 脚本中**永远不要硬编码 “`/sbin`”**。
 
-Here is an example of how to setup `overlay.d` with a custom `*.rc` script:
+下面是如何使用自定义 `*.rc` 脚本设置 `overlay.d` 的示例：
 
 ```
 ramdisk
 │
 ├── overlay.d
 │   ├── sbin
-│   │   ├── libfoo.ko      <--- These 2 files will be copied
-│   │   └── myscript.sh    <--- into Magisk's tmpfs directory
-│   ├── custom.rc          <--- This file will be injected into init.rc
+│   │   ├── libfoo.ko      <--- 这两个文件将被复制到 Magisk 的
+│   │   └── myscript.sh    <--- 的 tmpfs 目录中
+│   ├── custom.rc          <--- 此文件将被注入到 init.rc 中
 │   ├── res
-│   │   └── random.png     <--- This file will replace /res/random.png
-│   └── new_file           <--- This file will be ignored because
-│                               /new_file does not exist
+│   │   └── random.png     <--- 此文件将替换 /res/random.png
+│   └── new_file           <--- 此文件将被忽略，因为 /new_file 不存在
 ├── res
-│   └── random.png         <--- This file will be replaced by
-│                               /overlay.d/res/random.png
+│   └── random.png         <--- 此文件将被 /overlay.d/res/random.png
+|                               替换
 ├── ...
-├── ...  /* The rest of initramfs files */
+├── ...  /* 其余的 initramfs 文件 */
 │
 ```
 
-Here is an example of the `custom.rc`:
+这是 `custom.rc` 的示例：
 
+``` sh:line-numbers
+# 使用 ${MAGISKTMP} 引用 Magisk 的 tmpfs 目录
+
+on early-init
+    setprop sys.example.foo bar
+    insmod ${MAGISKTMP}/libfoo.ko
+    start myservice
+
+service myservice ${MAGISKTMP}/myscript.sh
+    oneshot
 ```
+
+::: details 原版示例
+``` sh:line-numbers
 # Use ${MAGISKTMP} to refer to Magisk's tmpfs directory
 
 on early-init
@@ -301,5 +316,8 @@ on early-init
 service myservice ${MAGISKTMP}/myscript.sh
     oneshot
 ```
+:::
+
 ## 参考链接
-[Magisk Developer Guides](https://topjohnwu.github.io/Magisk/guides.html)
+* [Magisk Developer Guides](https://topjohnwu.github.io/Magisk/guides.html)
+* [Magisk 开发者指南](https://e7kmbb.github.io/Magisk/guides.html)

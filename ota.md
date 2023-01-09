@@ -35,3 +35,6 @@ Magisk 不修改大多数只读分区，这意味着应用官方 OTA 要简单�
 - 恢复到官方映像和其他映像后，下载 OTA。可选地，一旦下载了 OTA 更新 zip，就可以找到提取 zip 的方法（因为它通常涉及 root 用户）
 - 应用 OTA 并重启设备。这将使用您设备的官方映像 OTA 安装机制来升级您的系统。
 - 一旦完成，您将得到一个升级的、100%官方的、未 root 的设备。你必须手动将 Magisk 刷回。如果您想经常接收官方 OTA，请考虑使用 步骤1 中所述的方法，在不接触恢复分区的情况下刷入 Magisk。
+
+## 参考链接
+* [Magisk OTA Upgrade Guides](https://topjohnwu.github.io/Magisk/ota.html)

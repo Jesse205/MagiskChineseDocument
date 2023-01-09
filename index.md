@@ -4,7 +4,9 @@ title: Magisk 中文文档
 titleTemplate: Magisk 中文文档
 ---
 
-# Magisk 中文文档 (由 Jesse205 翻译)
+<VPTeamMembers size="small" :members="members" />
+
+# Magisk 中文文档 <Badge type="tip" text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
 ![logo](/images/logo.png)
 本文档根据 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 进行翻译，并补充了一些内容。
 
@@ -17,7 +19,7 @@ titleTemplate: Magisk 中文文档
 
 #### 以下部分面向开发人员
 
-- [开发人员指南](guides.md)
+- [开发者指南](guides.md)
 - [Magisk 工具](tools.md)
 - [内部细节](details.md)
 - [Android 引导诡计](boot.md)
@@ -26,13 +28,14 @@ titleTemplate: Magisk 中文文档
 
 - [Magisk 官方仓库](https://github.com/topjohnwu/Magisk)
 - [Magisk 官方文档](https://topjohnwu.github.io/Magisk/)
+- [Magisk Delta](https://huskydg.github.io/magisk-files/)
 
 ## Magisk 许可（License）
 ### 中文汉化（百度翻译）
 ```
 Magisk，包括所有 git 子模块都是自由软件：
 您可以根据自由软件基金会发布的 GNU 通用公共许可证的条款（许可证的第3版，
-或（根据您的选择）任何更高版本）重新分发和/或修改它。
+或（根据您的选择）任何更高版本重新分发和/或修改它。
 
 分发此程序是希望它有用，但没有任何保证；甚至没有适销性或特定用途适用性
 的隐含保证。有关详细信息，请参阅GNU通用公共许可证。

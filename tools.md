@@ -273,29 +273,32 @@ Options:
   --mount-master                force run in the global mount namespace
 ```
 
-Note: even though the `-Z, --context` option is not listed above, the option still exists for CLI compatibility with apps designed for SuperSU. However the option is silently ignored since it's no longer relevant.
+::: tip 注意
+尽管上面没有列出 `-Z, --context` 选项，但该选项仍然存在，以便与为 SuperSU 设计的应用程序进行 CLI 兼容。然而，该选项被默默忽略，因为它不再相应。
+:::
 
 ## resetprop
 
-`magisk` 的小程序。高级系统属性操作实用程序。查看 [Resetprop详细信息](details.md#resetprop) 以了解更多背景信息。
+`magisk` 的小程序。高级系统属性操作实用程序。查看 [Resetprop 详细信息](details.md#重置属性-resetprop) 以了解更多背景信息。
 
 ```
 用法: resetprop [flags] [options...]
 
-Options:
-   -h, --help        show this message
-   (no arguments)    print all properties
-   NAME              get property
-   NAME VALUE        set property entry NAME with VALUE
-   --file FILE       load props from FILE
-   --delete NAME     delete property
+选项:
+   -h, --help        显示此消息
+   (no arguments)    输出所有属性
+   NAME              获取 NAME 属性
+   NAME VALUE        使用 VALUE 设置 NAME 属性
+   --file FILE       从 FILE 加载属性
+   --delete NAME     删除 NAME 属性
 
-Flags:
-   -v      print verbose output to stderr
-   -n      set props without going through property_service
-           (this flag only affects setprop)
-   -p      read/write props from/to persistent storage
-           (this flag only affects getprop and delprop)
+标志:
+   -v      将详细输出打印到 stderr
+   -n      设置 props 而不经过 property_service
+           (此标志仅影响 setprop)
+   -p      从/向持久存储读取/写入属性
+           (此标志仅影响 getprop 和 delprop)
 ```
 ## 参考链接
-[Magisk Tools](https://topjohnwu.github.io/Magisk/tools.html)
+* [Magisk Tools](https://topjohnwu.github.io/Magisk/tools.html)
+* [Magisk 工具](https://e7kmbb.github.io/Magisk/tools.html)

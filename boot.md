@@ -52,7 +52,7 @@ Android 启动可以大致分为 3 种主要的不同方法。我们提供了一
 
 SAR 是 [Project Treble](https://source.android.google.cn/devices/architecture#hidl) 中非常重要的一部分，因为 rootdir 应该与平台绑定。这也是方法 B 和 C 带有 `(LV >= ver)` 标准的原因，因为 Google 每年都强制所有 OEM 遵守更新的要求。
 
-## Some History
+## 一些历史
 
 When Google released the first generation Pixel, it also introduced [A/B (Seamless) System Updates](https://source.android.com/devices/tech/ota/ab). Due to [storage size concerns](https://source.android.com/devices/tech/ota/ab/ab_faqs), there are several differences compared to A-only, the most relevant one being the removal of `recovery` partition and the recovery ramdisk being merged into `boot`.
 
@@ -85,4 +85,4 @@ Further details on Type III devices: Magisk is always installed in the ramdisk o
 Some Type III devices' bootloader will still accept and provide `initramfs` that was manually added to the `boot` image to the kernel (e.g. some Xiaomi phones), but many device don't (e.g. Samsung S10, Note 10). It solely depends on how the OEM implements its bootloader.
 
 ## 参考链接
-[Magisk Android Booting Shenanigans](https://topjohnwu.github.io/Magisk/boot.html)
+* [Magisk Android Booting Shenanigans](https://topjohnwu.github.io/Magisk/boot.html)

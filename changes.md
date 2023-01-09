@@ -743,4 +743,4 @@
 - Initial release
 
 ## 参考链接
-[Magisk Magisk Changelog](https://topjohnwu.github.io/Magisk/changes.html)
+ * [Magisk Magisk Changelog](https://topjohnwu.github.io/Magisk/changes.html)

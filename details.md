@@ -6,7 +6,7 @@
 
 Magisk 将安装一个 `tmpfs` 目录来存储一些临时数据。对于带有 `/sbin` 文件夹的设备，将选择该文件夹，因为它还将充当将二进制文件注入 `PATH` 的覆盖层。从 Android 11 开始，`/sbin` 文件夹可能不存在，因此 Magisk 将在 `/dev` 下随机创建一个文件夹，并将其用作基本文件夹。
 
-``` sh
+``` shell
 # 为了获得Magisk正在使用的当前基本文件夹，使用命令 `magisk--path`。
 # 二进制文件，如 magisk、magiskinit 和所有小程序的符号链接直接存储
 # 在此路径中。这意味着当这是/sbin，这些二进制文件将直接在 PATH 中。
@@ -51,7 +51,7 @@ $MAGISKTMP/rootdir
 - 文件夹 secontext 标记为  `u:object_r:adb_data_file:s0`，很少有进程有权与该 secontext 进行任何交互。
 - 该文件夹位于*设备加密存储区*中，因此一旦数据正确装载到 FBE（File-Based Encryption，基于文件的加密）设备中，即可访问该文件夹。
 
-``` sh
+``` shell
 SECURE_DIR=/data/adb
 
 # 存储常规 post-fs-data 脚本的文件夹
@@ -103,14 +103,14 @@ DATABIN=$SECURE_DIR/magisk
 
 通常，系统属性（properties）被设计为仅由 `init` 更新，并且对非 root 进程是只读的。使用 root，您可以通过使用诸如 `setprop` 之类的命令向 `property_service`（由 `init` 托管）发送请求来更改属性，但仍然禁止更改只读属性（以`ro.`开头的属性，如`ro.build.product`）和删除属性。
 
-`resetprop` is implemented by distilling out the source code related to system properties from AOSP and patched to allow direct modification to property area, or `prop_area`, bypassing the need to go through `property_service`. Since we are bypassing `property_service`, there are a few caveats:
+`resetprop` 是通过从 AOSP 中提取出与系统属性相关的源代码来实现的，并进行了修补，以允许直接修改属性区域或 `prop_area`，而无需通过 `property_service` 。由于我们绕过了 `property_service` ，因此需要注意一些：
 
-- `on property:foo=bar` actions registered in `*.rc` scripts will not be triggered if property changes does not go through `property_service`. The default set property behavior of `resetprop` matches `setprop`, which **WILL** trigger events (implemented by first deleting the property then set it via `property_service`). There is a flag `-n` to disable it if you need this special behavior.
-- persist properties (props that starts with `persist.`, like `persist.sys.usb.config`) are stored in both `prop_area` and `/data/property`. By default, deleting props will **NOT** remove it from persistent storage, meaning the property will be restored after the next reboot; reading props will **NOT** read from persistent storage, as this is the behavior of `getprop`. With the flag `-p`, deleting props will remove the prop in **BOTH** `prop_area` and `/data/property`, and reading props will be read from **BOTH** `prop_area` and persistent storage.
+- 如果属性更改未通过 `property_service` ，则不会触发在 `*.rc` 脚本中注册的`on property:foo=bar` 操作。`resetprop` 的默认设置属性行为与 `setprop` 匹配，**这将触发事件**（通过首先删除属性，然后通过 `property_service` 设置它来实现）。如果您需要此特殊行为，则有一个标志 `-n` 可以禁用它。
+- 持久属性（以 `persist.` 开头的属性，如 `persist.sys.usb.config` ）存储在 `prop_area` 和 `/data/property` 中。默认情况下，删除属性不会将其从持久存储中删除，这意味着该属性将在下次重新启动后恢复;读取属性不会从持久存储中读取，因为这是 `getprop` 的行为。使用标志 `-p` ，删除属性将同时删除 `prop_area` 和 `/data/property` 中的属性，读取属性将从 `prop_area` 和持久存储中读取。
 
-## SELinux Policies
+## SELinux 政策
 
-Magisk will patch the stock `sepolicy` to make sure root and Magisk operations can be done in a safe and secure way. The new domain `magisk` is effectively permissive, which is what `magiskd` and all root shell will run in. `magisk_file` is a new file type that is setup to be allowed to be accessed by every domain (unrestricted file context).
+Magisk 将修补现成的 `sepolicy` ，以确保 Root 和 Magisk 操作能够以安全可靠的方式完成。新域 `magisk` 是有效的，这就是 `magiskd` 和所有 root shell 将在其中运行的内容。`magisk_file` 是一种新的文件类型，设置为允许每个域（不受限制的文件上下文）访问。
 
 Before Android 8.0, all allowed su client domains are allowed to directly connect to `magiskd` and establish connection with the daemon to get a remote root shell. Magisk also have to relax some `ioctl` operations so root shells can function properly.
 
@@ -119,4 +119,5 @@ After Android 8.0, to reduce relaxation of rules in Android's sandbox, a new SEL
 The full set of rules can be found in `magiskpolicy/rules.cpp`.
 
 ## 参考链接
-[Magisk Internal Details](https://topjohnwu.github.io/Magisk/details.html)
+* [Magisk Internal Details](https://topjohnwu.github.io/Magisk/details.html)
+* [Magisk 内部细节](https://e7kmbb.github.io/Magisk/details.html)
