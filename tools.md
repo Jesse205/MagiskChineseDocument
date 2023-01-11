@@ -25,51 +25,47 @@ su -> magisk
 
 支持的操作:
   unpack [-n] [-h] <bootimg>
-    Unpack <bootimg> to its individual components, each component to
-    a file with its corresponding file name in the current directory.
-    Supported components: kernel, kernel_dtb, ramdisk.cpio, second,
-    dtb, extra, and recovery_dtbo.
-    By default, each component will be automatically decompressed
-    on-the-fly before writing to the output file.
-    If '-n' is provided, all decompression operations will be skipped;
-    each component will remain untouched, dumped in its original format.
-    If '-h' is provided, the boot image header information will be
-    dumped to the file 'header', which can be used to modify header
-    configurations during repacking.
-    Return values:
+      将<bootimg>解压缩到其各个组件，每个组件到一个文件，并在当前目录中具有相
+    应的文件名。
+      支持的组件：kernel、kernel_dtb、ramdisk.cpio、second、dtb、extra 和
+    recovery_dtbo。
+      默认情况下，每个组件将在写入输出文件之前即时自动解压缩。
+      如果提供“-n”，则将跳过所有解压缩操作;每个组件将保持不变，以原始格式转储。
+      如果提供了“-h”，则启动映像标头信息将转储到文件“header”，该文件可用于
+    在重新打包期间修改标头配置。
+
+    返回值：
     0:valid    1:error    2:chromeos
 
   repack [-n] <origbootimg> [outbootimg]
-    Repack boot image components using files from the current directory
-    to [outbootimg], or 'new-boot.img' if not specified.
-    <origbootimg> is the original boot image used to unpack the components.
-    By default, each component will be automatically compressed using its
-    corresponding format detected in <origbootimg>. If a component file
-    in the current directory is already compressed, then no addition
-    compression will be performed for that specific component.
-    If '-n' is provided, all compression operations will be skipped.
-    If env variable PATCHVBMETAFLAG is set to true, all disable flags in
-    the boot image's vbmeta header will be set.
+      使用当前目录中的文件将启动映像组件重新打包到 [outbootimg]，如果未指
+    定，则为“new-boot.img”。
+      <origbootimg> 是用于解压缩组件的原始启动映像。
+      默认情况下，每个组件将使用 <origbootimg> 中检测到的相应格式自动压缩。如
+    果当前目录中的组件文件已被压缩，则不会对该特定组件执行任何附加压缩。
+      如果提供“-n”，则将跳过所有压缩操作。
+    如果 env 变量 PATCHVBMETAFLAG 设置为 true，则将设置启动映像的 vbmeta
+    header 中的所有禁用标志。
 
   hexpatch <file> <hexpattern1> <hexpattern2>
-    Search <hexpattern1> in <file>, and replace it with <hexpattern2>
+    在 <file> 中搜索 <hexpattern1>，并将其替换为 <hexpattern2>
 
   cpio <incpio> [commands...]
-    Do cpio commands to <incpio> (modifications are done in-place)
-    Each command is a single argument, add quotes for each command.
-    Supported commands:
+    对 <incpio> 执行 cpio 命令（修改已到位）
+    每个命令都是一个参数，请为每个命令添加引号。
+    支持的命令：
       exists ENTRY
-        Return 0 if ENTRY exists, else return 1
+        如果 ENTRY 存在，则返回 0，否则返回 1
       rm [-r] ENTRY
-        Remove ENTRY, specify [-r] to remove recursively
+        删除 ENTRY，指定 [-r] 以递归删除
       mkdir MODE ENTRY
-        Create directory ENTRY in permissions MODE
+        在 MODE 权限下创建目录 ENTRY
       ln TARGET ENTRY
-        Create a symlink to TARGET with the name ENTRY
+        使用名称 ENTRY 创建指向 TARGET 的符号链接
       mv SOURCE DEST
-        Move SOURCE to DEST
+        将 SOURCE 移动到 DEST
       add MODE ENTRY INFILE
-        Add INFILE as ENTRY in permissions MODE; replaces ENTRY if exists
+        在 MODE 权限中添加 INFILE 作为 ENTRY；替换 ENTRY（如果存在）
       extract [ENTRY OUT]
         Extract ENTRY to OUT, or extract all entries to current directory
       test
