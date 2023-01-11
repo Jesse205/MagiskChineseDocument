@@ -1,4 +1,4 @@
-import{_ as s,c as n,o as a,a as l}from"./app.e80040ee.js";const m=JSON.parse('{"title":"Magisk 工具","description":"","frontmatter":{},"headers":[{"level":2,"title":"magiskboot","slug":"magiskboot","link":"#magiskboot","children":[]},{"level":2,"title":"magiskinit","slug":"magiskinit","link":"#magiskinit","children":[]},{"level":2,"title":"magiskpolicy","slug":"magiskpolicy","link":"#magiskpolicy","children":[]},{"level":2,"title":"magisk","slug":"magisk","link":"#magisk","children":[]},{"level":2,"title":"su","slug":"su","link":"#su","children":[]},{"level":2,"title":"resetprop","slug":"resetprop","link":"#resetprop","children":[]},{"level":2,"title":"参考链接","slug":"参考链接","link":"#参考链接","children":[]}],"relativePath":"tools.md","lastUpdated":1673281957000}'),e={name:"tools.md"},p=l(`<h1 id="magisk-工具" tabindex="-1">Magisk 工具 <a class="header-anchor" href="#magisk-工具" aria-hidden="true">#</a></h1><p>Magisk 为开发人员提供了大量安装工具、守护程序和实用程序。本文档涵盖了4个二进制文件和所有包含的小程序。二进制文件和小程序如下所示：</p><div class="language-"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki material-palenight"><code><span class="line"><span style="color:#A6ACCD;">magiskboot                 /* binary */</span></span>
+import{_ as s,c as n,o as a,a as l}from"./app.e80040ee.js";const D=JSON.parse('{"title":"Magisk 工具","description":"","frontmatter":{},"headers":[{"level":2,"title":"magiskboot","slug":"magiskboot","link":"#magiskboot","children":[]},{"level":2,"title":"magiskinit","slug":"magiskinit","link":"#magiskinit","children":[]},{"level":2,"title":"magiskpolicy","slug":"magiskpolicy","link":"#magiskpolicy","children":[]},{"level":2,"title":"magisk","slug":"magisk","link":"#magisk","children":[]},{"level":2,"title":"su","slug":"su","link":"#su","children":[]},{"level":2,"title":"resetprop","slug":"resetprop","link":"#resetprop","children":[]},{"level":2,"title":"参考链接","slug":"参考链接","link":"#参考链接","children":[]}],"relativePath":"tools.md","lastUpdated":1673443374000}'),p={name:"tools.md"},e=l(`<h1 id="magisk-工具" tabindex="-1">Magisk 工具 <a class="header-anchor" href="#magisk-工具" aria-hidden="true">#</a></h1><p>Magisk 为开发人员提供了大量安装工具、守护程序和实用程序。本文档涵盖了4个二进制文件和所有包含的小程序。二进制文件和小程序如下所示：</p><div class="language-"><button title="Copy Code" class="copy"></button><span class="lang"></span><pre class="shiki material-palenight"><code><span class="line"><span style="color:#A6ACCD;">magiskboot                 /* binary */</span></span>
 <span class="line"><span style="color:#A6ACCD;">magiskinit                 /* binary */</span></span>
 <span class="line"><span style="color:#A6ACCD;">magiskpolicy               /* binary */</span></span>
 <span class="line"><span style="color:#A6ACCD;">supolicy -&gt; magiskpolicy</span></span>
@@ -9,51 +9,47 @@ import{_ as s,c as n,o as a,a as l}from"./app.e80040ee.js";const m=JSON.parse('{
 <span class="line"><span style="color:#A6ACCD;"></span></span>
 <span class="line"><span style="color:#A6ACCD;">支持的操作:</span></span>
 <span class="line"><span style="color:#A6ACCD;">  unpack [-n] [-h] &lt;bootimg&gt;</span></span>
-<span class="line"><span style="color:#A6ACCD;">    Unpack &lt;bootimg&gt; to its individual components, each component to</span></span>
-<span class="line"><span style="color:#A6ACCD;">    a file with its corresponding file name in the current directory.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    Supported components: kernel, kernel_dtb, ramdisk.cpio, second,</span></span>
-<span class="line"><span style="color:#A6ACCD;">    dtb, extra, and recovery_dtbo.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    By default, each component will be automatically decompressed</span></span>
-<span class="line"><span style="color:#A6ACCD;">    on-the-fly before writing to the output file.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    If &#39;-n&#39; is provided, all decompression operations will be skipped;</span></span>
-<span class="line"><span style="color:#A6ACCD;">    each component will remain untouched, dumped in its original format.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    If &#39;-h&#39; is provided, the boot image header information will be</span></span>
-<span class="line"><span style="color:#A6ACCD;">    dumped to the file &#39;header&#39;, which can be used to modify header</span></span>
-<span class="line"><span style="color:#A6ACCD;">    configurations during repacking.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    Return values:</span></span>
+<span class="line"><span style="color:#A6ACCD;">      将&lt;bootimg&gt;解压缩到其各个组件，每个组件到一个文件，并在当前目录中具有相</span></span>
+<span class="line"><span style="color:#A6ACCD;">    应的文件名。</span></span>
+<span class="line"><span style="color:#A6ACCD;">      支持的组件：kernel、kernel_dtb、ramdisk.cpio、second、dtb、extra 和</span></span>
+<span class="line"><span style="color:#A6ACCD;">    recovery_dtbo。</span></span>
+<span class="line"><span style="color:#A6ACCD;">      默认情况下，每个组件将在写入输出文件之前即时自动解压缩。</span></span>
+<span class="line"><span style="color:#A6ACCD;">      如果提供“-n”，则将跳过所有解压缩操作;每个组件将保持不变，以原始格式转储。</span></span>
+<span class="line"><span style="color:#A6ACCD;">      如果提供了“-h”，则启动映像标头信息将转储到文件“header”，该文件可用于</span></span>
+<span class="line"><span style="color:#A6ACCD;">    在重新打包期间修改标头配置。</span></span>
+<span class="line"><span style="color:#A6ACCD;"></span></span>
+<span class="line"><span style="color:#A6ACCD;">    返回值：</span></span>
 <span class="line"><span style="color:#A6ACCD;">    0:valid    1:error    2:chromeos</span></span>
 <span class="line"><span style="color:#A6ACCD;"></span></span>
 <span class="line"><span style="color:#A6ACCD;">  repack [-n] &lt;origbootimg&gt; [outbootimg]</span></span>
-<span class="line"><span style="color:#A6ACCD;">    Repack boot image components using files from the current directory</span></span>
-<span class="line"><span style="color:#A6ACCD;">    to [outbootimg], or &#39;new-boot.img&#39; if not specified.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    &lt;origbootimg&gt; is the original boot image used to unpack the components.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    By default, each component will be automatically compressed using its</span></span>
-<span class="line"><span style="color:#A6ACCD;">    corresponding format detected in &lt;origbootimg&gt;. If a component file</span></span>
-<span class="line"><span style="color:#A6ACCD;">    in the current directory is already compressed, then no addition</span></span>
-<span class="line"><span style="color:#A6ACCD;">    compression will be performed for that specific component.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    If &#39;-n&#39; is provided, all compression operations will be skipped.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    If env variable PATCHVBMETAFLAG is set to true, all disable flags in</span></span>
-<span class="line"><span style="color:#A6ACCD;">    the boot image&#39;s vbmeta header will be set.</span></span>
+<span class="line"><span style="color:#A6ACCD;">      使用当前目录中的文件将启动映像组件重新打包到 [outbootimg]，如果未指</span></span>
+<span class="line"><span style="color:#A6ACCD;">    定，则为“new-boot.img”。</span></span>
+<span class="line"><span style="color:#A6ACCD;">      &lt;origbootimg&gt; 是用于解压缩组件的原始启动映像。</span></span>
+<span class="line"><span style="color:#A6ACCD;">      默认情况下，每个组件将使用 &lt;origbootimg&gt; 中检测到的相应格式自动压缩。如</span></span>
+<span class="line"><span style="color:#A6ACCD;">    果当前目录中的组件文件已被压缩，则不会对该特定组件执行任何附加压缩。</span></span>
+<span class="line"><span style="color:#A6ACCD;">      如果提供“-n”，则将跳过所有压缩操作。</span></span>
+<span class="line"><span style="color:#A6ACCD;">    如果 env 变量 PATCHVBMETAFLAG 设置为 true，则将设置启动映像的 vbmeta</span></span>
+<span class="line"><span style="color:#A6ACCD;">    header 中的所有禁用标志。</span></span>
 <span class="line"><span style="color:#A6ACCD;"></span></span>
 <span class="line"><span style="color:#A6ACCD;">  hexpatch &lt;file&gt; &lt;hexpattern1&gt; &lt;hexpattern2&gt;</span></span>
-<span class="line"><span style="color:#A6ACCD;">    Search &lt;hexpattern1&gt; in &lt;file&gt;, and replace it with &lt;hexpattern2&gt;</span></span>
+<span class="line"><span style="color:#A6ACCD;">    在 &lt;file&gt; 中搜索 &lt;hexpattern1&gt;，并将其替换为 &lt;hexpattern2&gt;</span></span>
 <span class="line"><span style="color:#A6ACCD;"></span></span>
 <span class="line"><span style="color:#A6ACCD;">  cpio &lt;incpio&gt; [commands...]</span></span>
-<span class="line"><span style="color:#A6ACCD;">    Do cpio commands to &lt;incpio&gt; (modifications are done in-place)</span></span>
-<span class="line"><span style="color:#A6ACCD;">    Each command is a single argument, add quotes for each command.</span></span>
-<span class="line"><span style="color:#A6ACCD;">    Supported commands:</span></span>
+<span class="line"><span style="color:#A6ACCD;">    对 &lt;incpio&gt; 执行 cpio 命令（修改已到位）</span></span>
+<span class="line"><span style="color:#A6ACCD;">    每个命令都是一个参数，请为每个命令添加引号。</span></span>
+<span class="line"><span style="color:#A6ACCD;">    支持的命令：</span></span>
 <span class="line"><span style="color:#A6ACCD;">      exists ENTRY</span></span>
-<span class="line"><span style="color:#A6ACCD;">        Return 0 if ENTRY exists, else return 1</span></span>
+<span class="line"><span style="color:#A6ACCD;">        如果 ENTRY 存在，则返回 0，否则返回 1</span></span>
 <span class="line"><span style="color:#A6ACCD;">      rm [-r] ENTRY</span></span>
-<span class="line"><span style="color:#A6ACCD;">        Remove ENTRY, specify [-r] to remove recursively</span></span>
+<span class="line"><span style="color:#A6ACCD;">        删除 ENTRY，指定 [-r] 以递归删除</span></span>
 <span class="line"><span style="color:#A6ACCD;">      mkdir MODE ENTRY</span></span>
-<span class="line"><span style="color:#A6ACCD;">        Create directory ENTRY in permissions MODE</span></span>
+<span class="line"><span style="color:#A6ACCD;">        在 MODE 权限下创建目录 ENTRY</span></span>
 <span class="line"><span style="color:#A6ACCD;">      ln TARGET ENTRY</span></span>
-<span class="line"><span style="color:#A6ACCD;">        Create a symlink to TARGET with the name ENTRY</span></span>
+<span class="line"><span style="color:#A6ACCD;">        使用名称 ENTRY 创建指向 TARGET 的符号链接</span></span>
 <span class="line"><span style="color:#A6ACCD;">      mv SOURCE DEST</span></span>
-<span class="line"><span style="color:#A6ACCD;">        Move SOURCE to DEST</span></span>
+<span class="line"><span style="color:#A6ACCD;">        将 SOURCE 移动到 DEST</span></span>
 <span class="line"><span style="color:#A6ACCD;">      add MODE ENTRY INFILE</span></span>
-<span class="line"><span style="color:#A6ACCD;">        Add INFILE as ENTRY in permissions MODE; replaces ENTRY if exists</span></span>
+<span class="line"><span style="color:#A6ACCD;">        在 MODE 权限中添加 INFILE 作为 ENTRY；替换 ENTRY（如果存在）</span></span>
 <span class="line"><span style="color:#A6ACCD;">      extract [ENTRY OUT]</span></span>
 <span class="line"><span style="color:#A6ACCD;">        Extract ENTRY to OUT, or extract all entries to current directory</span></span>
 <span class="line"><span style="color:#A6ACCD;">      test</span></span>
@@ -242,4 +238,4 @@ import{_ as s,c as n,o as a,a as l}from"./app.e80040ee.js";const m=JSON.parse('{
 <span class="line"><span style="color:#A6ACCD;">           (此标志仅影响 setprop)</span></span>
 <span class="line"><span style="color:#A6ACCD;">   -p      从/向持久存储读取/写入属性</span></span>
 <span class="line"><span style="color:#A6ACCD;">           (此标志仅影响 getprop 和 delprop)</span></span>
-<span class="line"><span style="color:#A6ACCD;"></span></span></code></pre></div><h2 id="参考链接" tabindex="-1">参考链接 <a class="header-anchor" href="#参考链接" aria-hidden="true">#</a></h2><ul><li><a href="https://topjohnwu.github.io/Magisk/tools.html" target="_blank" rel="noreferrer">Magisk Tools</a></li><li><a href="https://e7kmbb.github.io/Magisk/tools.html" target="_blank" rel="noreferrer">Magisk 工具</a></li></ul>`,27),o=[p];function t(i,c,r,C,A,y){return a(),n("div",null,o)}const D=s(e,[["render",t]]);export{m as __pageData,D as default};
+<span class="line"><span style="color:#A6ACCD;"></span></span></code></pre></div><h2 id="参考链接" tabindex="-1">参考链接 <a class="header-anchor" href="#参考链接" aria-hidden="true">#</a></h2><ul><li><a href="https://topjohnwu.github.io/Magisk/tools.html" target="_blank" rel="noreferrer">Magisk Tools</a></li><li><a href="https://e7kmbb.github.io/Magisk/tools.html" target="_blank" rel="noreferrer">Magisk 工具</a></li></ul>`,27),o=[e];function t(c,i,r,C,A,y){return a(),n("div",null,o)}const m=s(p,[["render",t]]);export{D as __pageData,m as default};
