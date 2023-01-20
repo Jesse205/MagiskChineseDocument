@@ -7,13 +7,13 @@ titleTemplate: Magisk 中文文档
 
 # Magisk 中文文档 <Badge type="tip" text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
 ![logo](/images/logo.png)
-本文档根据 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 进行翻译，并补充了一些内容。
+本文档根据 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 进行翻译，并补充了很多内容。
 
-原始文档版本：2022年11月16日
+原始文档版本：2023年01月18日
 
 - [安装说明](install.md)
 - [常见问题](faq.md)
-- [发布日志](releases/index.md)
+- [发布日志](releases/)
 - [Magisk  更新日志](changes.md)
 
 #### 以下部分面向开发人员
@@ -28,6 +28,10 @@ titleTemplate: Magisk 中文文档
 - [Magisk 官方仓库](https://github.com/topjohnwu/Magisk)
 - [Magisk 官方文档](https://topjohnwu.github.io/Magisk/)
 - [Magisk Delta](https://huskydg.github.io/magisk-files/)
+
+##### 友情链接
+
+- [Edde 系列](https://jesse205.github.io/)
 
 ## Magisk 许可（License）
 ### 中文汉化（百度翻译）

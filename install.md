@@ -24,7 +24,7 @@
 
 如果您使用的是 Android 9.0 或更高版本的三星设备，您可以浏览[属于它的部分](#三星-system-as-root)。
 
-如果您的设备**有启动 ramdisk**，请获取 `boot.img` 的副本。<br>
+如果您的设备**有启动 ramdisk**，请获取 `boot.img`（或者 `init_boot.img`（如果存在））的副本。<br>
 如果您的设备**没有启动 ramdisk**，请获取 `recovery.img` 的副本。<br>
 
 您可以从官方固件包或第三方 ROM 刷机包中提取所需文件。
@@ -43,7 +43,7 @@
 
 1. 设备是否具有启动 ramdisk
 2. 设备是否有单独的 `vbmeta` 分区
-3. 基于 (1) 的 `boot.img` 或 `recovery.img`
+3. 基于 (1) 的 `boot.img` 、`init_boot.img` 或 `recovery.img`
 
 让我们继续[修补映像](#修补映像).
 

@@ -29,7 +29,7 @@
 ----
 - [Magisk 更新日志](/changes.md)
 
-## 其他版本
+## 其他日志
 
 - [Magisk Manager 更新日志](/app_changes.md)
 

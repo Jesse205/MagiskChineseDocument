@@ -1,3 +1,39 @@
+const NORMAL_LINKS = [
+    {
+        text: '面向普通用户',
+        //collapsible: true,
+        items: [
+            { text: '安装说明', link: '/install.md' },
+            { text: '常见问题', link: '/faq.md' },
+            { text: '发布日志', link: '/releases/' },
+            { text: 'Magisk  更新日志', link: '/changes.md' },
+        ]
+    }
+]
+const DEVELOPER_LINKS = [
+    {
+        text: '面向开发人员',
+        //collapsible: true,
+        items: [
+            { text: '开发者指南', link: '/guides.md' },
+            { text: 'Magisk 工具', link: '/tools.md' },
+            { text: '内部细节', link: '/details.md' },
+            { text: 'Android 引导诡计', link: '/boot.md' },
+        ]
+    }
+]
+
+const SIDE_BAR = {}
+let allItems = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
+for (let groupIndex in allItems) {
+    let group = allItems[groupIndex]
+    
+    for (let index in group.items) {
+        SIDE_BAR[group.items[index].link] = [group]
+    }
+}
+allItems = null
+
 export default {
     lang: 'zh-CN',
     title: 'Magisk 中文文档',
@@ -33,34 +69,14 @@ export default {
             },
         ],
         nav: [
-            { text: '官方仓库', link: 'https://github.com/topjohnwu/Magisk' },
+            ...NORMAL_LINKS,
+            ...DEVELOPER_LINKS,
             { text: '官方文档', link: 'https://topjohnwu.github.io/Magisk/' },
-            { text: 'Edde 系列', link: 'https://jesse205.github.io' },
+
         ],
-        sidebar: [
-            {
-                text: '面向普通用户',
-                collapsible: true,
-                items: [
-                    { text: '安装说明', link: '/install.md' },
-                    { text: '常见问题', link: '/faq.md' },
-                    { text: '发布日志', link: '/releases/index.md' },
-                    { text: 'Magisk  更新日志', link: '/changes.md' },
-                ]
-            },
-            {
-                text: '面向开发人员',
-                collapsible: true,
-                items: [
-                    { text: '开发者指南', link: '/guides.md' },
-                    { text: 'Magisk 工具', link: '/tools.md' },
-                    { text: '内部细节', link: '/details.md' },
-                    { text: 'Android 引导诡计', link: '/boot.md' },
-                ]
-            }
-        ],
+        sidebar: SIDE_BAR,
         footer: {
-            message: '原始文档版本：2022年11月16日',
+            message: '原始文档版本：2023年01月18日',
         },
         editLink: {
             pattern: 'https://gitee.com/Jesse205/magisk-chinese-document/edit/master/:path',
