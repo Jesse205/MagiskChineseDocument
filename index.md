@@ -2,9 +2,8 @@
 aside: false
 title: Magisk 中文文档
 titleTemplate: Magisk 中文文档
----
 
-<VPTeamMembers size="small" :members="members" />
+---
 
 # Magisk 中文文档 <Badge type="tip" text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
 ![logo](/images/logo.png)

@@ -53,7 +53,7 @@ su -> magisk
   cpio <incpio> [commands...]
     对 <incpio> 执行 cpio 命令（修改已到位）
     每个命令都是一个参数，请为每个命令添加引号。
-    支持的命令：
+    支持的命令:
       exists ENTRY
         如果 ENTRY 存在，则返回 0，否则返回 1
       rm [-r] ENTRY
@@ -67,44 +67,44 @@ su -> magisk
       add MODE ENTRY INFILE
         在 MODE 权限中添加 INFILE 作为 ENTRY；替换 ENTRY（如果存在）
       extract [ENTRY OUT]
-        Extract ENTRY to OUT, or extract all entries to current directory
+        将 ENTRY 解压到 OUT，或将所有条目解压到当前目录
       test
-        Test the cpio's status
-        Return value is 0 or bitwise or-ed of following values:
+        测试 cpio 的状态
+        返回值为0或或运算以下值：
         0x1:Magisk    0x2:unsupported    0x4:Sony
       patch
-        Apply ramdisk patches
-        Configure with env variables: KEEPVERITY KEEPFORCEENCRYPT
+        应用 ramdisk 补丁
+        用 env 变量进行配置：KEEPVERITY KEEPFORCEENCRYPT
       backup ORIG
-        Create ramdisk backups from ORIG
+        从 ORIG 创建 ramdisk 备份
       restore
-        Restore ramdisk from ramdisk backup stored within incpio
+        从 incpio 中存储的 ramdisk 备份恢复 ramdisk
       sha1
-        Print stock boot SHA1 if previously backed up in ramdisk
+        如果以前已在 ramdisk 中备份，则输出原始引导SHA1
 
   dtb <file> <action> [args...]
-    Do dtb related actions to <file>
-    Supported actions:
+    对 <file> 执行与 dtb 相关的操作
+    支持的操作：
       print [-f]
-        Print all contents of dtb for debugging
-        Specify [-f] to only print fstab nodes
+        打印 dtb 的所有内容以进行调试
+        指定 [-f] 以仅打印 fstab 节点
       patch
-        Search for fstab and remove verity/avb
-        Modifications are done directly to the file in-place
-        Configure with env variables: KEEPVERITY
+        搜索 fstab 并删除 verity/avb
+        直接对文件进行修改
+        使用env变量进行配置：KEEPVERITY
       test
-        Test the fstab's status
-        Return values:
+        测试 fstab 的状态
+        返回值:
         0:valid    1:error
 
   split <file>
-    Split image.*-dtb into kernel + kernel_dtb
+    将 image.*-dtb 拆分为 kernel + kernel_dtb
 
   sha1 <file>
-    Print the SHA1 checksum for <file>
+    出 <file> 的 SHA1 校验和
 
   cleanup
-    Cleanup the current working directory
+    清理当前工作目录
 
   compress[=format] <infile> [outfile]
     Compress <infile> with [format] to [outfile].

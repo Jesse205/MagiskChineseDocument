@@ -6,13 +6,16 @@ export default {
     ignoreDeadLinks: true,
     lastUpdated: true,
     head: [
-        ['link', { rel: 'icon', href: '/MagiskChineseDocument/favicon.ico', sizes:'any' }],
+        ['link', { rel: 'icon', href: '/MagiskChineseDocument/favicon.ico', sizes: 'any' }],
         ['link', { rel: 'apple-touch-icon', href: '/MagiskChineseDocument/apple-touch-icon.png' }],
     ],
     themeConfig: {
         logo: '/favicon.ico',
         outlineTitle: '本页内容',
         lastUpdatedText: '更新时间',
+        darkModeSwitchLabel: '深色模式',
+        sidebarMenuLabel: '菜单',
+        returnToTopLabel: '回到顶部',
         docFooter: {
             prev: '上一篇',
             next: '下一篇'
@@ -32,10 +35,12 @@ export default {
         nav: [
             { text: '官方仓库', link: 'https://github.com/topjohnwu/Magisk' },
             { text: '官方文档', link: 'https://topjohnwu.github.io/Magisk/' },
+            { text: 'Edde 系列', link: 'https://jesse205.github.io' },
         ],
         sidebar: [
             {
                 text: '面向普通用户',
+                collapsible: true,
                 items: [
                     { text: '安装说明', link: '/install.md' },
                     { text: '常见问题', link: '/faq.md' },
@@ -45,6 +50,7 @@ export default {
             },
             {
                 text: '面向开发人员',
+                collapsible: true,
                 items: [
                     { text: '开发者指南', link: '/guides.md' },
                     { text: 'Magisk 工具', link: '/tools.md' },
