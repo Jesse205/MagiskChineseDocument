@@ -119,5 +119,6 @@ Magisk 将修补现成的 `sepolicy` ，以确保 Root 和 Magisk 操作能够�
 完整的规则可以在 `magiskpolicy/rules.cpp` 中找到。
 
 ## 参考链接
-* [Magisk Internal Details](https://topjohnwu.github.io/Magisk/details.html)
-* [Magisk 内部细节](https://e7kmbb.github.io/Magisk/details.html)
+
+- [Magisk Internal Details](https://topjohnwu.github.io/Magisk/details.html)（官方）
+- [Magisk 内部细节](https://e7kmbb.github.io/Magisk/details.html)

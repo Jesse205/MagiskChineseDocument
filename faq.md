@@ -8,9 +8,11 @@
 
 ::: tip 提示
 如果您不知道什么是 ADB shell ，那么请在电脑上直接运行以下命令
+
 ``` shell
 adb shell magisk --remove-modules
 ```
+
 如果您还不知道什么是 ADB ，那么请查看[《Android 调试桥 (adb)》](https://developer.android.google.cn/studio/command-line/adb?hl=zh-cn)
 :::
 
@@ -25,9 +27,11 @@ Magisk 不再处理 Root 隐藏。有大量 Magisk/Zygisk 模块专门提供这�
 当隐藏 Magisk App 时，它将安装一个“存根”APK，其中没有任何内容。这个存根应用程序的唯一功能是将完整的 Magisk app APK 下载到其内部存储并动态加载。由于APK实际上是 _empty_，因此它不包含 APP 的图标资源。
 
 当您打开隐藏的 Magisk App 时，它将为您提供在主屏幕中创建快捷方式的选项（其中包含正确的应用名称和图标），以方便您使用。您还可以手动要求应用在应用设置中创建图标。
+
 ## Q: 为什么这个文档很多错误或者不通顺的地方
 
 这个文档本质上还是机器翻译的，然而机器翻译的正确率有待提高。如果您发现了这些错误或者不通顺的地方，希望您可以向我们[提交反馈](https://gitee.com/Jesse205/magisk-chinese-document/issues)。
 
 ## 参考链接
-* [Magisk Frequently Asked Questions](https://topjohnwu.github.io/Magisk/faq.html)
+
+* [Magisk Frequently Asked Questions](https://topjohnwu.github.io/Magisk/faq.html)（官方）

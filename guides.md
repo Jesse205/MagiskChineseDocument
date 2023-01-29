@@ -8,8 +8,8 @@ Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支�
 
 对于想在 Magisk 之外使用“独立模式”功能的开发者，有两种方法可以启用它：
 
-1. 将环境变量 `ASH_STANDALONE` 设置为 `1`<br>示例：`ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
-2. 使用命令行选项切换：<br>`/data/adb/magisk/busybox sh -o standalone <script>`
+1. 将环境变量 `ASH_STANDALONE` 设置为 `1`<br/>示例：`ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
+2. 使用命令行选项切换：<br/>`/data/adb/magisk/busybox sh -o standalone <script>`
 
 为了确保所有后续执行的 `sh` shell 也以独立模式运行，选项1是首选方法（这是 Magisk 和 Magisk app 内部使用的方法），因为环境变量向下继承到子进程。
 
@@ -17,7 +17,7 @@ Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支�
 
 Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 
-```
+``` txt
 /data/adb/modules
 ├── .
 ├── .
@@ -79,6 +79,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 这是 `module.prop` **必须遵守的**格式
 
 （以下代码块虽然标注为 js，但实际上是 prop，此操作仅为提供代码高亮）
+
 ``` js:line-numbers
 id=<字符串> <string>
 name=<字符串> <string>
@@ -89,7 +90,7 @@ description=<字符串> <string>
 updateJson=<链接> <url> (可选)
 ```
 
-- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是开头必须为字母，后面为字母、数字、点 `.` 、下划线 `_` 和减号 `-`）<br>
+- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是开头必须为字母，后面为字母、数字、点 `.` 、下划线 `_` 和减号 `-`）<br/>
   示例: `a_module` <Badge type="tip" text="✓" />、`a.module` <Badge type="tip" text="✓" />、`module-101` <Badge type="tip" text="✓" />、`a module` <Badge type="danger" text="✗" />、`1_module` <Badge type="danger" text="✗" />、`-a-module` <Badge type="danger" text="✗" /><br>
   这是模块的**唯一标识符**。模块发布后，您不应更改它。
 - `versionCode `必须是**整数**。这用于对比版本，以便检查更新。
@@ -144,7 +145,7 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 
 模块安装程序脚本将会设置环境，将模块文件从 zip 文件提取到正确的位置，然后完成安装过程，这对于大多数简单的 Magisk 模块来说应该足够好了。
 
-```
+``` txt
 模块module.zip
 │
 ├── META-INF
@@ -184,6 +185,7 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 ::: tip 提示
 您可以在 [这里](https://source.android.google.cn/docs/setup/about/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases) 找到所有 Android 版本对应的 API 级别
 :::
+
 ##### 函数
 
 ``` shell
@@ -271,7 +273,7 @@ REPLACE="
 
 下面是如何使用自定义 `*.rc` 脚本设置 `overlay.d` 的示例：
 
-```
+``` txt
 ramdisk
 │
 ├── overlay.d
@@ -305,6 +307,7 @@ service myservice ${MAGISKTMP}/myscript.sh
 ```
 
 ::: details 原版示例
+
 ``` sh:line-numbers
 # Use ${MAGISKTMP} to refer to Magisk's tmpfs directory
 
@@ -316,8 +319,10 @@ on early-init
 service myservice ${MAGISKTMP}/myscript.sh
     oneshot
 ```
+
 :::
 
 ## 参考链接
-* [Magisk Developer Guides](https://topjohnwu.github.io/Magisk/guides.html)
-* [Magisk 开发者指南](https://e7kmbb.github.io/Magisk/guides.html)
+
+- [Magisk Developer Guides](https://topjohnwu.github.io/Magisk/guides.html)（官方）
+- [Magisk 开发者指南](https://e7kmbb.github.io/Magisk/guides.html)

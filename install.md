@@ -33,9 +33,11 @@
 
 - 如果您的官方固件包包含 `vbmeta.img` ，那么您的设备**有单独的 `vbmeta` 分区**
 - 您还可以通过将设备连接到 PC 并运行以下命令进行检查：
+
   ```  shell
   adb shell ls -l /dev/block/by-name
   ```
+
 - 如果找到 `vbmeta`、`vbmeta_a` 或 `vbmeta_b` ，那么您的设备**有单独的 `vbmeta` 分区**
 - 否则，您的设备**没有单独的 `vbmeta` 分区**。
 
@@ -55,20 +57,26 @@
 - 如果您的设备**没有单独的 `vbmeta` 分区**，请选中 **“修补启动映像中的vbmeta”** 选项
 - 在方式中选择 **“选择并修补一个文件”** ，然后选择 boot/recovery 映像
 - 开始安装，并使用 ADB 将修补的映像复制到您的电脑：<br>
+
   ``` shell
   adb pull /sdcard/Download/magisk_patched_[随机字符].img PC上magisk_patched.img的路径
   ```
+
 - 将修补好的 boot 或 recovery 映像刷入到您的设备。<br>
   对于大多数设备，重启到 fastboot 模式，并使用以下命令刷入：<br>
+
   ``` shell
   fastboot flash boot PC上magisk_patched.img的路径
   # 或者
   fastboot flash recovery PC上magisk_patched.img的路径
-  ``` 
+  ```
+
 - (可选) 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区 <br>
+
   ``` shell
   fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
   ```
+
 - 重启，瞧！
 
 ## 卸载
@@ -120,9 +128,11 @@
 - 如果您的设备**没有** boot ramdisk，勾选 **“Recovery模式”** 选项
 - 在方式中选择 **“选择并修补一个文件”** ，然后选择 `AP` tar文件
 - 开始安装，并使用ADB将修补的tar文件复制到您的电脑：
+
   ``` shell
   adb pull /sdcard/Download/magisk_patched_[random_strings].tar
   ```
+
   注意：**不要使用MTP**，因为它可能会损坏大型文件。
 - 重新引导至下载模式。在 PC 上打开 Odin，然后刷入 `magisk_patched.tar` 作为 `AP`，并伴随着 `BL`，`CP` 和 `CSC` （**不是** `HOME_CSC` ，因为我们想**擦除数据**） 从原始固件。
 - Odin完成刷入后，设备将自动重新启动。如果询问，同意进行工厂重置。
@@ -138,7 +148,7 @@
 
 - **永远不要**尝试将 `boot` 、`recovery` 或 `vbmeta` 分区恢复到官方！您可以通过这样做来损坏设备，而从中恢复的唯一方法是使用数据擦除进行完整的Odin恢复。
 - 要使用新固件升级设备，**切勿**直接使用官方存 `AP` tar 文件，原因如上所述。**始终**在Magisk应用程序中修补 `AP` 并使用它。
-- 万不要只刷入 `AP` ，否则 Odin 可能会缩小` /data` 文件系统的大小。升级时请刷入 `AP` + `BL` + `CP` + `HOME_CSC` 。
+- 万不要只刷入 `AP` ，否则 Odin 可能会缩小`/data` 文件系统的大小。升级时请刷入 `AP` + `BL` + `CP` + `HOME_CSC` 。
 
 ## 第三方 Recovery
 
@@ -157,5 +167,6 @@
 :::
 
 ## 参考链接
-[Magisk Installation](https://topjohnwu.github.io/Magisk/install.html)<br>
-[Magisk 安装指南](https://cnoim.coding.net/s/41961bff-16f8-4370-9e0c-af8390a6ec89)
+
+- [Magisk Installation](https://topjohnwu.github.io/Magisk/install.html)（官方）
+- [Magisk 安装指南](https://cnoim.coding.net/s/41961bff-16f8-4370-9e0c-af8390a6ec89)

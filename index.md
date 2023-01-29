@@ -6,6 +6,7 @@ titleTemplate: Magisk 中文文档
 ---
 
 # Magisk 中文文档 <Badge type="tip" text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
+
 ![logo](/images/logo.png)
 本文档根据 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 进行翻译，并补充了很多内容。
 
@@ -34,8 +35,10 @@ titleTemplate: Magisk 中文文档
 - [Edde 系列](https://jesse205.github.io/)
 
 ## Magisk 许可（License）
+
 ### 中文汉化（百度翻译）
-```
+
+``` txt
 Magisk，包括所有 git 子模块都是自由软件：
 您可以根据自由软件基金会发布的 GNU 通用公共许可证的条款（许可证的第3版，
 或（根据您的选择）任何更高版本重新分发和/或修改它。
@@ -48,7 +51,8 @@ Magisk，包括所有 git 子模块都是自由软件：
 ```
 
 ### 英文原版
-```
+
+``` txt
 Magisk, including all git submodules are free software:
 you can redistribute it and/or modify it under the terms of the
 GNU General Public License as published by the Free Software Foundation,

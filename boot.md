@@ -15,7 +15,7 @@
 - **LV**：推出版本。设备**推出时**使用的安卓版本。也就是说，设备首次上市时预装的 Android 版本。
 - **RV**：运行版本。设备当前运行的 Android 版本。
 
-我们将使用 **Android API 级别** 来表示 LV 和 RV 。API 级别和 Android 版本之间的映射可以在 (https://source.android.google.cn/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases) 中看到。例如：Pixel XL 随 Android 7.1 发布，并运行 Android 10，这些参数将为 `(LV = 25, RV = 29)` 。
+我们将使用 **Android API 级别** 来表示 LV 和 RV 。API 级别和 Android 版本之间的映射可以在 (<https://source.android.google.cn/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases>) 中看到。例如：Pixel XL 随 Android 7.1 发布，并运行 Android 10，这些参数将为 `(LV = 25, RV = 29)` 。
 
 ## 引导方法
 
@@ -28,16 +28,16 @@ Android 启动可以大致分为 3 种主要的不同方法。我们提供了一
 **C** | `rootfs` | `system`
 
 - **方法 A - 传统 ramdisk**：这是*所有* Android 设备过去启动的方式（过去的美好时光）。内核使用 `initramfs` 作为 rootdir，exec `/init` 来引导。
-	- 不属于方法 B 和 C 标准中的设备
+  - 不属于方法 B 和 C 标准中的设备
 - **方法 B - 传统 SAR**：此方法首次出现在 Pixel 1 上。内核直接挂载 `system` 分区作为 rootdir 并且 exec `/init` 来引导。
-	- 具有 `(LV = 28)` 的设备
-	- 谷歌：Pixel 1 和 2。Pixel3 和 3a 为 `(RV = 28)` 时
-	- 一加：6 - 7
-	- 也许一些 `(LV < 29)` Android Go 设备？
+  - 具有 `(LV = 28)` 的设备
+  - 谷歌：Pixel 1 和 2。Pixel3 和 3a 为 `(RV = 28)` 时
+  - 一加：6 - 7
+  - 也许一些 `(LV < 29)` Android Go 设备？
 - **方法 C - 2SI ramdisk SAR**：此方法首次出现在 Pixel 3 Android 10 开发者预览版中。内核使用 `initramfs` 作为 rootdir，在 `rootfs` 中使用 exec `/init`。这个 `init` 负责挂载 `system` 分区并将其用作新的 rootdir，最后执行 `/system/bin/init` 来引导。
-	- 具有 `(LV >= 29)` 的设备
-	- 具有 `(LV < 28, RV >= 29)` 的设备，不包括已在使用方法 B 的设备
-	- 谷歌：Pixel 3 和 3a 为 `(RV >= 29)` 时
+  - 具有 `(LV >= 29)` 的设备
+  - 具有 `(LV < 28, RV >= 29)` 的设备，不包括已在使用方法 B 的设备
+  - 谷歌：Pixel 3 和 3a 为 `(RV >= 29)` 时
 
 ### 讨论
 
@@ -85,4 +85,5 @@ SAR 是 [Project Treble](https://source.android.google.cn/devices/architecture#h
 一些 III 类设备的引导加载程序仍然会接受并提供手动添加到内核“引导”映像中的 `initramfs`（例如一些小米手机），但许多设备不接受（例如三星 S10，Note 10）。这完全取决于 OEM 如何实现其引导加载程序。
 
 ## 参考链接
-* [Magisk Android Booting Shenanigans](https://topjohnwu.github.io/Magisk/boot.html)
+
+- [Magisk Android Booting Shenanigans](https://topjohnwu.github.io/Magisk/boot.html)（官方）
