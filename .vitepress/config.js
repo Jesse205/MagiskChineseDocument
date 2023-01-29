@@ -76,7 +76,7 @@ export default {
         ],
         sidebar: SIDE_BAR,
         footer: {
-            message: '原始文档版本：2023年01月18日',
+            message: '原始文档版本：2023年01月18日<br/>在GPL-3.0许可下发布',
         },
         editLink: {
             pattern: 'https://gitee.com/Jesse205/magisk-chinese-document/edit/master/:path',
