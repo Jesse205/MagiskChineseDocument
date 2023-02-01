@@ -17,7 +17,7 @@
 
 <p align="center"><img src="1.png" width="500"/></p>
 
-**Ramdisk** 的结果决定了您的设备的在 boot 分区中是否有 ramdisk。 如果您的设备没有启动 ramdisk，请在继续之前阅读 [Recovery 中的 Magisk](#Recovery 中的 Magisk) 部分。
+**Ramdisk** 的结果决定了您的设备的在 boot 分区中是否有 ramdisk。 如果您的设备没有启动 ramdisk，请在继续之前阅读 [Recovery 中的 Magisk](#Recovery-中的-Magisk) 部分。
 
 > _（不幸的是，有一些例外情况，因为某些设备的引导加载程序会接受 ramdisk，即使它不应该接受。 在这种情况下，您必须按照说明进行操作，就好像您的设备的 boot 分区确实包含 ramdisk 一样。 没有什么办法检测到这一点，因此唯一可以确定的方法就是实际尝试。 幸运的是，据我们所知，只有部分小米设备具有此属性，所以大多数人可以简单地忽略这条信息。）_
 
@@ -107,7 +107,7 @@
 - 使用 [samfirm.js](https://github.com/jesec/samfirm.js), [Frija](https://forum.xda-developers.com/s10-plus/how-to/tool-frija-samsung-firmware-downloader-t3910594), 或 [Samloader](https://forum.xda-developers.com/s10-plus/how-to/tool-samloader-samfirm-frija-replacement-t4105929) 直接从三星服务器下载设备的最新 zip 固件 。
 - 解压缩固件并将 `AP` tar 文件复制到您的设备。 它通常命名为 `AP_[device_model_sw_ver].tar.md5`
 - 点击 Magisk 主屏幕中的**安装**按钮
-- 如果您的设备**没有**启动 ramdisk，请选中**“Recovery 模式”**选项
+- 如果您的设备**没有**启动 ramdisk，请选中**\“Recovery 模式\”**选项
 - 在方式中选择 **"选择并修补一个文件"** ，选择 `AP` tar 文件
 - 开始安装，并使用 adb 将修补后的映像复制到您的 PC：<br>
   `adb pull /sdcard/Download/magisk_patched_[random_strings].tar`<br>
@@ -139,7 +139,7 @@
 - 在电脑上下载 Magisk APK
 - 在第三方 Recovery 中选择 adb sideload 选项
 - 在电脑上输入：<br>
-  `adb sideload /path/to/magisk.apk
+  `adb sideload /path/to/magisk.apk`
 - 等待刷入完成，以手机上的显示为准。
 - 重新启动并检查是否安装了 Magisk 应用程序。 如果未自动安装，请手动安装 APK。
 - 赶紧备份全部字库！
