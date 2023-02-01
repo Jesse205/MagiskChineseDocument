@@ -1,7 +1,7 @@
 const NORMAL_LINKS = [
     {
         text: '面向普通用户',
-        //collapsible: true,
+        // collapsed: false,
         items: [
             { text: '安装说明', link: '/install.md' },
             { text: '常见问题', link: '/faq.md' },
@@ -13,7 +13,7 @@ const NORMAL_LINKS = [
 const DEVELOPER_LINKS = [
     {
         text: '面向开发人员',
-        //collapsible: true,
+        // collapsed: false,
         items: [
             { text: '开发者指南', link: '/guides.md' },
             { text: 'Magisk 工具', link: '/tools.md' },
@@ -27,10 +27,15 @@ const SIDE_BAR = {}
 let allItems = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
 for (let groupIndex in allItems) {
     let group = allItems[groupIndex]
-    
+    let activeMatch = ''
     for (let index in group.items) {
         SIDE_BAR[group.items[index].link] = [group]
+        if (index != 0)
+            activeMatch += '|'
+        activeMatch += group.items[index].link.replace('\.md','')
     }
+    console.log(activeMatch);
+    group.activeMatch = activeMatch
 }
 allItems = null
 

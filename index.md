@@ -24,16 +24,6 @@ titleTemplate: Magisk 中文文档
 - [内部细节](details.md)
 - [Android 引导诡计](boot.md)
 
-#### 相关链接
-
-- [Magisk 官方仓库](https://github.com/topjohnwu/Magisk)
-- [Magisk 官方文档](https://topjohnwu.github.io/Magisk/)
-- [Magisk Delta](https://huskydg.github.io/magisk-files/)
-
-##### 友情链接
-
-- [Edde 系列](https://jesse205.github.io/)
-
 ## Magisk 许可（License）
 
 ### 中文汉化（百度翻译）
@@ -66,3 +56,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ```
+
+## 相关链接
+
+- [Magisk 官方仓库](https://github.com/topjohnwu/Magisk)
+- [Magisk 官方文档](https://topjohnwu.github.io/Magisk/)
+- [Magisk Delta](https://huskydg.github.io/magisk-files/)
+
+## 友情链接
+
+- [刷机指南](https://efadg.netlify.app/)
+- [Edde 系列](https://jesse205.github.io/)
