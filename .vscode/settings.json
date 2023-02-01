@@ -2,7 +2,8 @@
     "cSpell.words": [
         "magisk",
         "magiskinit",
-        "topjohnwu"
+        "topjohnwu",
+        "vbmeta"
     ],
     "typescript.tsdk": "node_modules/typescript/lib"
 }
