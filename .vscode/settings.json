@@ -1,7 +1,13 @@
 {
     "cSpell.words": [
+        "DATABIN",
         "magisk",
+        "MAGISKDB",
         "magiskinit",
+        "MAGISKTMP",
+        "resetprop",
+        "rootdir",
+        "setprop",
         "topjohnwu",
         "vbmeta"
     ],
