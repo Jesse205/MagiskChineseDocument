@@ -157,7 +157,7 @@
 ## 华为
 
 ::: danger
-这部分已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 的版本。
+这部分现已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 的版本。
 :::
 
 Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloader 不可解锁，更重要的是他们不遵循标准的 Android 分区方案。以下只是一些一般性指导。
@@ -166,10 +166,10 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 
 一般遵循[修补映像](#修补映像)，但与原始说明有所不同：
 
-- 下载固件 zip 后，您必须使用[Huawei Update Extractor](https://forum.xda-developers.com/showthread.php?t=2433454)（仅限 Windows！）从 zip 中的 `UPDATE.APP` 提取映像
+- 下载固件 zip 后，您必须使用 [Huawei Update Extractor](https://forum.xda-developers.com/showthread.php?t=2433454)（仅限 Windows！）从 zip 中的 `UPDATE.APP` 提取映像
 - 关于修补映像：
   - 如果您的设备有启动 ramdisk，请修补 `ramdisk.img`, 而不是 `boot.img`（部分设备依旧需要修补 `boot.img` ）
-  - 如果您的设备**没有启动 ramdisk**，请修补`RECOVERY_RAMDIS.img`（这不是拼写错误），而不是 `recovery.img`（部分设备依旧需要修补 `recovery.img` ）
+  - 如果您的设备**没有启动 ramdisk**，请修补 `RECOVERY_RAMDIS.img`（这不是拼写错误），而不是 `recovery.img`（部分设备依旧需要修补 `recovery.img` ）
 - 使用 `fastboot` 将映像时
   - 如果修补了 `RAMDISK.img` ，请使用命令 `fastboot flash ramdisk magisk修补后的映像.img` 刷入
   - 如果修补了 `RECOVERY_RAMDIS.img` ，请使用命令 `fastboot flash recovery_ramdisk magisk修补后的映像.img` 刷入
