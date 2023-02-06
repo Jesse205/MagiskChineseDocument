@@ -25,7 +25,7 @@ su -> magisk
 
 支持的操作:
   unpack [-n] [-h] <bootimg>
-      将<bootimg>解压缩到其各个组件，每个组件到一个文件，并在当前目录中具有相
+      将 <bootimg> 解压缩到其各个组件，每个组件到一个文件，并在当前目录中具有相
     应的文件名。
       支持的组件：kernel、kernel_dtb、ramdisk.cpio、second、dtb、extra 和
     recovery_dtbo。
@@ -91,7 +91,7 @@ su -> magisk
       patch
         搜索 fstab 并删除 verity/avb
         直接对文件进行修改
-        使用env变量进行配置：KEEPVERITY
+        使用 env 变量进行配置：KEEPVERITY
       test
         测试 fstab 的状态
         返回值:
@@ -107,19 +107,19 @@ su -> magisk
     清理当前工作目录
 
   compress[=format] <infile> [outfile]
-    Compress <infile> with [format] to [outfile].
-    <infile>/[outfile] can be '-' to be STDIN/STDOUT.
-    If [format] is not specified, then gzip will be used.
-    If [outfile] is not specified, then <infile> will be replaced
-    with another file suffixed with a matching file extension.
-    Supported formats: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
+    使用 [format] 将 <infile> 压缩为 [outfile]。
+    可以是“-”，以作为 STDIN/STDOUT。
+    如果未指定 [format]，则将使用 gzip。
+    如果未指定 [outfile]，则 <infile> 将被替换为
+    后缀为匹配文件扩展名的另一个文件。
+    支持格式: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
 
   decompress <infile> [outfile]
-    Detect format and decompress <infile> to [outfile].
-    <infile>/[outfile] can be '-' to be STDIN/STDOUT.
-    If [outfile] is not specified, then <infile> will be replaced
-    with another file removing its archive format file extension.
-    Supported formats: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
+    检测格式并将 <infile> 解压缩到 [outfile]。
+    <infile>/[outfile] 可以是“-”，以作为 STDIN/STDOUT。
+    如果未指定 [outfile]，则 <infile> 将替换为另一个文件，
+    删除其文件格式文件扩展名。
+    支持格式: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
 ```
 
 ## magiskinit
@@ -132,26 +132,24 @@ su -> magisk
 
 高级开发人员可以使用此工具修改 SELinux 策略。在像 Linux 服务器管理员这样的常见场景中，他们会直接修改 SELinux 策略源（`*.te`）并重新编译 `sepolicy` 二进制文件，但在 Android 上，我们直接修补二进制文件（或运行时策略）。
 
-All processes spawned from the Magisk daemon, including root shells and all its forks, are running in the context `u:r:magisk:s0`. The rule used on all Magisk installed systems can be viewed as stock `sepolicy` with these patches: `magiskpolicy --magisk 'allow magisk * * *'`.
+Magisk 守护进程派生的所有进程，包括 root shell 及其所有分支，都在上下文 `u:r:magisk:s0` 中运行。所有安装了 Magisk 的系统上使用的规则都可以被视为官方的 `sepolicy` 具有以下补丁：`magiskpolicy --magisk 'allow magisk * * *'`。
 
 ``` txt
 用法: ./magiskpolicy [--options...] [policy statements...]
 
-Options:
-   --help            show help message for policy statements
-   --load FILE       load monolithic sepolicy from FILE
-   --load-split      load from precompiled sepolicy or compile
-                     split cil policies
-   --compile-split   compile split cil policies
-   --save FILE       dump monolithic sepolicy to FILE
-   --live            immediately load sepolicy into the kernel
-   --magisk          apply built-in Magisk sepolicy rules
-   --apply FILE      apply rules from FILE, read and parsed
-                     line by line as policy statements
-                     (multiple --apply are allowed)
+选项:
+   --help            显示policy语句的帮助消息
+   --load FILE       \ 从FILE加载sepolicy
+   --load-split      从预编译的 sepolicy 加载或编译拆分的 cil 策略
+   --compile-split   编译拆分的cil策略
+   --save FILE       将整体策略转储到 FILE 文件
+   --live            立即将 sepolicy 加载到内核中
+   --magisk          应用内置 Magisk sepolicy 规则
+   --apply FILE      应用 FILE 中的规则，作为策略语句逐行读取和分析
+                     (允许多重 --apply)
 
-If neither --load, --load-split, nor --compile-split is specified,
-it will load from current live policies (/sys/fs/selinux/policy)
+如果既没有指定 --load、--load-split，也没有指定 --compile-split，则它
+将从当前活动策略（/sys/fs/selinux/policy）加载
 
 One policy statement should be treated as one parameter;
 this means each policy statement should be enclosed in quotes.
@@ -207,7 +205,7 @@ Supported policy statements:
 
 ## magisk
 
-当使用名称 `magisk` 调用magisk二进制文件时，它作为一个实用工具，具有许多助手函数和几个 Magisk 服务的入口点。
+当使用名称 `magisk` 调用 magisk 二进制文件时，它作为一个实用工具，具有许多助手函数和几个 Magisk 服务的入口点。
 
 ``` txt
 用法: magisk [applet [arguments]...]
