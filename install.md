@@ -24,7 +24,7 @@
 
 如果您使用的是搭载 Android 9.0 或更高版本的三星设备，您可以跳转到[属于它的部分](#三星-system-as-root)。
 
-如果您的设备**有启动 ramdisk**，请获取 `boot.img`（ 或者 `init_boot.img`（如果存在，在出厂时搭载安卓13的设备通常时这样的，比如红米K60Pro）的副本。<br>
+如果您的设备**有启动 ramdisk**，请获取 `boot.img` 或者 `init_boot.img`（如果存在。在出厂时搭载安卓13的设备通常时这样的，比如红米K60Pro）的副本。<br>
 如果您的设备**没有启动 ramdisk**，请获取 `recovery.img` 的副本。<br>
 
 您可以从官方固件包或第三方 ROM 刷机包中提取所需文件。
@@ -153,6 +153,26 @@
 - **永远不要**尝试将 `boot` 、`recovery` 或 `vbmeta` 分区恢复到官方！这样做会破坏您的设备。从中恢复的唯一方法是清除数据进行完整的 Odin 恢复。
 - 要使升级设备的固件，**切勿**直接使用官方存 `AP` tar 文件，原因如上所述。**始终在 Magisk 应用程序中修补 `AP` 并使用它**。
 - 永远不要只刷入 `AP` ，否则 Odin 可能会缩小 `/data` 文件系统的大小。升级时请刷入 `AP` + `BL` + `CP` + `HOME_CSC` 。
+
+## 华为
+
+::: danger
+这部分已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 的版本。
+:::
+
+Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloader 不可解锁，更重要的是他们不遵循标准的 Android 分区方案。以下只是一些一般性指导。
+
+使用麒麟处理器的华为设备与大多数普通设备的分区方法不同。Magisk 通常安装在设备的 `boot` 分区，但华为设备没有这个分区。
+
+一般遵循[修补映像](#修补映像)，但与原始说明有所不同：
+
+- 下载固件 zip 后，您必须使用[Huawei Update Extractor](https://forum.xda-developers.com/showthread.php?t=2433454)（仅限 Windows！）从 zip 中的 `UPDATE.APP` 提取映像
+- 关于修补映像：
+  - 如果您的设备有启动 ramdisk，请修补 `ramdisk.img`, 而不是 `boot.img`（部分设备依旧需要修补 `boot.img` ）
+  - 如果您的设备**没有启动 ramdisk**，请修补`RECOVERY_RAMDIS.img`（这不是拼写错误），而不是 `recovery.img`（部分设备依旧需要修补 `recovery.img` ）
+- 使用 `fastboot` 将映像时
+  - 如果修补了 `RAMDISK.img` ，请使用命令 `fastboot flash ramdisk magisk修补后的映像.img` 刷入
+  - 如果修补了 `RECOVERY_RAMDIS.img` ，请使用命令 `fastboot flash recovery_ramdisk magisk修补后的映像.img` 刷入
 
 ## 第三方 Recovery
 

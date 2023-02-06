@@ -5,6 +5,7 @@
         "MAGISKDB",
         "magiskinit",
         "MAGISKTMP",
+        "RAMDIS",
         "resetprop",
         "rootdir",
         "setprop",
