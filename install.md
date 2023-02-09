@@ -79,7 +79,7 @@
   fastboot flash recovery PC上magisk_patched.img的路径
   ```
 
-- (可选) 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区 <br>
+- (可选) 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区 
 
   ``` shell
   fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
@@ -161,16 +161,26 @@
 ## 华为
 
 ::: danger
-这部分现已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 的版本。
+这部分现已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 并补充后的版本。
 :::
 
 Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloader 不可通过官方途径解锁，更重要的是他们不遵循标准的 Android 分区方案。以下只是一些一般性指导。
 
 使用了麒麟处理器的华为设备与大多数常见设备的分区方式不同。Magisk 通常安装在设备的 `boot` 分区，但是华为设备没有这个分区。根据您的设备运行的 EMUI 版本，说明会略有不同。
 
-::: danger
-请勿使用最新版本的 Magisk 应用（在我的华为畅享7，SLA-AL00，EMUI 5.1.2，Android 7.0上使用最新的 Magisk v25.2 时会触发引导循环并直接重启至 eRecovery）！我推荐使用 [Magisk v23.0](https://github.com/topjohnwu/Magisk/releases/tag/v23.0) 或使用 [Magisk v20.4](https://github.com/topjohnwu/Magisk/releases/tag/v20.4) （下载「Magisk-v20.4.zip」）搭配 [Magisk Manager v7.5.1](https://github.com/topjohnwu/Magisk/releases/tag/manager-v7.5.1) （下载「MagiskManager-v7.5.1.apk」）
+:::: danger
+请勿使用最新版本的 Magisk 应用！我推荐使用 [Magisk v23.0](https://github.com/topjohnwu/Magisk/releases/tag/v23.0) 或使用 [Magisk v20.4](https://github.com/topjohnwu/Magisk/releases/tag/v20.4) （下载「Magisk-v20.4.zip」）搭配 [Magisk Manager v7.5.1](https://github.com/topjohnwu/Magisk/releases/tag/manager-v7.5.1) （下载「MagiskManager-v7.5.1.apk」）
+
+::: details Magisk 兼容性列表
+
+| 名称 | 型号 | EMUI 版本 | Android 版本 | 详情 |
+| ---- | ---- | ---- | ---- | ---- |
+| 华为畅享7 | SLA-AL00 | EMUI 5.1.2 | Android 7.0 | 使用 Magisk v25.2 时会触发引导循环并直接重启至 eRecovery |
+| 荣耀畅玩4C | CHM-TL00H | EMUI 4.0 | Android 6.0 | 使用新版 Magisk 会导致无法授权 |
+| 荣耀畅玩6X | BLN-AL10 | EMUI 8.0 | Android 8.0 | 上没有这个问题 |
+
 :::
+::::
 
 ### 获得官方映像
 
@@ -180,28 +190,37 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 
 遵循[入门](#入门)的教程，唯一的不同在于**请勿使用最新版本的 Magisk 应用！**
 
-> 提示：进入 fastboot 模式需要将手机**使用数据线连接电脑**，而进入 Recovery 模式则**不能**将手机使用连接到电脑！所以如果您在 fastboot 模式中刷入 Recovery 映像后务必**将手机与电脑断开连接后**再按下「电源」+「音量增大」来进入 Recovery，否则您将进入没用的「eRecovery」。
+> 提示：进入 fastboot 模式需要将手机**使用数据线连接电脑**，而进入 Recovery 模式则**不能**将手机使用连接到电脑！所以如果您在 fastboot 模式中刷入 Recovery 映像后请**将手机与电脑断开连接后**再按下「电源」+「音量增大」来进入 Recovery，否则您将进入的「eRecovery」。
 
 ### EMUI 8
 
 对于运行 EMUI 8 的设备，您的设备有一个名为 `ramdisk` 的分区，这是将要安装 Magisk 的地方。
 
-- 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-Recovery) 的说明进行操作即可。
-- 如果您不打算使用第三方 Recovery，则必须从您的固件中提取 `RAMDISK.img`。 按照上面的[修补映像](#修补映像)说明进行操作，但使用 `RAMDISK.img` 文件而不是 boot 映像！
-- 要将修补后的映像刷入您的设备，请使用 fastboot 命令：<br>
-`fastboot flash ramdisk /path/to/magisk_patched.img` <br>
+- 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-recovery) 的说明进行操作即可。
+- 如果您不打算使用第三方 Recovery，则必须从您的固件中提取 `RAMDISK.img` 。 按照上面的[修补映像](#修补映像)说明进行操作，但使用 `RAMDISK.img` 文件而不是 boot 映像！
+- 要将修补后的映像刷入您的设备，请使用 fastboot 命令：
+
+  ``` shell
+  fastboot flash ramdisk /path/to/magisk_patched.img
+  ```
+
 请注意，您正在刷入 `ramdisk`，而不是 `boot`！
 
 ### EMUI 9 或更高版本
+
 对于 EMUI 9+ 设备，`ramdisk` 分区不再存在。 作为解决方法，Magisk 将安装到 `recovery_ramdisk` 分区。 **在按照以下说明操作之前，请先阅读 [Recovery 中的 Magisk](#recovery-中的-magisk) ！**
 
 *注意：正如在 荣耀 View 10 上测试的那样，华为的内核似乎无法在早期启动时捕获按键事件，因此长按音量增大不会在我的设备上**不**启动到 Recovery。 您的体验可能会有所不同。*
 
-- 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-Recovery) 的说明进行操作即可。 <br>
+- 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-recovery) 的说明进行操作即可。<br>
 **警告：Magisk 将覆盖第三方 Recovery。**
 - 如果您不打算使用第三方 Recovery，则必须从固件中提取 `RECOVERY_RAMDIS.img` （这不是拼写错误），而不是 `recovery.img`（部分设备依旧需要修补 `recovery.img` ）。 按照上面的引导映像修补说明进行操作，但使用 `RECOVERY_RAMDIS.img` 文件而不是 boot 映像！
-- 要将修补后的映像刷入您的设备，请使用 fastboot 命令：<br>
-`fastboot flash recovery_ramdisk /path/to/magisk_patched.img` <br>
+- 要将修补后的映像刷入您的设备，请使用 fastboot 命令：
+
+  ``` shell
+  fastboot flash recovery_ramdisk /path/to/magisk_patched.img
+  ```
+
 请注意，您正在刷入 `recovery_ramdisk`，而不是 `boot`！
 
 ## 第三方 Recovery
