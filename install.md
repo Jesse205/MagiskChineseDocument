@@ -1,6 +1,6 @@
 # 安装
 
-如果您已经安装了 Magisk ，**强烈建议**直接通过Magisk应用程序的「直接安装」方法进行升级。以下教程仅针对初始安装。
+如果您已经安装了 Magisk ，**强烈建议**直接通过 Magisk 应用程序的「直接安装」方法进行升级。以下教程仅针对初始安装。
 
 - 如果您在使用运行着 **EMUI 8** 或更高版本的华为设备，请查看[相应部分](#华为)。
 - 如果您使用的是**搭载 Android 9.0** 或更高版本的三星设备（2019 年新设备），请查看[相应部分](#三星-system-as-root)。
@@ -75,7 +75,7 @@
 
   ``` shell
   fastboot flash boot PC上magisk_patched.img的路径
-  # 或者
+  # 如果刚刚修补的是 recovery 映像则改用：
   fastboot flash recovery PC上magisk_patched.img的路径
   ```
 
@@ -93,15 +93,15 @@
 
 ## Recovery 中的 Magisk
 
-如果您的设备在 boot 映像中没有 ramdisk ，则 Magisk 只能劫持 Recovery 分区。对于这些设备，每次启用 Magisk 时都必须**启动至 Recovery**。
+如果您的设备在 boot 映像中没有 ramdisk ，Magisk 别无选择，只能劫持 Recovery 分区。对于这些设备，每次启用 Magisk 时都必须**重新启动至 Recovery**。
 
-当 Magisk 劫持 recovery 时，有一个特殊的机制允许您实际进入到 Recovery 模式。每个设备都有自己的启动到 Recovery 的按键组合，（例如几乎所有的小米设备均为「电源」+「音量增大」以及 Galaxy S10 的「电源」+「Bixby」+「音量增大」）。百度搜索（或者 Bing 搜索、Google 搜索）可以很容易地获得这些信息。一旦你按下组合键，设备就会显示启动屏幕并振动，释放所有按键即可启动 Magisk。如果您决定引导到实际的 Recovery 模式，请**长按音量+，直到看到 Recovery 屏幕**。
+当 Magisk 劫持 recovery 时，有一个特殊的机制允许您实际进入到 Recovery 模式。每个设备都有自己的启动到 Recovery 模式的按键组合，（例如几乎所有的小米设备均为「电源」+「音量增大」以及 Galaxy S10 的「电源」+「Bixby」+「音量增大」）。百度搜索（或者 Bing 搜索、Google 搜索）可以很容易地获得这些信息。一旦你按下组合键，设备就会显示启动屏幕（可能还会振动），释放所有按键即可启动 Magisk。如果您决定引导到实际的 Recovery 模式，请**长按音量增大，直到看到 Recovery 屏幕**。
 
 总之，在 recovery 中安装 Magisk 后 **（从关机开始）**：
 
 - **(正常开机) → (无 Magisk 的系统)**
 - **(按键组合) → (启动屏幕) → (释放所有按钮) → (带有 Magisk 的系统)**
-- **(按键组合) → (启动屏幕) → (长按音量+) → (Recovery 模式)**
+- **(按键组合) → (启动屏幕) → (长按音量增大) → (Recovery 模式)**
 
 （注意：在这种情况下，您**不能使用 第三方 Recovery 来安装或升级 Magisk**！！）
 
