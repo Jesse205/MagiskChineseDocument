@@ -67,3 +67,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 - [刷机指南](https://efadg.netlify.app/)
 - [Edde 系列](https://jesse205.github.io/)
+- [Magisk 资源分享](https://main.suchenqaq.club/)

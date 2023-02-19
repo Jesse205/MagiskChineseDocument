@@ -34,7 +34,6 @@ for (let groupIndex in allItems) {
             activeMatch += '|'
         activeMatch += group.items[index].link.replace('\.md','')
     }
-    console.log(activeMatch);
     group.activeMatch = activeMatch
 }
 allItems = null

@@ -138,8 +138,8 @@ Magisk 守护进程派生的所有进程，包括 root shell 及其所有分支�
 用法: ./magiskpolicy [--options...] [policy statements...]
 
 选项:
-   --help            显示policy语句的帮助消息
-   --load FILE       \ 从FILE加载sepolicy
+   --help            显示 policy 语句的帮助消息
+   --load FILE       从 FILE 加载 sepolicy
    --load-split      从预编译的 sepolicy 加载或编译拆分的 cil 策略
    --compile-split   编译拆分的cil策略
    --save FILE       将整体策略转储到 FILE 文件
@@ -151,25 +151,23 @@ Magisk 守护进程派生的所有进程，包括 root shell 及其所有分支�
 如果既没有指定 --load、--load-split，也没有指定 --compile-split，则它
 将从当前活动策略（/sys/fs/selinux/policy）加载
 
-One policy statement should be treated as one parameter;
-this means each policy statement should be enclosed in quotes.
-Multiple policy statements can be provided in a single command.
 
-Statements has a format of "<rule_name> [args...]".
-Arguments labeled with (^) can accept one or more entries. Multiple
-entries consist of a space separated list enclosed in braces ({}).
-Arguments labeled with (*) are the same as (^), but additionally
-support the match-all operator (*).
+一个策略声明应被视为一个参数，这意味着每个策略声明都应该用引号括起来。
+可以在一个命令中提供多个策略语句。
 
-Example: "allow { s1 s2 } { t1 t2 } class *"
-Will be expanded to:
+语句的格式为“<rule_name> [args...]”。
+标有 (^) 的参数可以接受一个或多个条目。多个条目由大括号 ({}) 中的空格分隔列表组成。
+标有 (*) 的参数与 (^) 相同，但另外支持 match-all 运算符 (*)。
+
+示例："allow { s1 s2 } { t1 t2 } class *"
+将扩展到：
 
 allow s1 t1 class { all-permissions-of-class }
 allow s1 t2 class { all-permissions-of-class }
 allow s2 t1 class { all-permissions-of-class }
 allow s2 t2 class { all-permissions-of-class }
 
-Supported policy statements:
+支持的策略声明：
 
 "allow *source_type *target_type *class *perm_set"
 "deny *source_type *target_type *class *perm_set"
@@ -179,10 +177,10 @@ Supported policy statements:
 "allowxperm *source_type *target_type *class operation xperm_set"
 "auditallowxperm *source_type *target_type *class operation xperm_set"
 "dontauditxperm *source_type *target_type *class operation xperm_set"
-- The only supported operation is 'ioctl'
-- xperm_set format is either 'low-high', 'value', or '*'.
-  '*' will be treated as '0x0000-0xFFFF'.
-  All values should be written in hexadecimal.
+- 唯一支持的操作是“ioctl”
+- xperm_set 格式为 “low-high”、“value”或“*”。
+  “*”将被视为“0x0000-0xFFFF”。
+  所有值应以十六进制书写。
 
 "permissive ^type"
 "enforce ^type"

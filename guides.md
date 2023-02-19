@@ -24,13 +24,13 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 |
 ├── $MODID                  <--- 文件夹以模块的 ID 命名
 │   │
-│   │      *** 模块标识 ***
+│   │      *** 模块 ID ***
 │   │
 │   ├── module.prop         <--- 此文件存储模块的元数据（metadata）
 │   │
 │   │      *** 主要内容 ***
 │   │
-│   ├── system              <--- 如果 skip_mount 不存在，将装入此文件夹
+│   ├── system              <--- 如果 skip_mount 不存在，将挂载此文件夹
 │   │   ├── ...
 │   │   ├── ...
 │   │   └── ...
@@ -44,7 +44,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 │   │
 │   │      *** 状态标志 ***
 │   │
-│   ├── skip_mount          <--- 如果存在，Magisk 将不会装载您的 system 文件夹
+│   ├── skip_mount          <--- 如果存在，Magisk 将不会挂载您的 system 文件夹
 │   ├── disable             <--- 如果存在，模块将被禁用
 │   ├── remove              <--- 如果存在，模块将在下次重新启动时删除
 │   │
@@ -153,7 +153,7 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 │       └── google
 │           └── android
 │               ├── update-binary      <--- 您下载 module_installer.sh
-│               └── updater-script     <--- 应仅包含字符串“#MAGISK”
+│               └── updater-script     <--- 应只包含字符串“#MAGISK”
 │
 ├── customize.sh                       <--- （可选，稍后将详细介绍）
 │                                           此脚本将来源于 update-binary
@@ -162,15 +162,15 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 │
 ```
 
-#### 定制
+### 自定义
 
-如果需要自定义模块安装过程，可以选择在安装程序中创建名为 `customize.sh` 的脚本。在提取所有文件并设置默认权限和 secontext 后，该脚本将由模块安装程序脚本*提供*（未执行！）。如果您的模块需要基于设备 ABI 进行其他设置，或者您需要为某些模块文件设置特殊权限/secontext，这将非常有用。
+如果需要自定义模块安装过程，可以选择在安装程序中创建名为 `customize.sh` 的脚本。在提取所有文件并设置默认权限和 secontext 后，该脚本将由 update-binary 脚本*提供*（未执行！）。如果您的模块需要基于设备 ABI 进行其他设置，或者您需要为某些模块文件设置特殊权限/secontext，这将非常有用。
 
 如果要完全控制和自定义安装过程，请在 `customize.sh` 中声明 `SKIPUNZIP=1` 以跳过所有默认安装步骤。这样，您的 `customize.sh` 将负责自行安装所有内容。
 
 `customize.sh` 脚本在 Magisk 的 BusyBox `ash` shell 中运行，并启用了“独立模式”。以下变量和函数可用：
 
-##### 变量
+#### 变量
 
 - `MAGISK_VER` (string): 当前安装的 Magisk 的版本字符串（例如 `v20.0` ）
 - `MAGISK_VER_CODE` (int): 当前安装的Magisk的版本代码（例如 `20000` ）
@@ -186,7 +186,7 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 您可以在 [这里](https://source.android.google.cn/docs/setup/about/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases) 找到所有 Android 版本对应的 API 级别
 :::
 
-##### 函数
+#### 函数
 
 ``` shell
 ui_print <msg>
@@ -223,7 +223,7 @@ REPLACE="
 
 上面的列表将对应创建以下文件：`$MODPATH/system/app/YouTube/.replace` 和 `$MODPATH/system/app/Bloatware/.replace` 。
 
-#### 注意
+### 注意
 
 - 使用 Magisk 应用程序下载模块时，`update-binary` 将**强制替换为最新的 [`module_installer.sh`](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh)** 。 **不要尝试在 `update-binary` 中添加任何自定义逻辑**。
 - 由于历史原因，**请勿在模块 zip 中添加名为 `install.sh` 的文件**。

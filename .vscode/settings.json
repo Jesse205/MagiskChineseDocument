@@ -8,6 +8,7 @@
         "RAMDIS",
         "resetprop",
         "rootdir",
+        "sepolicy",
         "setprop",
         "topjohnwu",
         "vbmeta"
