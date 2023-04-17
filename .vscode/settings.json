@@ -13,5 +13,18 @@
         "topjohnwu",
         "vbmeta"
     ],
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "markdownlint.config": {
+        "default": true,
+        "MD033": {
+            "allowed_elements": [
+                "Badge",
+                "br",
+                "script",
+                "img",
+                "p"
+            ]
+        },
+        "MD025": false
+    }
 }

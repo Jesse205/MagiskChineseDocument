@@ -74,7 +74,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 ├── .
 ```
 
-#### module.prop
+### module.prop
 
 这是 `module.prop` **必须遵守的**格式
 
@@ -93,7 +93,7 @@ updateJson=<链接> <url> (可选)
 - `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是开头必须为字母，后面为字母、数字、点 `.` 、下划线 `_` 和减号 `-`）<br/>
   示例: `a_module` <Badge type="tip" text="✓" />、`a.module` <Badge type="tip" text="✓" />、`module-101` <Badge type="tip" text="✓" />、`a module` <Badge type="danger" text="✗" />、`1_module` <Badge type="danger" text="✗" />、`-a-module` <Badge type="danger" text="✗" /><br>
   这是模块的**唯一标识符**。模块发布后，您不应更改它。
-- `versionCode `必须是**整数**。这用于对比版本，以便检查更新。
+- `versionCode` 必须是**整数**。这用于对比版本，以便检查更新。
 - `updateJson` 应该指向一个 URL，该 URL 下载 JSON 以提供信息，以便 Magisk app 可以更新模块。
 - 上面没有提到的其他字符串可以是任何**单行**字符串。
 - 确保使用 `UNIX (LF)` 换行类型，而不是 `Windows (CR+LF)` 或 `Macintosh (CR)`。
@@ -109,30 +109,30 @@ updateJson=<链接> <url> (可选)
 }
 ```
 
-#### Shell 脚本 (`*.sh`)
+### Shell 脚本 (`*.sh`)
 
-请阅读 [Boot Scripts](#boot-scripts) 部分，了解 `post-fs-data.sh` 和 `service.sh` 之间的区别。对于大多数模块开发人员来说，如果您只需要运行引导脚本，`service.sh` 应该足够好了。
+请阅读 [启动脚本](#启动脚本) 部分，了解 `post-fs-data.sh` 和 `service.sh` 之间的区别。对于大多数模块开发人员来说，如果您只需要运行引导脚本，`service.sh` 应该足够好了。
 
 在模块的所有脚本中，请使用 `MODDIR=${0%/*}` 获取模块的基本目录路径；**不要**在脚本中硬编码模块路径。<br>
 如果启用了Zygisk，则环境变量 `ZYGISK_ENABLED` 将设置为 `1` 。
 
-#### `system` 文件夹
+### `system` 文件夹
 
 要替换/注入的所有文件都应放在此文件夹中。此文件夹将以递归方式合并到真正的 `/system` 中，也就是说：真实 `/system` 中的现有文件将被模块 `system` 中的文件替换，模块 `system` 中的新文件将被添加到真实 `/system` 中。
 
 如果您将名为 `.replace` 的文件放在任何文件夹中，而不是合并其内容，则该文件夹将直接替换实际系统中的文件夹。这对于交换整个文件夹非常方便。
 
-如果要替换 `/vendor` 、`/product` 或 `/system_ext` 中的文件，请分别将它们放在 `system/vendor` 、`system/product` 和 `system/system_ext` 下。Magisk 将透明地处理这些分区是否位于单独的分区中。
+如果要替换 `/vendor` 、 `/product` 或 `/system_ext` 中的文件，请分别将它们放在 `system/vendor` 、`system/product` 和 `system/system_ext` 下。Magisk 将透明地处理这些分区是否位于单独的分区中。
 
-#### zygisk
+### zygisk
 
 Zygisk 是 Magisk 的一项功能，它允许高级模块开发人员在每个 Android 应用程序的进程中直接运行代码，然后再进行专业化和运行。有关 Zygisk API 和构建 Zygisk 模块的更多详细信息，请查看 [Zygisk 模块示例](https://github.com/topjohnwu/zygisk-module-sample) 项目。
 
-#### system.prop
+### system.prop
 
 此文件遵循与 `build.prop` 相同的格式。每行由 `[key]=[value]`组成。
 
-#### sepolicy.rule
+### sepolicy.rule
 
 如果您的模块需要一些额外的 sepolicy 补丁，请将这些规则添加到此文件中。此文件中的每一行都将被视为策略语句。有关如何格式化策略语句的更多详细信息，请查看 [magiskpolicy](tools.md#magiskpolicy) 的文档。
 
@@ -180,7 +180,7 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 - `ZIPFILE` (path): your module's installation zip 模块的压缩文件
 - `ARCH` (string): 设备的 CPU 架构。值为 `arm` 、`arm64` 、`x86` 或 `x64`
 - `IS64BIT` (bool): 如果 `$ARCH` 是 `arm64` 或 `x64` ，则为 `true`
-- `API` (int): 设备的 API 级别（安卓版本）（例如，Android 5.0 的 `21` ）
+- `API` (int): 设备的 API 级别（安卓版本）（例如，Android 6.0 的 `23` ）
 
 ::: tip 提示
 您可以在 [这里](https://source.android.google.cn/docs/setup/about/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases) 找到所有 Android 版本对应的 API 级别

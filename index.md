@@ -5,28 +5,32 @@ titleTemplate: Magisk 中文文档
 
 ---
 
+<script setup>
+import { useData } from 'vitepress'
+
+const { theme } = useData()
+</script>
+
 # Magisk 中文文档 <Badge type="tip" text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
 
 ![logo](/images/logo.png)
-本文档根据 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 进行翻译，并补充了很多内容。
+本文档翻译了 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 并补充了很多内容。
 
-原始文档版本：2023年01月18日
+原始文档版本：{{theme.originDocumentDate}}
 
 - [安装说明](install.md)
 - [常见问题](faq.md)
 - [发布日志](releases/)
 - [Magisk  更新日志](changes.md)
 
-#### 以下部分面向开发人员
+__以下部分面向开发人员__:
 
 - [开发者指南](guides.md)
 - [Magisk 工具](tools.md)
 - [内部细节](details.md)
 - [Android 引导诡计](boot.md)
 
-## Magisk 许可（License）
-
-### 中文汉化（百度翻译）
+## Magisk 许可（License）<Badge type="tip" text="使用 百度翻译 汉化" />
 
 ``` txt
 Magisk，包括所有 git 子模块都是自由软件：
@@ -40,7 +44,11 @@ Magisk，包括所有 git 子模块都是自由软件：
 <http://www.gnu.org/licenses/>.
 ```
 
-### 英文原版
+::: warning
+中文汉化版许可仅供参考，请以英文原版为准
+:::
+
+::: details 英文原版
 
 ``` txt
 Magisk, including all git submodules are free software:
@@ -56,6 +64,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ```
+
+:::
 
 ## 相关链接
 

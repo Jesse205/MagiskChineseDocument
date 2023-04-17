@@ -1,3 +1,6 @@
+// 原始文档日期
+const ORIGIN_DOCUMENT_DATE = "2023年04月12日"
+
 const NORMAL_LINKS = [
     {
         text: '面向普通用户',
@@ -32,7 +35,7 @@ for (let groupIndex in allItems) {
         SIDE_BAR[group.items[index].link] = [group]
         if (index != 0)
             activeMatch += '|'
-        activeMatch += group.items[index].link.replace('\.md','')
+        activeMatch += group.items[index].link.replace('\.md', '')
     }
     group.activeMatch = activeMatch
 }
@@ -50,6 +53,7 @@ export default {
         ['link', { rel: 'apple-touch-icon', href: '/MagiskChineseDocument/apple-touch-icon.png' }],
     ],
     themeConfig: {
+        originDocumentDate: ORIGIN_DOCUMENT_DATE,
         logo: '/favicon.ico',
         outlineTitle: '本页内容',
         lastUpdatedText: '更新时间',
@@ -80,11 +84,14 @@ export default {
         ],
         sidebar: SIDE_BAR,
         footer: {
-            message: '原始文档版本：2023年01月18日<br/>在GPL-3.0许可下发布',
+            message: `原始文档版本: ${ORIGIN_DOCUMENT_DATE}<br/>在 GPL-3.0 许可下发布`,
         },
         editLink: {
             pattern: 'https://gitee.com/Jesse205/magisk-chinese-document/edit/master/:path',
             text: '在 Gitee 上编辑此页面',
+        },
+        search: {
+            provider: 'local'
         }
     }
 }

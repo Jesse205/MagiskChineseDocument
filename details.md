@@ -10,36 +10,27 @@ Magisk 将安装一个 `tmpfs` 目录来存储一些临时数据。对于带有 
 # 为了获得Magisk正在使用的当前基本文件夹，使用命令 `magisk--path`。
 # 二进制文件，如 magisk、magiskinit 和所有小程序的符号链接直接存储
 # 在此路径中。这意味着当这是/sbin，这些二进制文件将直接在 PATH 中。
-MAGISKBASE=$(magisk --path)
+MAGISKTMP=$(magisk --path)
 
 # Magisk 内部材料
-MAGISKTMP=$MAGISKBASE/.magisk
-
-# Magisk 的 BusyBox 目录。在此文件夹中存储 busybox 二进制文件和指向
-# 其所有小程序的符号链接。
-# 不推荐使用此目录，请直接调用 /data/adb/magisk/busybox 并使用
-# Busybox 的 ASH 独立模式。将来会删除此路径的创建。
-$MAGISKTMP/busybox
+INTERNALDIR=$MAGISKTMP/.magisk
 
 # /data/adb/modules 将挂载到此处。
 # 由于 nosuid 挂载标志，未使用原始文件夹。
-$MAGISKTMP/modules
+$INTERNALDIR/modules
 
 # 当前 Magisk 安装配置
-$MAGISKTMP/config
+$INTERNALDIR/config
 
 # 分区映像
 # 此路径中的每个目录都将装载其目录名的分区。
 # 例如 system，system_ext，vendor，data ...
-$MAGISKTMP/mirror
-
-# Magisk 在内部创建用于挂载映像的 Block 设备。
-$MAGISKTMP/block
+$INTERNALDIR/mirror
 
 # 根目录修补程序文件
 # 在 system-as-root 的系统上，/不可写。
 # 所有预初始化补丁文件都存储在这里绑定挂载。
-$MAGISKTMP/rootdir
+$INTERNALDIR/rootdir
 ```
 
 ### `/data` 中的路径

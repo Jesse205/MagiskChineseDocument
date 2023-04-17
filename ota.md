@@ -1,4 +1,4 @@
-# OTA升级指南
+# OTA 升级指南
 
 Magisk 不修改大多数只读分区，这意味着应用官方 OTA 要简单得多。以下是几种不同类型的设备的教程，以应用 OTA 并在安装后保留 Magisk（如果可能）。这只是一个通用指南，因为每个设备的程序可能有所不同。
 
@@ -14,12 +14,12 @@ Magisk 不修改大多数只读分区，这意味着应用官方 OTA 要简单�
 
 <p align="center"><img src="/images/restore_img.png" width="300"/></p>
 
-## 带A/B分区的设备
+## 带 A/B 分区的设备
 
 可以将 OTA 安装到非活动插槽，并让 Magisk app 将 Magisk 安装到更新的分区上。开箱即用的 OTA 安装工作无缝，安装后可以保存 Magisk。
 
 - 恢复官方映像后，按正常方式应用 OTA（设置 → 系统 → 系统更新）。
-- 等待安装完成（OTA 的 步骤1 和 步骤2），**不要按“重新启动”按钮！** 相反，请转到（Magisk app → 安装 → 安装到非活动插槽）将 Magisk 安装到更新的插槽。
+- 等待安装完成（OTA 的 步骤1：“安装更新” 和 步骤2：“优化您的设备”），**不要按“重新启动”按钮！** 相反，请转到（Magisk app → 安装 → 安装到非活动插槽）将 Magisk 安装到更新的插槽。
 
 <p align="center"><img src="/images/ota_done.png" width="250"/> <img src="/images/install_inactive_slot.png" width="250"/></p>
 
@@ -35,9 +35,9 @@ Magisk 不修改大多数只读分区，这意味着应用官方 OTA 要简单�
 如果您决定在不接触 recovery 分区的情况下开始安装 Magisk，您可以有几种选择，无论是哪种方式，您都可以最终使用 Magisk root 的设备，但 recovery 仍然保持不变：
   - 如果支持，请使用 `fastboot boot <recovery_img>` 启动第三方 Recovery 并安装 Magisk。
   - 如果您有官方映像转储的副本，请使用 Magisk app 的“修补映像”功能安装 Magisk
-- 恢复到官方映像和其他映像后，下载 OTA。可选地，一旦下载了 OTA 更新 zip，就可以找到提取 zip 的方法（因为它通常涉及 root 用户）
+- 恢复到官方映像和其他映像后，下载 OTA。可选地，一旦下载了 OTA 的更新 zip，就可以找到提取 zip 的方法（因为它通常涉及 root 用户）
 - 应用 OTA 并重启设备。这将使用您设备的官方映像 OTA 安装机制来升级您的系统。
-- 一旦完成，您将得到一个升级的、100%官方的、未 root 的设备。你必须手动将 Magisk 刷回。如果您想经常接收官方 OTA，请考虑使用 步骤1 中所述的方法，在不接触恢复分区的情况下刷入 Magisk。
+- 一旦完成，您将得到一个升级的、100% 官方的、未 root 的设备。你必须手动将 Magisk 刷回。如果您想经常接收官方 OTA，请考虑使用 步骤1 中所述的方法，在不接触恢复分区的情况下刷入 Magisk。
 
 ## 参考链接
 

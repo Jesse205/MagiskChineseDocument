@@ -56,36 +56,45 @@
 
 ## 修补映像
 
-- 将 boot 或 recovery 映像（ `*.img` 文件）复制到设备
+- 将 boot 、init_boot 或 recovery 映像（ `*.img` 文件）复制到设备
 - 按下 Magisk 主屏幕中的 **「安装」** 按钮
 - 如果要修补 recovery 映像，请选中 **「Recovery 模式」** 选项
 - 如果您的设备**没有单独的 `vbmeta` 分区**，请选中 **「修补 boot 映像中的 vbmeta」** 选项
-- 在方式中选择 **「选择并修补一个文件」** ，然后选择 boot 或 recovery 映像
-- 开始安装，并使用 ADB 将修补的映像复制到您的电脑：<br>
+- 在方式中选择 **「选择并修补一个文件」** ，然后选择 boot 、init_boot 或 recovery 映像
+- 开始安装，并使用 ADB 将修补的映像复制到您的电脑：
 
-  ``` shell
-  adb pull /sdcard/Download/magisk_patched_[随机字符].img PC上magisk_patched.img的路径
-  ```
+``` shell
+adb pull /sdcard/Download/magisk_patched_[随机字符].img PC上magisk_patched.img的路径
+```
 
 > 提示，你可以将文件从资源管理器直接拖到终端中来获得文件绝对路径。
 
-  **不要使用 MTP**，因为它可能会损坏大文件。
-- 将修补好的 boot 或 recovery 映像刷入到您的设备。<br>
-  对于大多数设备，重启到 fastboot 模式，并使用以下命令刷入：<br>
+**不要使用 MTP**，因为它可能会损坏大文件。
 
-  ``` shell
-  fastboot flash boot PC上magisk_patched.img的路径
-  # 如果刚刚修补的是 recovery 映像则改用：
-  fastboot flash recovery PC上magisk_patched.img的路径
-  ```
+- 将修补好的 boot 、init_boot 或 recovery 映像刷入到您的设备。<br>
+  对于大多数设备，可以重启到 fastboot 模式，并使用以下命令刷入：
 
-- (可选) 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区 
+``` shell
+fastboot flash boot[_x] PC上magisk_patched_[随机字符].img的路径 # 或
+fastboot flash init_boot[_x] PC上magisk_patched_[随机字符].img的路径
+# 如果刚刚修补的是 recovery 映像则改用：
+fastboot flash recovery PC上magisk_patched_[随机字符].img的路径
+```
 
-  ``` shell
-  fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
-  ```
+`[_x]` 应该取决于您的设备，应为 `_a` 或 `_b` 或者不写
 
-- 重启，瞧！
+- <Badge type="tip" text="可选" /> 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区
+
+``` shell
+fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
+```
+
+::: warning
+此操作可能清除您的数据
+:::
+
+- 重启并启动 Magisk 应用程序（如果您清除数据，您将看到一个用于占位的 Magisk 应用程序），您将看到一个询问修复环境的对话框，点击它并等待重启
+- 瞧！
 
 ## 卸载
 
@@ -108,14 +117,14 @@
 ## 三星 (System-as-root)
 
 ::: warning 警告
-如果您的三星设备未安装 Android 9.0 或更高版本，则说明以下内容不适用于该设备。
+如果您的三星设备未安装 Android 9.0 或更高版本，则说明以下内容不适用于您的设备。
 :::
 
 ### 安装 Magisk 之前
 
 - 安装 Magisk **将熔断 KNOX**
 - 首次安装 Magisk **需要完整的数据擦除**（这**不包括在解锁 bootloader 时的数据擦除**）。请在继续之前备份您的数据。
-- 下载支持您设备的 Odin（仅在 Windows 上运行）。
+- 下载支持您设备的 Odin (仅 Windows) 或者 [Heimdall](https://www.glassechidna.com.au/heimdall/) (仅 Linux)。
 
 ### 解锁 Bootloader
 
@@ -177,14 +186,14 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 | ---- | ---- | ---- | ---- | ---- |
 | 华为畅享7 | SLA-AL00 | EMUI 5.1.2 | Android 7.0 | 使用 Magisk v25.2 时会触发引导循环并直接重启至 eRecovery |
 | 荣耀畅玩4C | CHM-TL00H | EMUI 4.0 | Android 6.0 | 使用新版 Magisk 会导致无法授权 |
-| 荣耀畅玩6X | BLN-AL10 | EMUI 8.0 | Android 8.0 | 上没有这个问题 |
+| 荣耀畅玩6X | BLN-AL10 | EMUI 8.0 | Android 8.0 | 没有这个问题 |
 
 :::
 ::::
 
 ### 获得官方映像
 
-华为不发布官方出厂映像以及 OTA 归档文件，但大多数固件压缩包可以从[华为固件下载站](https://professorjtj.github.io/) （仅限 Windows！）下载。 要从压缩包中的「UPDATE.APP」中提取映像，您必须使用 [Huawei Update Extractor](https://forum.xda-developers.com/showthread.php?t=2433454)（仅限 Windows！）
+华为不发布官方出厂映像以及 OTA 归档文件，但大多数固件压缩包可以从[华为固件下载站](https://professorjtj.github.io/)下载。 要从压缩包中的「UPDATE.APP」中提取映像，您必须使用 [Huawei Update Extractor](https://forum.xda-developers.com/showthread.php?t=2433454)（仅限 Windows！）
 
 ### EMUI 5 及以下
 
@@ -226,15 +235,16 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 ## 第三方 Recovery
 
 ::: warning 警告
-这种安装方法已被弃用，维护工作量很小。 
+这种安装方法已被弃用，并且可以用很小的工作量来维护。
 :::
 
 仅当您的设备启动 ramdisk 时，才能使用第三方 Recovery 进行安装。不建议在新的设备上通过第三方 Recovery 安装 Magisk。如果您遇到任何问题，请使用正确的[修补映像](#修补映像)方法。
 
 - 下载 Magisk APK
-- 将 `.apk` 文件扩展名重命名为 `.zip` ，例如：`Magisk-v25.2.apk` → `Magisk-v25.2.zip` 。如果重命名文件扩展名时遇到问题（如 Windows），请使用 Android 上的文件管理器或 TWRP 中的文件管理功能重命名文件。
+- 将 `.apk` 文件扩展名重命名为 `.zip` ，例如：`Magisk-v25.2.apk` → `Magisk-v25.2.zip` 。如果重命名文件扩展名时遇到问题（如 Windows），请使用 Android 上的文件管理器或第三方 Recovery 中的文件管理功能重命名文件。
 - 像其他普通的刷机包一样刷 zip。
 - 重新启动并检查是否已安装 Magisk 应用程序。如果未自动安装，请手动安装 APK。
+- 启动 Magisk 应用程序，它将显示一个让您重新安装的对话框。请**直接在 APP 内**重新安装并重新启动（MTK 设备将在重启后自动给 boot 分区上锁，请使用 fastboot 或者第三方 recovery [修补映像](#修补映像)）。
 
 ::: warning 警告
 模块的 `sepolicy.rule` 文可能存储在 `cache` 分区中。请不要擦除 `CACHE` 分区。
