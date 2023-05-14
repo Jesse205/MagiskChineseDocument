@@ -241,7 +241,7 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 仅当您的设备启动 ramdisk 时，才能使用第三方 Recovery 进行安装。不建议在新的设备上通过第三方 Recovery 安装 Magisk。如果您遇到任何问题，请使用正确的[修补映像](#修补映像)方法。
 
 - 下载 Magisk APK
-- 将 `.apk` 文件扩展名重命名为 `.zip` ，例如：`Magisk-v25.2.apk` → `Magisk-v25.2.zip` 。如果重命名文件扩展名时遇到问题（如 Windows），请使用 Android 上的文件管理器或第三方 Recovery 中的文件管理功能重命名文件。
+- 将 `.apk` 文件扩展名重命名为 `.zip` ，例如：`Magisk-v26.1.apk` → `Magisk-v26.1.zip` 。如果重命名文件扩展名时遇到问题（如 Windows），请使用 Android 上的文件管理器或第三方 Recovery 中的文件管理功能重命名文件。
 - 像其他普通的刷机包一样刷 zip。
 - 重新启动并检查是否已安装 Magisk 应用程序。如果未自动安装，请手动安装 APK。
 - 启动 Magisk 应用程序，它将显示一个让您重新安装的对话框。请**直接在 APP 内**重新安装并重新启动（MTK 设备将在重启后自动给 boot 分区上锁，请使用 fastboot 或者第三方 recovery [修补映像](#修补映像)）。
