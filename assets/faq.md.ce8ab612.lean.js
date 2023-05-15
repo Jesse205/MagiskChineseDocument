@@ -1,1 +1,0 @@
-import{_ as a,o as e,c as s,V as o}from"./chunks/framework.a9120281.js";const k=JSON.parse('{"title":"常见问题","description":"","frontmatter":{},"headers":[],"relativePath":"faq.md","lastUpdated":1675020658000}'),t={name:"faq.md"},r=o("",15),l=[r];function i(n,p,c,d,h,m){return e(),s("div",null,l)}const g=a(t,[["render",i]]);export{k as __pageData,g as default};

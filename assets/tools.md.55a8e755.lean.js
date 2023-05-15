@@ -1,1 +1,0 @@
-import{_ as s,o as n,c as a,V as l}from"./chunks/framework.a9120281.js";const d=JSON.parse('{"title":"Magisk 工具","description":"","frontmatter":{},"headers":[],"relativePath":"tools.md","lastUpdated":1676804816000}'),p={name:"tools.md"},e=l("",27),o=[e];function t(c,i,r,C,A,y){return n(),a("div",null,o)}const g=s(p,[["render",t]]);export{d as __pageData,g as default};
