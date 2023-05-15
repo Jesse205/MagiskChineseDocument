@@ -10,7 +10,7 @@
 在你开始之前：
 
 - 本教程假设您了解如何使用 `adb` 和 `fastboot`
-- 如果您还计划安装第三方内核（kernels），请在安装 Magisk 之后安装它
+- 如果您还计划安装第三方内核（kernel），请在安装 Magisk 之后安装它
 - 必须解锁设备的引导加载程序（bootloader）
 
 ---
@@ -25,7 +25,7 @@
 不幸的是，有一些例外情况，因为某些设备的引导加载程序会接受 ramdisk，即使它不应该接受。 在这种情况下，您必须按照说明进行操作，就好像您的设备的 boot 分区**包含 ramdisk 一样**。 没有什么办法检测到这一点，因此唯一可以确定的方法就是实际尝试。 幸运的是，据我们所知，只有部分小米设备具有此属性，所以大多数人可以忽略这条信息。
 :::
 
-如果您的设备**有启动 ramdisk**，请获取 `boot.img` 或者 `init_boot.img`（如果存在。在出厂时搭载安卓13的设备通常是这样的，比如红米K60Pro）的副本。<br>
+如果您的设备**有启动 ramdisk**，请获取 `boot.img` 或者 `init_boot.img`（如果存在。在出厂时搭载 Android 13 的设备通常是这样的，比如红米 K60Pro）的副本。
 
 如果您的设备**没有启动 ramdisk**，请获取 `recovery.img` 的副本。<br>
 
@@ -48,7 +48,7 @@ adb shell ls -l /dev/block/bootdevice/by-name
 
 快速回顾一下，此时，您应该已经知道并准备好了：
 
-1. 设备是否具有启动 ramdisk
+1. 设备是否有启动 ramdisk
 2. 设备是否有单独的 `vbmeta` 分区
 3. 基于 (1) 的 `boot.img` 、`init_boot.img` 或 `recovery.img`
 
@@ -124,7 +124,7 @@ fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
 
 - 安装 Magisk **将熔断 KNOX**
 - 首次安装 Magisk **需要完整的数据擦除**（这**不包括在解锁 bootloader 时的数据擦除**）。请在继续之前备份您的数据。
-- 下载支持您设备的 Odin (仅 Windows) 或者 [Heimdall](https://www.glassechidna.com.au/heimdall/) (仅 Linux)。
+- 下载支持您设备的 Odin (仅限 Windows 上运行) 或者 [Heimdall](https://www.glassechidna.com.au/heimdall/) (仅 Linux)。
 
 ### 解锁 Bootloader
 
@@ -134,7 +134,7 @@ fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
 - 重启到下载模式：将设备关机，然后按下设备的下载模式键组合
 - 长按音量上限可解锁引导加载程序**这将擦除数据并自动重新启动**
 - 完成初始设置。跳过所有步骤，因为数据将在后面的步骤中再次擦除。**在设置过程中将设备连接到互联网**
-- 启用开发者选项，**确认「OEM解锁」选项存在且呈灰色。**这意味着 `VaultKeeper` 服务释放了引导加载程序。
+- 启用开发者选项，**确认「OEM解锁」选项存在且呈灰色。** 这意味着 `VaultKeeper` 服务释放了引导加载程序。
 - 您的 bootloader 现在在下载模式允许非官方映像
 
 ### 操作指南
@@ -199,7 +199,7 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 
 遵循[入门](#入门)的教程，唯一的不同在于**请勿使用最新版本的 Magisk 应用！**
 
-> 提示：进入 fastboot 模式需要将手机**使用数据线连接电脑**，而进入 Recovery 模式则**不能**将手机使用连接到电脑！所以如果您在 fastboot 模式中刷入 Recovery 映像后请**将手机与电脑断开连接后**再按下「电源」+「音量增大」来进入 Recovery，否则您将进入的「eRecovery」。
+> 注意：华为设备进入 fastboot 模式需要将手机**使用数据线连接电脑**，而进入 Recovery 模式则**不能**将手机连接到电脑！所以如果您在 fastboot 模式中刷入 Recovery 映像后请**将手机与电脑断开连接后**再按下「电源」+「音量增大」来进入 Recovery，否则您将进入的是「eRecovery」。
 
 ### EMUI 8
 
@@ -219,7 +219,7 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 
 对于 EMUI 9+ 设备，`ramdisk` 分区不再存在。 作为解决方法，Magisk 将安装到 `recovery_ramdisk` 分区。 **在按照以下说明操作之前，请先阅读 [Recovery 中的 Magisk](#recovery-中的-magisk) ！**
 
-*注意：正如在 荣耀 View 10 上测试的那样，华为的内核似乎无法在早期启动时捕获按键事件，因此长按音量增大不会在我的设备上**不**启动到 Recovery。 您的体验可能会有所不同。*
+*注意：正如在 荣耀 View 10 上测试的那样，华为的内核似乎无法在早期启动时捕获按键事件，因此长按音量增大不会在我的设备上**不会**启动到 Recovery。 您的体验可能会有所不同。*
 
 - 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-recovery) 的说明进行操作即可。<br>
 **警告：Magisk 将覆盖第三方 Recovery。**
@@ -240,9 +240,9 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 
 仅当您的设备启动 ramdisk 时，才能使用第三方 Recovery 进行安装。不建议在新的设备上通过第三方 Recovery 安装 Magisk。如果您遇到任何问题，请使用正确的[修补映像](#修补映像)方法。
 
-- 下载 Magisk APK
-- 将 `.apk` 文件扩展名重命名为 `.zip` ，例如：`Magisk-v25.2.apk` → `Magisk-v25.2.zip` 。如果重命名文件扩展名时遇到问题（如 Windows），请使用 Android 上的文件管理器或第三方 Recovery 中的文件管理功能重命名文件。
-- 像其他普通的刷机包一样刷 zip。
+- 下载 [Magisk 安装包](https://github.com/topjohnwu/Magisk/releases)
+- 将 `.apk` 文件扩展名重命名为 `.zip` ，例如：`Magisk-v25.2.apk` → `Magisk-v25.2.zip` 。如果重命名文件扩展名时遇到问题（比如在 Windows 文件资源管理器中默认不显示文件扩展名），请使用 Android 上的文件管理器或第三方 Recovery 中的文件管理功能重命名文件。
+- 像其他普通的刷机包一样刷入归档文件。
 - 重新启动并检查是否已安装 Magisk 应用程序。如果未自动安装，请手动安装 APK。
 - 启动 Magisk 应用程序，它将显示一个让您重新安装的对话框。请**直接在 APP 内**重新安装并重新启动（MTK 设备将在重启后自动给 boot 分区上锁，请使用 fastboot 或者第三方 recovery [修补映像](#修补映像)）。
 
@@ -251,7 +251,7 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 :::
 
 ::: tip
-您也可以提供 `adb sideload` 刷入 Magisk。这对于不能正常解密 data 分区且无外置存储设备（SD 卡，U 盘等）的设备特别友好。
+您也可以提供 `adb sideload` 刷入 Magisk，这对于不能正常解密 data 分区且无外置存储设备（SD 卡，U 盘等）的设备特别友好，并且在这种情况下无需将 `.apk` 文件扩展名重命名为 `.zip`。
 :::
 
 ## 参考链接
