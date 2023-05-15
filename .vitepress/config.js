@@ -18,8 +18,8 @@ const DEVELOPER_LINKS = [
         text: '面向开发人员',
         // collapsed: false,
         items: [
-            { text: '开发者指南', link: '/guides.md' },
             { text: '构建和开发 Magisk', link: '/build.md' },
+            { text: '开发者指南', link: '/guides.md' },
             { text: 'Magisk 工具', link: '/tools.md' },
             { text: '内部细节', link: '/details.md' },
             { text: 'Android 引导诡计', link: '/boot.md' },
