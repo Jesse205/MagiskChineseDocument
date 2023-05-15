@@ -103,7 +103,7 @@ DATABIN=$SECURE_DIR/magisk
 
 Magisk 将修补现成的 `sepolicy` ，以确保 Root 和 Magisk 操作能够以安全可靠的方式完成。新域 `magisk` 是有效的，这就是 `magiskd` 和所有 root shell 将在其中运行的内容。`magisk_file` 是一种新的文件类型，设置为允许每个域（不受限制的文件上下文）访问。
 
-在 Android8.0 之前，所有允许的 su 客户端域都可以直接连接到 `magiskd` 并与守护进程建立连接，以获得远程 root shell。Magisk 还必须放宽一些 `ioctl` 操作，以便 root shell 能够正常运行。
+在 Android 8.0 之前，所有允许的 su 客户端域都可以直接连接到 `magiskd` 并与守护进程建立连接，以获得远程 root shell。Magisk 还必须放宽一些 `ioctl` 操作，以便 root shell 能够正常运行。
 
 在 Android 8.0 之后，为了减少 Android 沙盒中规则的放宽，部署了新的 SELinux 模型。 `magisk`  二进制文件标记为 `magisk_exec` 文件类型，并且执行 `magisk` 二进制文件（包括 `su` 命令）的 su 客户端域将通过使用 `type_transition` 规则传输到 `magisk_client` 。规则严格限制仅允许 `magisk` 域进程将文件归因于 `magisk_exec` 。不允许直接连接到 `magiskd` 的 sockets；访问守护进程的唯一方法是通过 `magisk_client` 进程。这些更改使我们能够保持沙盒完好无损，并将 Magisk 特定规则与其他策略分开。
 
