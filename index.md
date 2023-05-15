@@ -23,9 +23,10 @@ const { theme } = useData()
 - [发布日志](releases/)
 - [Magisk  更新日志](changes.md)
 
-__以下部分面向开发人员__:
+__以下部分面向开发者__:
 
-- [开发者指南](guides.md)
+- [构建和开发 Magisk](build.md) (开发 Magisk 本身)
+- [开发者指南](guides.md) (针对 __使用 Magisk__ 的开发人员)
 - [Magisk 工具](tools.md)
 - [内部细节](details.md)
 - [Android 引导诡计](boot.md)

@@ -190,26 +190,28 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 
 ``` shell
 ui_print <msg>
-    输出 <msg> 到控制台
+    打印 <msg> 到控制台
     请避免使用“echo”，因为它不会显示在第三方 recovery 的控制台中
 
 abort <msg>
-    将错误消息 <msg> 输出到控制台并终止安装
+    打印错误消息 <msg> 到控制台并终止安装
     请避免使用“exit”，因为它会跳过终止清理步骤
 
 set_perm <target> <owner> <group> <permission> [context]
-    如果未设置 [context]，则默认值为“u:object_r:system_file:s0”
+    如果未指定 [context]，则默认值为“u:object_r:system_file:s0”
     此函数是以下命令的简写：
        chown owner.group target
        chmod permission target
        chcon context target
 
 set_perm_recursive <directory> <owner> <group> <dirpermission> <filepermission> [context]
-    如果未设置 [context]，则默认值为“u:object_r:system_file:s0”
-    对于 <directory> 中的所有文件，它将调用：
-       set_perm file owner group filepermission context
-    对于 <directory> 中的所有目录（包括自身），它将调用：
-       set_perm dir owner group dirpermission context
+    如果未指定 [context]，则默认值为“u:object_r:system_file:s0”
+    此函数是以下psuedo代码的简写：
+      set_perm <directory> owner group dirpermission context
+      对于 <directory> 内的文件：
+        set_perm file owner group filepermission context
+      对于 <directory> 内的文件夹：
+        set_perm_recursive dir owner group dirpermission context
 ```
 
 为方便起见，您还可以在变量名称 `REPLACE` 中声明要替换的文件夹列表。模块安装程序脚本会将 `.replace` 文件创建到 `REPLACE` 中列出的文件夹中。例如：

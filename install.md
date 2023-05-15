@@ -36,12 +36,12 @@
 - 如果您的官方固件包包含 `vbmeta.img` ，那么您的设备**有一个单独的 `vbmeta` 分区**
 - 您还可以通过将设备连接到 PC 并运行以下命令进行检查：
 
-  ```  shell
-  adb shell ls -l /dev/block/by-name
-  # 如果您遇到如 No such file or directory 的报错，那么请尝试把命令更换为
-  adb shell ls -l /dev/block/bootdevice/by-name
-  # 如果还是报错（比如华为设备），那么请联网搜索您的设备相对应的方法
-  ```
+```  shell
+adb shell ls -l /dev/block/by-name
+# 如果您遇到如 No such file or directory 的报错，那么请尝试把命令更换为
+adb shell ls -l /dev/block/bootdevice/by-name
+# 如果还是报错（比如华为设备），那么请联网搜索您的设备相对应的方法
+```
 
 - 如果找到 `vbmeta`、`vbmeta_a` 或 `vbmeta_b` ，那么您的设备**有一个单独的 `vbmeta` 分区**
 - 否则，您的设备**没有单独的 `vbmeta` 分区**。

@@ -1,5 +1,5 @@
 // 原始文档日期
-const ORIGIN_DOCUMENT_DATE = "2023年04月12日"
+const ORIGIN_DOCUMENT_DATE = "2023年05月13日"
 
 const NORMAL_LINKS = [
     {
@@ -19,6 +19,7 @@ const DEVELOPER_LINKS = [
         // collapsed: false,
         items: [
             { text: '开发者指南', link: '/guides.md' },
+            { text: '构建和开发 Magisk', link: '/build.md' },
             { text: 'Magisk 工具', link: '/tools.md' },
             { text: '内部细节', link: '/details.md' },
             { text: 'Android 引导诡计', link: '/boot.md' },
@@ -91,7 +92,29 @@ export default {
             text: '在 Gitee 上编辑此页面',
         },
         search: {
-            provider: 'local'
+            provider: 'local',
+            options: {
+                translations: {
+                    button: {
+                        buttonText: "搜索"
+                    },
+                    modal: {
+                        displayDetails: '显示具详情信息',
+                        resetButtonTitle: '清空内容',
+                        backButtonTitle: '关闭搜索',
+                        noResultsText: '未找到',
+                        footer: {
+                          selectText: '选择',
+                          selectKeyAriaLabel: '进入',
+                          navigateText: '导航',
+                          navigateUpKeyAriaLabel: '向上',
+                          navigateDownKeyAriaLabel: '向下',
+                          closeText: '关闭',
+                          closeKeyAriaLabel: '退出'
+                        }
+                      }
+                }
+            }
         }
     }
 }
