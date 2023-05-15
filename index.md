@@ -23,14 +23,19 @@ const { theme } = useData()
 - [发布日志](releases/)
 - [Magisk  更新日志](changes.md)
 
-__以下部分面向开发人员__:
+__以下部分面向开发者__:
 
-- [开发者指南](guides.md)
+- [构建和开发 Magisk](build.md) (开发 Magisk 本身)
+- [开发者指南](guides.md) (针对 __使用 Magisk__ 的开发人员)
 - [Magisk 工具](tools.md)
 - [内部细节](details.md)
 - [Android 引导诡计](boot.md)
 
 ## Magisk 许可（License）<Badge type="tip" text="使用 百度翻译 汉化" />
+
+::: warning
+中文汉化版许可仅供参考，请以英文原版为准
+:::
 
 ``` txt
 Magisk，包括所有 git 子模块都是自由软件：
@@ -43,10 +48,6 @@ Magisk，包括所有 git 子模块都是自由软件：
 你应该已经收到了GNU通用公共许可证的副本以及这个程序。如果没有，请参见
 <http://www.gnu.org/licenses/>.
 ```
-
-::: warning
-中文汉化版许可仅供参考，请以英文原版为准
-:::
 
 ::: details 英文原版
 

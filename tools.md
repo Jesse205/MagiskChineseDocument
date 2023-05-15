@@ -21,7 +21,7 @@ su -> magisk
 `magiskboot` 的概念是使 boot 映像修改更简单。对于解包，它解析标头并提取映像中的所有部分，如果在任何部分中检测到压缩，则会立即解压缩。对于重新打包，需要原始 boot 映像，以便可以使用原始标头，只需更改必要的内容，如节大小和校验和。如果需要，所有部分将被压缩回原始格式。该工具还支持许多 CPIO 和 DTB 操作。
 
 ``` txt
-用法: ./magiskboot <action> [args...]
+用法: ./magiskboot <操作> [参数...]
 
 支持的操作:
   unpack [-n] [-h] <bootimg>
@@ -37,20 +37,20 @@ su -> magisk
     返回值：
     0:valid    1:error    2:chromeos
 
-  repack [-n] <origbootimg> [outbootimg]
-      使用当前目录中的文件将启动映像组件重新打包到 [outbootimg]，如果未指
+  repack [-n] <原始bootimg> [输出bootimg]
+      使用当前目录中的文件将启动映像组件重新打包到 [输出bootimg]，如果未指
     定，则为“new-boot.img”。
-      <origbootimg> 是用于解压缩组件的原始启动映像。
-      默认情况下，每个组件将使用 <origbootimg> 中检测到的相应格式自动压缩。如
+      <原始bootimg> 是用于解压缩组件的原始启动映像。
+      默认情况下，每个组件将使用 <原始bootimg> 中检测到的相应格式自动压缩。如
     果当前目录中的组件文件已被压缩，则不会对该特定组件执行任何附加压缩。
       如果提供“-n”，则将跳过所有压缩操作。
     如果 env 变量 PATCHVBMETAFLAG 设置为 true，则将设置启动映像的 vbmeta
     header 中的所有禁用标志。
 
-  hexpatch <file> <hexpattern1> <hexpattern2>
-    在 <file> 中搜索 <hexpattern1>，并将其替换为 <hexpattern2>
+  hexpatch <文件> <hexpattern1> <hexpattern2>
+    在 <文件> 中搜索 <hexpattern1>，并将其替换为 <hexpattern2>
 
-  cpio <incpio> [commands...]
+  cpio <incpio> [命令...]
     对 <incpio> 执行 cpio 命令（修改已到位）
     每个命令都是一个参数，请为每个命令添加引号。
     支持的命令:
@@ -82,8 +82,8 @@ su -> magisk
       sha1
         如果以前已在 ramdisk 中备份，则输出原始引导SHA1
 
-  dtb <file> <action> [args...]
-    对 <file> 执行与 dtb 相关的操作
+  dtb <文件> <操作> [参数...]
+    对 <文件> 执行与 dtb 相关的操作
     支持的操作：
       print [-f]
         打印 dtb 的所有内容以进行调试
@@ -97,27 +97,27 @@ su -> magisk
         返回值:
         0:valid    1:error
 
-  split <file>
+  split <文件>
     将 image.*-dtb 拆分为 kernel + kernel_dtb
 
-  sha1 <file>
-    出 <file> 的 SHA1 校验和
+  sha1 <文件>
+    出 <文件> 的 SHA1 校验和
 
   cleanup
     清理当前工作目录
 
-  compress[=format] <infile> [outfile]
-    使用 [format] 将 <infile> 压缩为 [outfile]。
+  compress[=格式] <输入文件> [输出文件]
+    使用 [格式] 将 <输入文件> 压缩为 [输出文件]。
     可以是“-”，以作为 STDIN/STDOUT。
-    如果未指定 [format]，则将使用 gzip。
-    如果未指定 [outfile]，则 <infile> 将被替换为
+    如果未指定 [格式]，则将使用 gzip。
+    如果未指定 [输出文件]，则 <输入文件> 将被替换为
     后缀为匹配文件扩展名的另一个文件。
     支持格式: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
 
-  decompress <infile> [outfile]
-    检测格式并将 <infile> 解压缩到 [outfile]。
-    <infile>/[outfile] 可以是“-”，以作为 STDIN/STDOUT。
-    如果未指定 [outfile]，则 <infile> 将替换为另一个文件，
+  decompress <输入文件> [输出文件]
+    检测格式并将 <输入文件> 解压缩到 [输出文件]。
+    <输入文件>/[输出文件] 可以是“-”，以作为 STDIN/STDOUT。
+    如果未指定 [输出文件]，则 <输入文件> 将替换为另一个文件，
     删除其文件格式文件扩展名。
     支持格式: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
 ```
@@ -135,7 +135,7 @@ su -> magisk
 Magisk 守护进程派生的所有进程，包括 root shell 及其所有分支，都在上下文 `u:r:magisk:s0` 中运行。所有安装了 Magisk 的系统上使用的规则都可以被视为官方的 `sepolicy` 具有以下补丁：`magiskpolicy --magisk 'allow magisk * * *'`。
 
 ``` txt
-用法: ./magiskpolicy [--options...] [policy statements...]
+用法: ./magiskpolicy [--选项...] [策略声明...]
 
 选项:
    --help            显示 policy 语句的帮助消息
@@ -188,12 +188,12 @@ allow s2 t2 class { all-permissions-of-class }
 "typeattribute ^type ^attribute"
 
 "type type_name ^(attribute)"
-- Argument 'attribute' is optional, default to 'domain'
+- 参数“attribute”是可选的，默认为“domain”
 
 "attribute attribute_name"
 
 "type_transition source_type target_type class default_type (object_name)"
-- Argument 'object_name' is optional
+- 参数“object_name”是可选的
 
 "type_change source_type target_type class default_type"
 "type_member source_type target_type class default_type"
@@ -206,43 +206,43 @@ allow s2 t2 class { all-permissions-of-class }
 当使用名称 `magisk` 调用 magisk 二进制文件时，它作为一个实用工具，具有许多助手函数和几个 Magisk 服务的入口点。
 
 ``` txt
-用法: magisk [applet [arguments]...]
-   或: magisk [options]...
+用法: magisk [小程序 [参数]...]
+   或: magisk [选项]...
 
-Options:
-   -c                        print current binary version
-   -v                        print running daemon version
-   -V                        print running daemon version code
-   --list                    list all available applets
-   --remove-modules          remove all modules and reboot
-   --install-module ZIP      install a module zip file
+选项：
+   -c                        打印当前二进制版本
+   -v                        打印正在运行的守护程序版本
+   -V                        打印正在运行的守护程序版本号
+   --list                    列出所有可用的小程序
+   --remove-modules          移除所有模块并重新启动
+   --install-module ZIP      安装模块 zip 文件
 
-Advanced Options (Internal APIs):
-   --daemon                  manually start magisk daemon
-   --stop                    remove all magisk changes and stop daemon
-   --[init trigger]          callback on init triggers. Valid triggers:
+高级选项（内部 APIs）：
+   --daemon                  手动启动 Magisk 守护进程
+   --stop                    移除所有 Magisk 更改并停止守护程序
+   --[init trigger]          初始化触发器上的回调。有效的触发器：
                              post-fs-data, service, boot-complete, zygote-restart
-   --unlock-blocks           set BLKROSET flag to OFF for all block devices
-   --restorecon              restore selinux context on Magisk files
-   --clone-attr SRC DEST     clone permission, owner, and selinux context
-   --clone SRC DEST          clone SRC to DEST
-   --sqlite SQL              exec SQL commands to Magisk database
-   --path                    print Magisk tmpfs mount path
-   --denylist ARGS           denylist config CLI
+   --unlock-blocks           将所有块设备的 BLKROSET 标志设置为 OFF
+   --restorecon              恢复 Magisk 文件上的 selinux 上下文
+   --clone-attr SRC DEST     克隆权限、所有者和 selinux 上下文
+   --clone SRC DEST          克隆 SRC 到 DEST
+   --sqlite SQL              执行 SQL 命令到 Magisk 数据库
+   --path                    打印 Magisk tmpfs 挂载路径
+   --denylist ARGS           拒绝列表配置 CLI
 
-Available applets:
+可用的小程序:
     su, resetprop
 
-Usage: magisk --denylist [action [arguments...] ]
-Actions:
-   status          Return the enforcement status
-   enable          Enable denylist enforcement
-   disable         Disable denylist enforcement
-   add PKG [PROC]  Add a new target to the denylist
-   rm PKG [PROC]   Remove target(s) from the denylist
-   ls              Print the current denylist
-   exec CMDs...    Execute commands in isolated mount
-                   namespace and do all unmounts
+用法: magisk --denylist [操作 [参数...] ]
+操作:
+   status          返回强制的状态
+   enable          启用拒绝列表强制
+   disable         禁用拒绝列表强制
+   add PKG [PROC]  将新目标添加到拒绝列表
+   rm PKG [PROC]   从拒绝列表中删除目标
+   ls              打印当前拒绝列表
+   exec CMDs...    在隔离的挂载命名空间中执行命令并执行
+                   所有卸载操作
 ```
 
 ## su
@@ -250,19 +250,19 @@ Actions:
 MagiskSU 入口点 `magisk` 的小程序。不错的旧 `su` 命令。
 
 ``` txt
-用法: su [options] [-] [user [argument...]]
+用法: su [选项] [-] [user [参数...]]
 
-Options:
-  -c, --command COMMAND         pass COMMAND to the invoked shell
-  -h, --help                    display this help message and exit
-  -, -l, --login                pretend the shell to be a login shell
+选项:
+  -c, --command 命令         将命令传递给调用的 shell
+  -h, --help                    显示此帮助消息并退出
+  -, -l, --login                将 shell 伪装成一个登录 shell
   -m, -p,
-  --preserve-environment        preserve the entire environment
-  -s, --shell SHELL             use SHELL instead of the default /system/bin/sh
-  -v, --version                 display version number and exit
-  -V                            display version code and exit
+  --preserve-environment        保护整个环境
+  -s, --shell SHELL             使用 SHELL 而不是默认的 /system/bin/sh
+  -v, --version                 显示版本名并退出
+  -V                            显示版本号并退出
   -mm, -M,
-  --mount-master                force run in the global mount namespace
+  --mount-master                在全局装载命名空间中强制运行
 ```
 
 ::: tip 注意
@@ -274,7 +274,7 @@ Options:
 `magisk` 的小程序。高级系统属性操作实用程序。查看 [Resetprop 详细信息](details.md#重置属性-resetprop) 以了解更多背景信息。
 
 ``` txt
-用法: resetprop [flags] [options...]
+用法: resetprop [标志] [选项...]
 
 选项:
    -h, --help        显示此消息
