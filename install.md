@@ -185,8 +185,8 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 | 名称 | 型号 | EMUI 版本 | Android 版本 | 详情 |
 | ---- | ---- | ---- | ---- | ---- |
 | 华为畅享7 | SLA-AL00 | EMUI 5.1.2 | Android 7.0 | 使用 Magisk v25.2 时会触发引导循环并直接重启至 eRecovery |
-| 荣耀畅玩4C | CHM-TL00H | EMUI 4.0 | Android 6.0 | 使用新版 Magisk 会导致无法授权 |
-| 荣耀畅玩6X | BLN-AL10 | EMUI 8.0 | Android 8.0 | 没有这个问题 |
+| 荣耀畅玩4C | CHM-TL00H | EMUI 4.0 | Android 6.0 | 使用部分较新版本 Magisk 会导致无法授权，但是 Magisk v26.1 正常 |
+| 荣耀畅玩6X | BLN-AL10 | EMUI 8.0 | Android 8.0 | 正常 |
 
 :::
 ::::
