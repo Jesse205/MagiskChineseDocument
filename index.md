@@ -1,7 +1,6 @@
 ---
 aside: false
-title: Magisk 中文文档
-titleTemplate: Magisk 中文文档
+titleTemplate: false
 
 ---
 

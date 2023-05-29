@@ -2,16 +2,18 @@
 
 ## BusyBox
 
-Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支持）。可执行文件位于 `/data/adb/magisk/busybox` 。Magisk 的 BusyBox 支持运行时可切换的“ASH独立外壳模式”。这种独立模式的意思是，当在 BusyBox 的 `ash` shell 中运行时，无论设置为 `PATH` ，每个命令都将直接使用 BusyBox 中的 applet。例如，像 `ls`、`rm`、`chmod` 这样的命令将**不使用** `PATH` 中的内容（在 Android 的情况下，默认情况下将分别为 `/system/bin/ls` 、`/system/bin/rm` 和 `/system/bin/chmod` ），而是直接调用内部 BusyBox 小程序。这确保脚本始终在可预测的环境中运行，并且无论在哪个 Android 版本上运行，都始终具有完整的命令集。要*强制命令不使用BusyBox*，必须使用完整路径调用可执行文件。
+Magisk 附带了一个完整的 BusyBox 二进制（包括完整的 SELinux 支持）。可执行文件位于 `/data/adb/magisk/busybox` 。Magisk 的 BusyBox 支持运行时可切换的“ASH独立外壳模式”。这种独立模式的意思是，当在 BusyBox 的 `ash` shell 中运行时，无论 `PATH` 设置为什么，每个命令都将直接使用 BusyBox 中的 applet。例如，像 `ls`、`rm`、`chmod` 这样的命令将**不使用** `PATH` 中的内容（在 Android 上，这些命令默认情况下分别为 `/system/bin/ls` 、`/system/bin/rm` 和 `/system/bin/chmod` ），而是直接调用内部 BusyBox 小程序。这确保脚本始终在可预测的环境中运行，并且无论在哪个 Android 版本上运行，都始终具有完整的命令集。要*强制命令不使用BusyBox*，必须使用完整路径调用可执行文件。
 
-在 Magisk 上下文中运行的每个 shell 脚本都将在启用独立模式（Standalone Mode）的 BusyBox 的 `ash` shell 中执行。对于与第三方开发人员相关的内容，这包括所有启动脚本和模块安装脚本。
+在 Magisk 环境下运行的每一个 shell 脚本都将在启用独立模式（Standalone Mode）的 BusyBox 的 `ash` shell 中执行。对于与第三方开发人员相关的内容，这包括所有启动脚本和模块安装脚本。
 
 对于想在 Magisk 之外使用“独立模式”功能的开发者，有两种方法可以启用它：
 
-1. 将环境变量 `ASH_STANDALONE` 设置为 `1`<br/>示例：`ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
-2. 使用命令行选项切换：<br/>`/data/adb/magisk/busybox sh -o standalone <script>`
+1. 将环境变量 `ASH_STANDALONE` 设置为 `1`\
+   示例：`ASH_STANDALONE=1 /data/adb/magisk/busybox sh <script>`
+2. 使用命令行选项切换：\
+   `/data/adb/magisk/busybox sh -o standalone <script>`
 
-为了确保所有后续执行的 `sh` shell 也以独立模式运行，选项1是首选方法（这是 Magisk 和 Magisk app 内部使用的方法），因为环境变量向下继承到子进程。
+为了确保所有后续执行的 `sh` shell 也以独立模式运行，选项1是首选方法（这是 Magisk 和 Magisk app 内部使用的方法），因为环境变量继承到子进程。
 
 ## Magisk 模块
 
@@ -62,7 +64,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 │   ├── product             <--- $MODID/system/product 的符号链接
 │   ├── system_ext          <--- $MODID/system/system_ext 的符号链接
 │   │
-│   │      *** 允许任何其他文件/文件夹 ***
+│   │      *** 允许任何其他的文件/文件夹 ***
 │   │
 │   ├── ...
 │   └── ...
@@ -78,9 +80,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 
 这是 `module.prop` **必须遵守的**格式
 
-（以下代码块虽然标注为 js，但实际上是 prop，此操作仅为提供代码高亮）
-
-``` js:line-numbers
+``` properties:line-numbers
 id=<字符串> <string>
 name=<字符串> <string>
 version=<字符串> <string>
@@ -90,15 +90,15 @@ description=<字符串> <string>
 updateJson=<链接> <url> (可选)
 ```
 
-- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是开头必须为字母，后面为字母、数字、点 `.` 、下划线 `_` 和减号 `-`）<br/>
-  示例: `a_module` <Badge type="tip" text="✓" />、`a.module` <Badge type="tip" text="✓" />、`module-101` <Badge type="tip" text="✓" />、`a module` <Badge type="danger" text="✗" />、`1_module` <Badge type="danger" text="✗" />、`-a-module` <Badge type="danger" text="✗" /><br>
+- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是由字母、数字、点 `.` 、下划线 `_` 和减号 `-` 组成，且开头必须为字母）\
+  示例: `a_module` <Badge type="tip" text="✓" /> ，`a.module` <Badge type="tip" text="✓" /> ，`module-101` <Badge type="tip" text="✓" /> ，`a module` <Badge type="danger" text="✗" /> ，`1_module` <Badge type="danger" text="✗" /> ，`-a-module` <Badge type="danger" text="✗" />\
   这是模块的**唯一标识符**。模块发布后，您不应更改它。
 - `versionCode` 必须是**整数**。这用于对比版本，以便检查更新。
-- `updateJson` 应该指向一个 URL，该 URL 下载 JSON 以提供信息，以便 Magisk app 可以更新模块。
+- `updateJson` 应该指向一个 URL，该 URL 下载提供信息的 JSON，以便 Magisk app 可以更新模块。
 - 上面没有提到的其他字符串可以是任何**单行**字符串。
 - 确保使用 `UNIX (LF)` 换行类型，而不是 `Windows (CR+LF)` 或 `Macintosh (CR)`。
 
-更新的JSON的格式：
+更新的 JSON 的格式：
 
 ``` json:line-numbers
 {
@@ -113,7 +113,7 @@ updateJson=<链接> <url> (可选)
 
 请阅读 [启动脚本](#启动脚本) 部分，了解 `post-fs-data.sh` 和 `service.sh` 之间的区别。对于大多数模块开发人员来说，如果您只需要运行引导脚本，`service.sh` 应该足够好了。
 
-在模块的所有脚本中，请使用 `MODDIR=${0%/*}` 获取模块的基本目录路径；**不要**在脚本中硬编码模块路径。<br>
+在模块的所有脚本中，请使用 `MODDIR=${0%/*}` 获取模块的基本目录路径；**不要**在脚本中硬编码模块路径。\
 如果启用了Zygisk，则环境变量 `ZYGISK_ENABLED` 将设置为 `1` 。
 
 ### `system` 文件夹
@@ -188,7 +188,7 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 
 #### 函数
 
-``` shell
+``` bash
 ui_print <msg>
     打印 <msg> 到控制台
     请避免使用“echo”，因为它不会显示在第三方 recovery 的控制台中

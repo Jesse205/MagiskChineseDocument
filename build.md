@@ -10,25 +10,25 @@
 - 仅 Windows： 启用[开发者模式](https://learn.microsoft.com/zh-cn/windows/apps/get-started/enable-your-device-for-development)。因为需要支持符号链接。
 - 安装 Python 3.8+：
   - 在 Unix 上，使用您喜欢的软件包管理器安装 python3
-  - 在 Windows 上，在[官方网站](https://www.python.org/downloads/windows/)上下载并安装 Python 最新的版本.<br>
+  - 在 Windows 上，在[官方网站](https://www.python.org/downloads/windows/)上下载并安装 Python 最新的版本。\
     请在安装过程中选择 **“Add Python to PATH（将 Python 添加到 PATH）”**。
-  - (在 Windows 上，可选)：运行 `pip install colorama` 以安装 `colorama` python 包
+  - 在 Windows 上 <Badge type="tip" text="可选" /> ：运行 `pip install colorama` 以安装 `colorama` python 包
 - 安装 Git：
   - 在 Unix 上，使用您喜欢的软件包管理器安装 git
-  - 在 Windows 上，在[官方网站](https://git-scm.com/download/win)上下载并安装最新的 Git 版本.<br>
+  - 在 Windows 上，在[官方网站](https://git-scm.com/download/win)上下载并安装最新的 Git 版本。\
     请确保在安装过程前 **“启用符号链接”**。
 - 安装 Android Studio 并按照说明进行初始设置。
 - 将环境变量 `ANDROID_SDK_ROOT` 设置为 Android SDK 文件夹。此路径可以在 Android Studio 设置中找到。
 - 设置 JDK：
   - 建议的选项是将环境变量 `ANDROID_STUDIO` 设置为 Android Studio 的安装路径。构建脚本将自动查找并使用捆绑的 JDK。
-  - 您也可以自己设置 JDK 17，但本指南不包含说明。
+  - 您也可以自己设置 JDK 17，但本指南不再赘述。
 - 克隆源代码：
 
 ``` bash
 git clone --recurse-submodules https://github.com/topjohnwu/Magisk.git
 ```
 
-- 运行 `./build.py ndk` 让脚本下载并安装 NDK
+- 运行 `./build.py ndk` 使用脚本下载并安装 NDK
 
 ## 构建
 
@@ -40,7 +40,7 @@ git clone --recurse-submodules https://github.com/topjohnwu/Magisk.git
 ## IDE 支持
 
 - [Magisk 的存储库](https://github.com/topjohnwu/Magisk/)可以作为一个项目直接使用 Android Studio 打开。
-- 项目中的 Kotlin、Java、C++ 和 C 代码应该在 Android Studio 中得到开箱即用的适当支持。
+- 项目中的 Kotlin、Java、C++ 和 C 代码应该在 Android Studio 中得到适当的开箱即用的支持。
 - 在处理原生（native）代码之前运行 `./build.py binary` ，因为某些生成的代码仅在构建过程中创建。
 
 ### 在 Android Studio 中开发 Rust

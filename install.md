@@ -27,7 +27,7 @@
 
 如果您的设备**有启动 ramdisk**，请获取 `boot.img` 或者 `init_boot.img`（如果存在。在出厂时搭载 Android 13 的设备通常是这样的，比如红米 K60Pro）的副本。
 
-如果您的设备**没有启动 ramdisk**，请获取 `recovery.img` 的副本。<br>
+如果您的设备**没有启动 ramdisk**，请获取 `recovery.img` 的副本。
 
 您可以从官方固件包或第三方 ROM 刷机包中提取所需文件。
 
@@ -71,7 +71,7 @@ adb pull /sdcard/Download/magisk_patched_[随机字符].img PC上magisk_patched.
 
 **不要使用 MTP**，因为它可能会损坏大文件。
 
-- 将修补好的 boot 、init_boot 或 recovery 映像刷入到您的设备。<br>
+- 将修补好的 boot 、init_boot 或 recovery 映像刷入到您的设备。\
   对于大多数设备，可以重启到 fastboot 模式，并使用以下命令刷入：
 
 ``` shell
@@ -221,7 +221,7 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 
 *注意：正如在 荣耀 View 10 上测试的那样，华为的内核似乎无法在早期启动时捕获按键事件，因此长按音量增大不会在我的设备上**不会**启动到 Recovery。 您的体验可能会有所不同。*
 
-- 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-recovery) 的说明进行操作即可。<br>
+- 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-recovery) 的说明进行操作即可。\
 **警告：Magisk 将覆盖第三方 Recovery。**
 - 如果您不打算使用第三方 Recovery，则必须从固件中提取 `RECOVERY_RAMDIS.img` （这不是拼写错误），而不是 `recovery.img`（部分设备依旧需要修补 `recovery.img` ）。 按照上面的引导映像修补说明进行操作，但使用 `RECOVERY_RAMDIS.img` 文件而不是 boot 映像！
 - 要将修补后的映像刷入您的设备，请使用 fastboot 命令：

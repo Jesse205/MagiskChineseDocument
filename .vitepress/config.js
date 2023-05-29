@@ -29,14 +29,14 @@ const DEVELOPER_LINKS = [
 
 const SIDE_BAR = {}
 let allItems = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
-for (let groupIndex in allItems) {
-    let group = allItems[groupIndex]
+for (let group of allItems) {
+    // let group = allItems[groupIndex]
     let activeMatch = ''
-    for (let index in group.items) {
-        SIDE_BAR[group.items[index].link] = [group]
-        if (index != 0)
+    for (let item of group.items) {
+        SIDE_BAR[item.link] = [group]
+        if (activeMatch === '')
             activeMatch += '|'
-        activeMatch += group.items[index].link.replace('\.md', '')
+        activeMatch += item.link.replace('\.md', '')
     }
     group.activeMatch = activeMatch
 }
@@ -104,15 +104,15 @@ export default {
                         backButtonTitle: '关闭搜索',
                         noResultsText: '未找到',
                         footer: {
-                          selectText: '选择',
-                          selectKeyAriaLabel: '进入',
-                          navigateText: '导航',
-                          navigateUpKeyAriaLabel: '向上',
-                          navigateDownKeyAriaLabel: '向下',
-                          closeText: '关闭',
-                          closeKeyAriaLabel: '退出'
+                            selectText: '选择',
+                            selectKeyAriaLabel: '进入',
+                            navigateText: '导航',
+                            navigateUpKeyAriaLabel: '向上',
+                            navigateDownKeyAriaLabel: '向下',
+                            closeText: '关闭',
+                            closeKeyAriaLabel: '退出'
                         }
-                      }
+                    }
                 }
             }
         }
