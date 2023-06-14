@@ -1,7 +1,13 @@
+import { DefaultTheme, defineConfig } from "vitepress"
+
+interface ThemeConfig extends DefaultTheme.Config {
+    [key: string]: any;
+}
+
 // 原始文档日期
 const ORIGIN_DOCUMENT_DATE = "2023年05月13日"
 
-const NORMAL_LINKS = [
+const NORMAL_LINKS: DefaultTheme.NavItem[] = [
     {
         text: '面向普通用户',
         // collapsed: false,
@@ -13,7 +19,7 @@ const NORMAL_LINKS = [
         ]
     }
 ]
-const DEVELOPER_LINKS = [
+const DEVELOPER_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
     {
         text: '面向开发人员',
         // collapsed: false,
@@ -28,21 +34,21 @@ const DEVELOPER_LINKS = [
 ]
 
 const SIDE_BAR = {}
-let allItems = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
+let allItems: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
 for (let group of allItems) {
     let activeMatch = ''
-    for (let item of group.items) {
-        SIDE_BAR[item.link] = [group]
-        if (activeMatch !== '')
-            activeMatch += '|'
-        activeMatch += item.link.replace('\.md', '')
+    if (group.items) {
+        for (let item of group.items) {
+            SIDE_BAR[item.link as string] = [group]
+            if (activeMatch !== '')
+                activeMatch += '|'
+            activeMatch += item.link?.replace('\.md', '')
+        }
+        (group as DefaultTheme.NavItem).activeMatch = activeMatch
     }
-    group.activeMatch = activeMatch
-    console.log(activeMatch);
 }
-allItems = null
 
-export default {
+export default defineConfig({
     lang: 'zh-CN',
     title: 'Magisk 中文文档',
     description: 'Magisk 中文文档，由 Jesse205 手动机翻。',
@@ -82,7 +88,7 @@ export default {
             ...DEVELOPER_LINKS,
             { text: '官方文档', link: 'https://topjohnwu.github.io/Magisk/' },
 
-        ],
+        ] as DefaultTheme.NavItem[],
         sidebar: SIDE_BAR,
         footer: {
             message: `原始文档版本: ${ORIGIN_DOCUMENT_DATE}<br/>在 GPL-3.0 许可下发布`,
@@ -116,5 +122,5 @@ export default {
                 }
             }
         }
-    }
-}
+    } as ThemeConfig
+})
