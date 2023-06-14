@@ -1,24 +1,36 @@
 :root {
-    --vp-c-green: #10b981;
-    --vp-c-green-light: #34d399;
-    --vp-c-green-lighter: #6ee7b7;
-    --vp-c-green-dark: #059669;
-    --vp-c-green-darker: #047857;
-    --vp-c-green-dimm-1: rgba(16, 185, 129, 0.05);
-    --vp-c-green-dimm-2: rgba(16, 185, 129, 0.2);
-    --vp-c-green-dimm-3: rgba(16, 185, 129, 0.5);
-
+    /* Base Colors */
+    --c-md-teal-50: #E0F2F1;
     --c-md-teal-300: #4DB6AC;
     --c-md-teal-400: #26A69A;
     --c-md-teal-500: #009688;
     --c-md-teal-600: #00897B;
     --c-md-teal-700: #00796B;
 
-    --vp-c-brand: #1a73e8;
-    --vp-c-brand-light: #4285f4;
+    /* Theme Colors */
     --vp-c-brand: var(--c-md-teal-500);
     --vp-c-brand-light: var(--c-md-teal-400);
     --vp-c-brand-lighter: var(--c-md-teal-300);
     --vp-c-brand-dark: var(--c-md-teal-600);
     --vp-c-brand-darker: var(--c-md-teal-700);
+
+    /* Badges */
+    --vp-badge-tip-border: var(--vp-c-brand-dark);
+    --vp-badge-tip-text: var(--vp-c-brand);
+    --vp-badge-tip-bg: var(--c-md-teal-50);
+
+    /* Custom Blocks */
+    --vp-custom-block-tip-border: var(--vp-c-brand);
+    --vp-custom-block-tip-text: var(--vp-c-brand-dark);
+
+    /* Search */
+    --vp-local-search-highlight-bg: var(--vp-c-brand-lighter);
+    --vp-local-search-highlight-text: var(--vp-c-white);
+
 }
+
+::selection {
+    background-color: var(--vp-c-brand);
+    color: white;
+}
+
