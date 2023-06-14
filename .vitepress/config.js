@@ -30,15 +30,15 @@ const DEVELOPER_LINKS = [
 const SIDE_BAR = {}
 let allItems = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
 for (let group of allItems) {
-    // let group = allItems[groupIndex]
     let activeMatch = ''
     for (let item of group.items) {
         SIDE_BAR[item.link] = [group]
-        if (activeMatch === '')
+        if (activeMatch !== '')
             activeMatch += '|'
         activeMatch += item.link.replace('\.md', '')
     }
     group.activeMatch = activeMatch
+    console.log(activeMatch);
 }
 allItems = null
 
