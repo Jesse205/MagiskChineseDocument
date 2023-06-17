@@ -146,11 +146,14 @@ fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
 - 在方式中选择 **「选择并修补一个文件」** ，然后选择 `AP` 归档文件
 - 开始安装，并使用 ADB 将修补的归档文件复制到您的电脑：
 
-  ``` shell
-  adb pull /sdcard/Download/magisk_patched_[random_strings].tar
-  ```
+``` shell
+adb pull /sdcard/Download/magisk_patched_[random_strings].tar
+```
 
-  注意：**不要使用MTP**，因为它可能会损坏大型文件。
+::: warning
+**不要使用MTP**，因为它可能会损坏大型文件。
+:::
+
 - 重新启动到下载模式。在您的 PC 上打开 Odin，将 `magisk_patched.tar` 作为 `AP`，连同原始固件中的 `BL`、`CP` 和 `CSC`（**不是** `HOME_CSC`，因为我们要**清除数据**）一起刷入。
 - 一旦 Odin 完成刷机，您的设备应该会自动重启。 如果被要求恢复出厂设置，请同意。
 - 如果您的设备**没有**启动 ramdisk，请立即重新启动到 recovery 以启用 Magisk（原因在 [Recovery 中的 Magisk](#recovery-中的-magisk) 中说明）。
