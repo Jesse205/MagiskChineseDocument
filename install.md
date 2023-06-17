@@ -122,7 +122,7 @@ fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
 
 ### 安装 Magisk 之前
 
-- 安装 Magisk **将熔断 KNOX**
+- 安装 Magisk **将熔断 KNOX**。
 - 首次安装 Magisk **需要完整的数据擦除**（这**不包括在解锁 bootloader 时的数据擦除**）。请在继续之前备份您的数据。
 - 下载支持您设备的 Odin (仅限 Windows 上运行) 或者 [Heimdall](https://www.glassechidna.com.au/heimdall/) (仅 Linux)。
 
@@ -130,12 +130,12 @@ fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
 
 在较新三星设备上解锁 bootloader 有一些注意事项。新引入的 `VaultKeeper` 服务会使 bootloader 在某些情况下拒绝任何非官方分区。
 
-- 允许在解锁 bootloader，在 **开发者选项 → OEM 解锁**
-- 重启到下载模式：将设备关机，然后按下设备的下载模式键组合
-- 长按音量上限可解锁引导加载程序**这将擦除数据并自动重新启动**
-- 完成初始设置。跳过所有步骤，因为数据将在后面的步骤中再次擦除。**在设置过程中将设备连接到互联网**
+- 允许在解锁 bootloader，在 **开发者选项 → OEM 解锁**。
+- 重启到下载模式：将设备关机，然后按下设备的下载模式键组合。
+- 长按音量上键可解锁引导加载程序。**这将擦除数据并自动重新启动**
+- 完成初始设置。跳过所有步骤，因为数据将在后面的步骤中再次擦除。**在设置过程中将设备连接到互联网**。
 - 启用开发者选项，**确认「OEM解锁」选项存在且呈灰色。** 这意味着 `VaultKeeper` 服务释放了引导加载程序。
-- 您的 bootloader 现在在下载模式允许非官方映像
+- 您的 bootloader 现在在下载模式允许非官方映像。
 
 ### 操作指南
 
