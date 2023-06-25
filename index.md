@@ -75,6 +75,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## 友情链接
 
-- [刷机指南](https://efadg.netlify.app/)
+- [刷机指南](https://jesse205.github.io/FlashAndroidDevicesGuidelines)
 - [Edde 系列](https://jesse205.github.io/)
 - [Magisk 资源分享](https://main.suchenqaq.club/)
