@@ -88,6 +88,7 @@ export default defineConfig({
             prev: '上一篇',
             next: '下一篇'
         },
+        outline: [2, 3],
         socialLinks: [
             {
                 icon: {
@@ -141,6 +142,7 @@ export default defineConfig({
                     }
                 }
             }
-        }
+        },
+        externalLinkIcon: true
     } as ThemeConfig
 })
