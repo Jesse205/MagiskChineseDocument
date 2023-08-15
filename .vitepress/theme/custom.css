@@ -29,7 +29,7 @@
 
 }
 
-.delta {
+:root.delta {
     --c-md-pink-50: #E91E6319;
     --c-md-pink-300: #F06292;
     --c-md-pink-400: #EC407A;
@@ -43,6 +43,10 @@
     --vp-c-brand-lighter: var(--c-md-pink-300);
     --vp-c-brand-dark: var(--c-md-pink-600);
     --vp-c-brand-darker: var(--c-md-pink-700);
+
+    /* Badges */
+    --vp-badge-tip-bg: var(--c-md-pink-50-alpha);
+
 }
 
 ::selection {
