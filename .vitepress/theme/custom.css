@@ -1,6 +1,6 @@
 :root {
     /* Base Colors */
-    --c-md-teal-50-alpha: #00968719;
+    --c-md-teal-50-alpha: #00968819;
     --c-md-teal-300: #4DB6AC;
     --c-md-teal-400: #26A69A;
     --c-md-teal-500: #009688;
@@ -29,8 +29,23 @@
 
 }
 
+.delta {
+    --c-md-pink-50: #E91E6319;
+    --c-md-pink-300: #F06292;
+    --c-md-pink-400: #EC407A;
+    --c-md-pink-500: #E91E63;
+    --c-md-pink-600: #D81B60;
+    --c-md-pink-700: #C2185B;
+
+    /* Theme Colors */
+    --vp-c-brand: var(--c-md-pink-500);
+    --vp-c-brand-light: var(--c-md-pink-400);
+    --vp-c-brand-lighter: var(--c-md-pink-300);
+    --vp-c-brand-dark: var(--c-md-pink-600);
+    --vp-c-brand-darker: var(--c-md-pink-700);
+}
+
 ::selection {
     background-color: var(--vp-c-brand);
     color: white;
 }
-

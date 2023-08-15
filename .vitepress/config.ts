@@ -6,16 +6,17 @@ interface ThemeConfig extends DefaultTheme.Config {
 
 // 原始文档日期
 const ORIGIN_DOCUMENT_DATE = "2023年05月13日"
+const ORIGIN_DELTA_DOCUMENT_DATE = "2023年08月15日"
 
-const NORMAL_LINKS: DefaultTheme.NavItem[] = [
+const NORMAL_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
     {
         text: '面向普通用户',
         // collapsed: false,
         items: [
-            { text: '安装说明', link: '/install.md' },
-            { text: '常见问题', link: '/faq.md' },
+            { text: '安装说明', link: '/install.html' },
+            { text: '常见问题', link: '/faq.html' },
             { text: '发布日志', link: '/releases/' },
-            { text: 'Magisk  更新日志', link: '/changes.md' },
+            { text: 'Magisk  更新日志', link: '/changes.html' },
         ]
     }
 ]
@@ -24,25 +25,41 @@ const DEVELOPER_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
         text: '面向开发人员',
         // collapsed: false,
         items: [
-            { text: '构建和开发 Magisk', link: '/build.md' },
-            { text: '开发者指南', link: '/guides.md' },
-            { text: 'Magisk 工具', link: '/tools.md' },
-            { text: '内部细节', link: '/details.md' },
-            { text: 'Android 引导诡计', link: '/boot.md' },
+            { text: '构建和开发 Magisk', link: '/build.html' },
+            { text: '开发者指南', link: '/guides.html' },
+            { text: 'Magisk 工具', link: '/tools.html' },
+            { text: '内部细节', link: '/details.html' },
+            { text: 'Android 引导诡计', link: '/boot.html' },
         ]
     }
 ]
 
-const SIDE_BAR = {}
+const DELTA_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
+    {
+        text: 'Magisk Delta',
+        // collapsed: false,
+        activeMatch: '/delta/',
+        items: [
+            { text: '常见问题', link: '/delta/faq.html' },
+            { text: '内部文档', link: '/delta/internal-guide.html' },
+        ]
+    }
+]
+
+const SIDE_BAR: DefaultTheme.Sidebar = {
+    '/delta/': DELTA_LINKS
+}
 let allItems: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
 for (let group of allItems) {
     let activeMatch = ''
     if (group.items) {
         for (let item of group.items) {
-            SIDE_BAR[item.link as string] = [group]
-            if (activeMatch !== '')
-                activeMatch += '|'
-            activeMatch += item.link?.replace('\.md', '')
+            if (item.link) {
+                SIDE_BAR[item.link.replace('\.html', '')] = [group]
+                if (activeMatch !== '')
+                    activeMatch += '|'
+                activeMatch += '^' + item.link.replace('\.html', '')
+            }
         }
         (group as DefaultTheme.NavItem).activeMatch = activeMatch
     }
@@ -86,12 +103,15 @@ export default defineConfig({
         nav: [
             ...NORMAL_LINKS,
             ...DEVELOPER_LINKS,
+            ...DELTA_LINKS,
             { text: '官方文档', link: 'https://topjohnwu.github.io/Magisk/' },
 
         ] as DefaultTheme.NavItem[],
         sidebar: SIDE_BAR,
         footer: {
-            message: `原始文档版本: ${ORIGIN_DOCUMENT_DATE}<br/>在 GPL-3.0 许可下发布`,
+            message: `原始 Magisk 文档版本: ${ORIGIN_DOCUMENT_DATE}<br/>
+            原始 Magisk Delta 文档版本: ${ORIGIN_DELTA_DOCUMENT_DATE}<br/>
+            在 GPL-3.0 许可下发布`,
         },
         editLink: {
             pattern: 'https://gitee.com/Jesse205/magisk-chinese-document/edit/master/:path',
