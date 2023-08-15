@@ -13,22 +13,26 @@ const { theme } = useData()
 # Magisk 中文文档 <Badge type="tip" text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
 
 ![logo](/images/logo.png)
-本文档翻译了 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 并补充了很多内容。
 
-原始文档版本：{{theme.originDocumentDate}}
+> 本文档翻译了 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 和 [Magisk Delta 文档](https://huskydg.github.io/magisk-files/) 并补充了很多内容。
 
 - [安装说明](install.md)
 - [常见问题](faq.md)
 - [发布日志](releases/)
 - [Magisk  更新日志](changes.md)
 
-__以下部分面向开发者__:
+**以下部分面向开发者**:
 
 - [构建和开发 Magisk](build.md) (开发 Magisk 本身)
-- [开发者指南](guides.md) (针对 __使用 Magisk__ 的开发人员)
+- [开发者指南](guides.md) (针对 **使用 Magisk** 的开发人员)
 - [Magisk 工具](tools.md)
 - [内部细节](details.md)
 - [Android 引导诡计](boot.md)
+
+**Magisk Delta**:
+
+- [常见问题](./delta/faq.md)
+- [内部文档](./delta/internal-guide.md)
 
 ## Magisk 许可（License）<Badge type="tip" text="使用 百度翻译 汉化" />
 
