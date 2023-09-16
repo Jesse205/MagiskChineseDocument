@@ -1,55 +1,46 @@
 :root {
     /* Base Colors */
     --c-md-teal-50-alpha: #00968819;
+    --c-md-teal-100-alpha: #0096874D;
+    --c-md-teal-100: #B2DFDB;
     --c-md-teal-300: #4DB6AC;
     --c-md-teal-400: #26A69A;
     --c-md-teal-500: #009688;
     --c-md-teal-600: #00897B;
     --c-md-teal-700: #00796B;
 
-    /* Theme Colors */
-    --vp-c-brand: var(--c-md-teal-500);
-    --vp-c-brand-light: var(--c-md-teal-400);
-    --vp-c-brand-lighter: var(--c-md-teal-300);
-    --vp-c-brand-dark: var(--c-md-teal-600);
-    --vp-c-brand-darker: var(--c-md-teal-700);
-
-    /* Badges */
-    --vp-badge-tip-border: var(--vp-c-brand-dark);
-    --vp-badge-tip-text: var(--vp-c-brand);
-    --vp-badge-tip-bg: var(--c-md-teal-50-alpha);
-
-    /* Custom Blocks */
-    --vp-custom-block-tip-border: var(--vp-c-brand);
-    --vp-custom-block-tip-text: var(--vp-c-brand-dark);
-
-    /* Search */
-    --vp-local-search-highlight-bg: var(--vp-c-brand);
-    --vp-local-search-highlight-text: var(--vp-c-white);
-
-}
-
-:root.delta {
-    --c-md-pink-50: #E91E6319;
+    --c-md-pink-50-alpha: #E91E6319;
+    --c-md-pink-100-alpha: #E91E634D;
+    --c-md-pink-100: #F8BBD0;
     --c-md-pink-300: #F06292;
     --c-md-pink-400: #EC407A;
     --c-md-pink-500: #E91E63;
     --c-md-pink-600: #D81B60;
     --c-md-pink-700: #C2185B;
+}
+
+:root {
 
     /* Theme Colors */
-    --vp-c-brand: var(--c-md-pink-500);
-    --vp-c-brand-light: var(--c-md-pink-400);
-    --vp-c-brand-lighter: var(--c-md-pink-300);
-    --vp-c-brand-dark: var(--c-md-pink-600);
-    --vp-c-brand-darker: var(--c-md-pink-700);
+    --vp-c-brand-1: var(--c-md-teal-500);
+    --vp-c-brand-2: var(--c-md-teal-300);
+    --vp-c-brand-3: var(--c-md-teal-300);
+    --vp-c-brand-soft:var(--c-md-teal-50-alpha);
+    --color-selection:var(--c-md-teal-100-alpha);
 
-    /* Badges */
-    --vp-badge-tip-bg: var(--c-md-pink-50-alpha);
+    /* Fonts */
+}
 
+:root.delta {
+    /* Theme Colors */
+    --vp-c-brand-1: var(--c-md-pink-500);
+    --vp-c-brand-2: var(--c-md-pink-300);
+    --vp-c-brand-3: var(--c-md-pink-300);
+    --vp-c-brand-soft: var(--c-md-pink-50-alpha);
+    --color-selection:var(--c-md-pink-100-alpha);
 }
 
 ::selection {
-    background-color: var(--vp-c-brand);
-    color: white;
+    background-color: var(--color-selection);
+    /* color: white; */
 }
