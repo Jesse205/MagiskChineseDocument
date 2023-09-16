@@ -7,6 +7,5 @@ export default <Theme>{
     Layout: Layout,
     extends: DefaultTheme,
     enhanceApp(ctx) {
-        DefaultTheme.enhanceApp(ctx)
     },
 }
