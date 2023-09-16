@@ -1,0 +1,49 @@
+@import url(./JetBrains-Mono.scss);
+
+:root {
+  /* Base Colors */
+  --c-md-teal-50-alpha: #00968819;
+  --c-md-teal-100-alpha: #0096874d;
+  --c-md-teal-100: #b2dfdb;
+  --c-md-teal-300: #4db6ac;
+  --c-md-teal-400: #26a69a;
+  --c-md-teal-500: #009688;
+  --c-md-teal-600: #00897b;
+  --c-md-teal-700: #00796b;
+
+  --c-md-pink-50-alpha: #e91e6319;
+  --c-md-pink-100-alpha: #e91e634d;
+  --c-md-pink-100: #f8bbd0;
+  --c-md-pink-300: #f06292;
+  --c-md-pink-400: #ec407a;
+  --c-md-pink-500: #e91e63;
+  --c-md-pink-600: #d81b60;
+  --c-md-pink-700: #c2185b;
+}
+
+:root {
+  /* Theme Colors */
+  --vp-c-brand-1: var(--c-md-teal-500);
+  --vp-c-brand-2: var(--c-md-teal-300);
+  --vp-c-brand-3: var(--c-md-teal-300);
+  --vp-c-brand-soft: var(--c-md-teal-50-alpha);
+  --color-selection: var(--c-md-teal-100-alpha);
+
+  /* Fonts */
+  --vp-font-family-mono: "JetBrains Mono", "JetBrains Mono Online", ui-monospace,
+    SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", var(--vp-font-family-base), monospace;
+}
+
+:root.delta {
+  /* Theme Colors */
+  --vp-c-brand-1: var(--c-md-pink-500);
+  --vp-c-brand-2: var(--c-md-pink-300);
+  --vp-c-brand-3: var(--c-md-pink-300);
+  --vp-c-brand-soft: var(--c-md-pink-50-alpha);
+  --color-selection: var(--c-md-pink-100-alpha);
+}
+
+::selection {
+  background-color: var(--color-selection);
+}
