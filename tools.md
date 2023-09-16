@@ -124,7 +124,7 @@ su -> magisk
 
 ## magiskinit
 
-这个二进制文件将替换 Magisk 补丁启动映像的 ramdisk 中的 `init`。它最初是为支持以 system-as-root 的设备而创建的，但该工具被扩展为支持所有设备，并成为 Magisk 的关键部分。更多详细信息可以在 [Micsk Booting Process](details.md#magisk-booting-process) 中的 **Pre-Init** 部分找到。
+这个二进制文件将替换 Magisk 补丁启动映像的 ramdisk 中的 `init`。它最初是为支持以 system-as-root 的设备而创建的，但该工具被扩展为支持所有设备，并成为 Magisk 的关键部分。更多详细信息可以在 [Magisk 启动过程](details.md#magisk-启动过程) 中的 **预初始化（Pre-Init）** 部分找到。
 
 ## magiskpolicy
 

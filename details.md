@@ -70,7 +70,7 @@ DATABIN=$SECURE_DIR/magisk
 
 ```
 
-## Magisk引导过程
+## Magisk 启动过程
 
 ### 预初始化（Pre-Init）
 
