@@ -83,3 +83,7 @@ Magisk 的官方模块库已经死亡，不再维护。因此，将它们添加�
 ## 为什么启用 SuList 后某些模块会损坏？
 
 SuList 意味着 MagiskSU 和模块默认未加载，只有列表中的应用程序才会加载 Magisk，因此无法完全支持模块的功能，因为大多数模块必须在所有应用程序中加载，这相当于被检测到。有关 SuList 的更多信息，请[阅读](./internal-guide.html#magiskhide-sulist)
+
+## 参考链接
+
+- [FAQ](https://huskydg.github.io/magisk-files/docs/faq.html)（官方）

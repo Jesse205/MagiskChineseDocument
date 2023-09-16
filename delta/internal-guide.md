@@ -82,3 +82,7 @@ service myservice ${MAGISKTMP}/.magisk/early-mount.d/myscript.sh
 ```bash
 ln -s "/xxxxx" /data/adb/modules/mymodule_id/system/vendor/etc/thermal-engine-normal.conf
 ```
+
+## 参考链接
+
+- [Magisk Delta Internal Documentation](https://huskydg.github.io/magisk-files/docs/internal-guide.html)（官方）
