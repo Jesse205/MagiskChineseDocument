@@ -62,37 +62,37 @@ adb shell ls -l /dev/block/bootdevice/by-name
 - 如果您的设备**没有单独的 `vbmeta` 分区**，请选中 **「修补 boot 映像中的 vbmeta」** 选项
 - 在方式中选择 **「选择并修补一个文件」** ，然后选择 boot 、init_boot 或 recovery 映像
 - 开始安装，并使用 ADB 将修补的映像复制到您的电脑：
-
-``` shell
-adb pull /sdcard/Download/magisk_patched_[随机字符].img PC上magisk_patched.img的路径
-```
-
-> 提示，你可以将文件从资源管理器直接拖到终端中来获得文件绝对路径。
-
-**不要使用 MTP**，因为它可能会损坏大文件。
-
+  ``` shell
+  adb pull /sdcard/Download/magisk_patched_[随机字符].img PC上magisk_patched.img的路径
+  ```
+  > 提示，你可以将文件从资源管理器直接拖到终端中来获得文件绝对路径。
+  **不要使用 MTP**，因为它可能会损坏大文件。
 - 将修补好的 boot 、init_boot 或 recovery 映像刷入到您的设备。\
   对于大多数设备，可以重启到 fastboot 模式，并使用以下命令刷入：
+  ::: code-group
 
-``` shell
-fastboot flash boot[_x] PC上magisk_patched_[随机字符].img的路径 # 或
-fastboot flash init_boot[_x] PC上magisk_patched_[随机字符].img的路径
-# 如果刚刚修补的是 recovery 映像则改用：
-fastboot flash recovery PC上magisk_patched_[随机字符].img的路径
-```
+  ``` shell [boot]
+  fastboot flash boot[_x] PC上magisk_patched_[随机字符].img的路径
+  ```
 
-`[_x]` 应该取决于您的设备，应为 `_a` 或 `_b` 或者不写
+  ``` shell [init_boot]
+  fastboot flash init_boot[_x] PC上magisk_patched_[随机字符].img的路径
+  ```
 
+  ``` shell [recovery]
+  # 如果刚刚修补的是 recovery 映像则改用：
+  fastboot flash recovery PC上magisk_patched_[随机字符].img的路径
+  ```
+
+  :::
+  `[_x]` 应该取决于您的设备，应为 `_a` 或 `_b` 或者不写
 - <Badge type="tip" text="可选" /> 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区
-
-``` shell
-fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
-```
-
-::: warning
-此操作可能清除您的数据
-:::
-
+  ``` shell
+  fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
+  ```
+  ::: warning
+  此操作可能清除您的数据
+  :::
 - 重启并启动 Magisk 应用程序（如果您清除数据，您将看到一个用于占位的 Magisk 应用程序），您将看到一个询问修复环境的对话框，点击它并等待重启
 - 瞧！
 
@@ -145,15 +145,13 @@ fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
 - 如果您的设备**没有**启动 ramdisk，勾选 **「Recovery模式」** 选项
 - 在方式中选择 **「选择并修补一个文件」** ，然后选择 `AP` 归档文件
 - 开始安装，并使用 ADB 将修补的归档文件复制到您的电脑：
-
-``` shell
-adb pull /sdcard/Download/magisk_patched_[random_strings].tar
-```
-
-::: warning
-**不要使用MTP**，因为它可能会损坏大型文件。
-:::
-
+  ``` shell
+  adb pull /sdcard/Download/magisk_patched_[random_strings].tar
+  ```
+  ::: warning
+  **不要使用 MTP**，因为它可能会损坏大型文件。
+  :::
+  > 译者注：如果有条件，可以验证以下哈希值。
 - 重新启动到下载模式。在您的 PC 上打开 Odin，将 `magisk_patched.tar` 作为 `AP`，连同原始固件中的 `BL`、`CP` 和 `CSC`（**不是** `HOME_CSC`，因为我们要**清除数据**）一起刷入。
 - 一旦 Odin 完成刷机，您的设备应该会自动重启。 如果被要求恢复出厂设置，请同意。
 - 如果您的设备**没有**启动 ramdisk，请立即重新启动到 recovery 以启用 Magisk（原因在 [Recovery 中的 Magisk](#recovery-中的-magisk) 中说明）。
@@ -173,25 +171,15 @@ adb pull /sdcard/Download/magisk_patched_[random_strings].tar
 ## 华为
 
 ::: danger
-这部分现已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 并补充后的版本。
+这部分现已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 时并补充后的版本。
 :::
 
 Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloader 不可通过官方途径解锁，更重要的是他们不遵循标准的 Android 分区方案。以下只是一些一般性指导。
 
 使用了麒麟处理器的华为设备与大多数常见设备的分区方式不同。Magisk 通常安装在设备的 `boot` 分区，但是华为设备没有这个分区。根据您的设备运行的 EMUI 版本，说明会略有不同。
 
-:::: danger
-请勿使用最新版本的 Magisk 应用！我推荐使用 [Magisk v23.0](https://github.com/topjohnwu/Magisk/releases/tag/v23.0) 或使用 [Magisk v20.4](https://github.com/topjohnwu/Magisk/releases/tag/v20.4) （下载「Magisk-v20.4.zip」）搭配 [Magisk Manager v7.5.1](https://github.com/topjohnwu/Magisk/releases/tag/manager-v7.5.1) （下载「MagiskManager-v7.5.1.apk」）
-
-::: details Magisk 兼容性列表
-
-| 名称 | 型号 | EMUI 版本 | Android 版本 | 详情 |
-| ---- | ---- | ---- | ---- | ---- |
-| 华为畅享7 | SLA-AL00 | EMUI 5.1.2 | Android 7.0 | 使用 Magisk v25.2 时会触发引导循环并直接重启至 eRecovery |
-| 荣耀畅玩4C | CHM-TL00H | EMUI 4.0 | Android 6.0 | 使用部分较新版本 Magisk 会导致无法授权，但是 Magisk v26.1 正常 |
-| 荣耀畅玩6X | BLN-AL10 | EMUI 8.0 | Android 8.0 | 正常 |
-
-:::
+:::: warning
+建议不要使用最新版本的 Magisk 应用！推荐使用 [Magisk v23.0](https://github.com/topjohnwu/Magisk/releases/tag/v23.0) 或 [Magisk v20.4](https://github.com/topjohnwu/Magisk/releases/tag/v20.4) 搭配 [Magisk Manager v7.5.1](https://github.com/topjohnwu/Magisk/releases/tag/manager-v7.5.1)
 ::::
 
 ### 获得官方映像
@@ -211,29 +199,25 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 - 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-recovery) 的说明进行操作即可。
 - 如果您不打算使用第三方 Recovery，则必须从您的固件中提取 `RAMDISK.img` 。 按照上面的[修补映像](#修补映像)说明进行操作，但使用 `RAMDISK.img` 文件而不是 boot 映像！
 - 要将修补后的映像刷入您的设备，请使用 fastboot 命令：
-
   ``` shell
   fastboot flash ramdisk /path/to/magisk_patched.img
   ```
-
-请注意，您正在刷入 `ramdisk`，而不是 `boot`！
+  请注意，您正在刷入 `ramdisk`，而不是 `boot`！
 
 ### EMUI 9 或更高版本
 
 对于 EMUI 9+ 设备，`ramdisk` 分区不再存在。 作为解决方法，Magisk 将安装到 `recovery_ramdisk` 分区。 **在按照以下说明操作之前，请先阅读 [Recovery 中的 Magisk](#recovery-中的-magisk) ！**
 
-*注意：正如在 荣耀 View 10 上测试的那样，华为的内核似乎无法在早期启动时捕获按键事件，因此长按音量增大不会在我的设备上**不会**启动到 Recovery。 您的体验可能会有所不同。*
+*译者注：正如在 荣耀 View 10 上测试的那样，华为的内核似乎无法在早期启动时捕获按键事件，因此长按音量增大不会在我的设备上**不会**启动到 Recovery。 您的体验可能会有所不同。*
 
 - 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-recovery) 的说明进行操作即可。\
 **警告：Magisk 将覆盖第三方 Recovery。**
 - 如果您不打算使用第三方 Recovery，则必须从固件中提取 `RECOVERY_RAMDIS.img` （这不是拼写错误），而不是 `recovery.img`（部分设备依旧需要修补 `recovery.img` ）。 按照上面的引导映像修补说明进行操作，但使用 `RECOVERY_RAMDIS.img` 文件而不是 boot 映像！
 - 要将修补后的映像刷入您的设备，请使用 fastboot 命令：
-
   ``` shell
   fastboot flash recovery_ramdisk /path/to/magisk_patched.img
   ```
-
-请注意，您正在刷入 `recovery_ramdisk`，而不是 `boot`！
+  请注意，您正在刷入 `recovery_ramdisk`，而不是 `boot`！
 
 ## 第三方 Recovery
 

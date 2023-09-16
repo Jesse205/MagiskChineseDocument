@@ -296,7 +296,9 @@ ramdisk
 
 这是 `custom.rc` 的示例：
 
-``` sh:line-numbers
+::: code-group
+
+``` sh:line-numbers [中文汉化]
 # 使用 ${MAGISKTMP} 引用 Magisk 的 tmpfs 目录
 
 on early-init
@@ -308,9 +310,7 @@ service myservice ${MAGISKTMP}/myscript.sh
     oneshot
 ```
 
-::: details 原版示例
-
-``` sh:line-numbers
+``` sh:line-numbers [英文原版]
 # Use ${MAGISKTMP} to refer to Magisk's tmpfs directory
 
 on early-init
