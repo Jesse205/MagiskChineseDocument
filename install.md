@@ -2,9 +2,6 @@
 
 如果您已经安装了 Magisk ，**强烈建议**直接通过 Magisk 应用程序的「直接安装」方法进行升级。以下教程仅针对初始安装。
 
-- 如果您在使用运行着 **EMUI 8** 或更高版本的华为设备，请查看[相应部分](#华为)。
-- 如果您使用的是**搭载 Android 9.0** 或更高版本的三星设备（2019 年新设备），请查看[相应部分](#三星-system-as-root)。
-
 ## 入门
 
 在你开始之前：
@@ -24,6 +21,10 @@
 ::: info 信息
 不幸的是，有一些例外情况，因为某些设备的引导加载程序会接受 ramdisk，即使它不应该接受。 在这种情况下，您必须按照说明进行操作，就好像您的设备的 boot 分区**包含 ramdisk 一样**。 没有什么办法检测到这一点，因此唯一可以确定的方法就是实际尝试。 幸运的是，据我们所知，只有部分小米设备具有此属性，所以大多数人可以忽略这条信息。
 :::
+
+如果您使用的是华为设备，请查看[相应部分](#华为)。
+
+如果您使用的是三星设备，请查看[相应部分](#三星设备)。
 
 如果您的设备**有启动 ramdisk**，请获取 `boot.img` 或者 `init_boot.img`（如果存在。在出厂时搭载 Android 13 的设备通常是这样的，比如红米 K60Pro）的副本。
 
@@ -114,11 +115,38 @@ adb shell ls -l /dev/block/bootdevice/by-name
 
 （注意：在这种情况下，您**不能使用 第三方 Recovery 来安装或升级 Magisk**！！）
 
-## 三星 (System-as-root)
+## 三星设备
 
-::: warning 警告
-如果您的三星设备未安装 Android 9.0 或更高版本，则说明以下内容不适用于您的设备。
-:::
+在继续之前，请确认：
+
+- 安装 Magisk **将熔断您的 Knox 保修位**，此操作无论如何都是不可逆的。
+- 首次安装 Magisk **需要完整的数据擦除**(这**不包括在解锁 bootloader 时的数据擦除**）。请备份您的数据。
+
+### 刷机工具
+
+- [Samsung Odin3](https://dl2018.sammobile.com/Odin.zip)（仅限 Windows）（需要 [Samsung USB Drivers](https://developer.samsung.com/android-usb-driver)）
+- [Samsung Odin4](https://forum.xda-developers.com/t/official-samsung-odin-v4-1-2-1-dc05e3ea-for-linux.4453423/)（仅限Linux）
+- [Heimdall](https://www.glassechidna.com.au/heimdall/)（或 [Grimler's fork](https://git.sr.ht/~grimler/Heimdall)）
+
+### 要求
+
+要验证三星设备是否可以安装 Magisk，首先必须检查 OEM 锁和 KnoxGuard (RMM) 状态，为此请使用组合键在下载模式下启动设备。
+
+OEM 锁的值可能如下：
+
+- **ON (L)**：完全锁定。
+- **ON (U)**：启动加载程序已锁定，OEM 解锁已启用。
+- **OFF (U)**：完全解锁。
+
+要解锁引导加载器，请按照以下说明操作。如果下载模式下未显示 OEM 锁的值，则可能由于市场限制（美国/加拿大设备），您的设备无法解锁。
+
+KnoxGuard 的值可能如下：
+
+- `Active` 、`Locked`：您的设备已被电信运营商或保险公司远程锁定。
+- `Prenormal`：您的设备被暂时锁定，达到 168 小时正常运行时间后会触发解锁。
+- `Checking` 、`Completed` 、`Broken`：您的设备已解锁。
+
+启用 KnoxGuard 后，无论您的启动加载器处于何种锁定状态，都将无法安装/运行 Magisk。
 
 ### 安装 Magisk 之前
 
@@ -128,18 +156,21 @@ adb shell ls -l /dev/block/bootdevice/by-name
 
 ### 解锁 Bootloader
 
-在较新三星设备上解锁 bootloader 有一些注意事项。新引入的 `VaultKeeper` 服务会使 bootloader 在某些情况下拒绝任何非官方分区。
-
-- 允许在解锁 bootloader，在 **开发者选项 → OEM 解锁**。
-- 重启到下载模式：将设备关机，然后按下设备的下载模式键组合。
-- 长按音量上键可解锁引导加载程序。**这将擦除数据并自动重新启动**
-- 完成初始设置。跳过所有步骤，因为数据将在后面的步骤中再次擦除。**在设置过程中将设备连接到互联网**。
-- 启用开发者选项，**确认「OEM解锁」选项存在且呈灰色。** 这意味着 `VaultKeeper` 服务释放了引导加载程序。
-- 您的 bootloader 现在在下载模式允许非官方映像。
+1. 允许在解锁 bootloader，在 **开发者选项 → OEM 解锁**。
+2. 重启至下载模式：关闭设备电源并按下设备的下载模式组合键
+3. 长按音量上键解锁启动加载器。**这将清除你的数据并自动重启**。
+4. Go through the initial setup. Skip through all the steps since data will be wiped again in later steps. **Connect the device to Internet during the setup.**
+5. 完成初始设置。跳过所有步骤，因为数据将在后面的步骤中再次清除。**在设置过程中将设备连接到互联网。**
+6. 启用开发者选项，**确认 OEM 解锁选项是否存在，并显示为灰色。**这意味着 KnoxGuard 尚未锁定您的设备。
+7. 您的 bootloader 现在在下载模式下可接受的非官方映像。
 
 ### 操作指南
 
-- 使用 [samfirm.js](https://github.com/jesec/samfirm.js)，[Frija](https://forum.xda-developers.com/s10-plus/how-to/tool-frija-samsung-firmware-downloader-t3910594)，或 [Samloader](https://forum.xda-developers.com/s10-plus/how-to/tool-samloader-samfirm-frija-replacement-t4105929) 直接从三星服务器下载设备的最新 zip 固件 。
+- 为您的设备下载最新固件包，您可以使用以下工具之一直接从三星服务器下载：
+  - [SamFirm.NET](https://github.com/jesec/SamFirm.NET)，[samfirm.js](https://github.com/jesec/samfirm.js)
+  - [Frija](https://forum.xda-developers.com/s10-plus/how-to/tool-frija-samsung-firmware-downloader-t3910594)
+  - [Samloader](https://forum.xda-developers.com/s10-plus/how-to/tool-samloader-samfirm-frija-replacement-t4105929)
+  - [Bifrost](https://forum.xda-developers.com/t/tool-samsung-samsung-firmware-downloader.4240719/)
 - 解压缩固件并将 `AP` 归档文件复制到设备。它通常命名为 `AP_[device_model_sw_ver].tar.md5`
 - 按下 Magisk 主屏幕中的 **「安装」** 按钮
 - 如果您的设备**没有**启动 ramdisk，勾选 **「Recovery模式」** 选项
@@ -152,11 +183,11 @@ adb shell ls -l /dev/block/bootdevice/by-name
   **不要使用 MTP**，因为它可能会损坏大型文件。
   :::
   > 译者注：如果有条件，可以验证以下哈希值。
-- 重新启动到下载模式。在您的 PC 上打开 Odin，将 `magisk_patched.tar` 作为 `AP`，连同原始固件中的 `BL`、`CP` 和 `CSC`（**不是** `HOME_CSC`，因为我们要**清除数据**）一起刷入。
-- 一旦 Odin 完成刷机，您的设备应该会自动重启。 如果被要求恢复出厂设置，请同意。
+- 重新启动到下载模式。在您的 PC 上打开 Odin，将 `magisk_patched.tar` 作为 `AP`，连同原始固件中的 `BL` 、`CP` 和 `CSC`（**不是** `HOME_CSC`，因为我们要**清除数据**）一起刷入。
+- 一旦 Odin 完成刷机，您的设备应该会自动重启。**如果被要求恢复出厂设置，请同意。**
 - 如果您的设备**没有**启动 ramdisk，请立即重新启动到 recovery 以启用 Magisk（原因在 [Recovery 中的 Magisk](#recovery-中的-magisk) 中说明）。
 - 安装您已经下载的 [Magisk 应用程序](https://github.com/topjohnwu/Magisk/releases/latest) 并启动该应用程序。 它应该显示一个对话框，要求进行额外的设置。
-- 让应用程序完成它的工作并自动重启设备。
+- 让应用程序完成它的工作并自动重启设备。瞧！
 
 ### 系统更新
 
@@ -166,7 +197,6 @@ adb shell ls -l /dev/block/bootdevice/by-name
 
 - **永远、永远不要**尝试将 `boot`、`recovery`或 `vbmeta` 分区恢复到原样！ 您这样做会破坏您的设备，并且从中恢复的唯一方法是**清除数据并进行完整的 Odin 恢复**。
 - 要使用新的固件升级您的设备，**切勿**出于上述原因直接使用原厂 `AP` 归档文件。 **始终**在 Magisk 应用程序中修补 `AP` 并改用它。
-- 永远不要只刷入 `AP` ，否则 Odin 可能会缩小 `/data` 文件系统的大小。升级时请刷入 `AP` + `BL` + `CP` + `HOME_CSC` 。
 
 ## 华为
 
