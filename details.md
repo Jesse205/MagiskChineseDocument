@@ -4,7 +4,7 @@
 
 ### “Magisk tmpfs 目录”中的路径
 
-Magisk 将安装一个 `tmpfs` 目录来存储一些临时数据。对于带有 `/sbin` 文件夹的设备，将选择该文件夹，因为它还将充当将二进制文件注入 `PATH` 的覆盖层。从 Android 11 开始，`/sbin` 文件夹可能不存在，因此 Magisk 将在 `/dev` 下随机创建一个文件夹，并将其用作基本文件夹。
+Magisk 将安装一个 `tmpfs` 目录来存储一些临时数据。对于带有 `/sbin` 文件夹的设备，将选择该文件夹，因为它还将充当将二进制文件注入 `PATH` 的覆盖层。从 Android 11 开始，`/sbin` 文件夹可能不存在，因此 Magisk 将 `/debug_ramdisk` 其用作基本文件夹。
 
 ``` shell
 # 为了获得Magisk正在使用的当前基本文件夹，使用命令 `magisk--path`。

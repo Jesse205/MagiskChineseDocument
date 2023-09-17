@@ -1,5 +1,12 @@
 # Magisk 更新日志
 
+## v26.3
+
+- [General] Fix device information detection script
+- [General] Update BusyBox to 1.36.1
+- [General] Update toolchain that produces broken arm32 executables
+- [App] Fix root service unable to bind on OnePlus devices
+
 ## v26.2
 
 - [MagiskBoot] 支持从`payload.bin`中提取启动映像
