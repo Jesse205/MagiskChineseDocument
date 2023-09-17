@@ -2,10 +2,19 @@
 
 ## v26.3
 
+- [常规] 修复设备信息检测脚本
+- [常规] 将 BusyBox 更新到 1.36.1
+- [常规] 更新工具链，生成损坏的 arm32 可执行文件
+- [应用] 修复根服务无法绑定一加设备的问题
+
+::: details 英文原版
+
 - [General] Fix device information detection script
 - [General] Update BusyBox to 1.36.1
 - [General] Update toolchain that produces broken arm32 executables
 - [App] Fix root service unable to bind on OnePlus devices
+
+:::
 
 ## v26.2
 
@@ -47,9 +56,17 @@
 
 ## v26.1
 
+- [应用程序] 修复了撤销根权限时崩溃的问题
+- [MagiskInit] 在选择预初始化分区时，始终更喜欢 `ext4` 分区而不是 `f2fs`
+- [常规] 从镜像恢复模块文件的上下文/所有者/组。这是 v26.0 中引入的回归
+
+::: details 英文原版
+
 - [App] Fix crashing when revoking root permissions
 - [MagiskInit] Always prefer `ext4` partitions over `f2fs` when selecting the pre-init partition
 - [General] Restore module files' context/owner/group from mirror. This is a regression introduced in v26.0
+
+:::
 
 ## v26.0
 
