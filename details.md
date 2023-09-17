@@ -6,7 +6,7 @@
 
 Magisk 将安装一个 `tmpfs` 目录来存储一些临时数据。对于带有 `/sbin` 文件夹的设备，将选择该文件夹，因为它还将充当将二进制文件注入 `PATH` 的覆盖层。从 Android 11 开始，`/sbin` 文件夹可能不存在，因此 Magisk 将 `/debug_ramdisk` 其用作基本文件夹。
 
-``` shell
+``` bash
 # 为了获得Magisk正在使用的当前基本文件夹，使用命令 `magisk--path`。
 # 二进制文件，如 magisk、magiskinit 和所有小程序的符号链接直接存储
 # 在此路径中。这意味着当这是/sbin，这些二进制文件将直接在 PATH 中。
@@ -42,7 +42,7 @@ $INTERNALDIR/rootdir
 - 文件夹 secontext 标记为  `u:object_r:adb_data_file:s0`，很少有进程有权与该 secontext 进行任何交互。
 - 该文件夹位于*设备加密存储区*中，因此一旦数据正确装载到 FBE（File-Based Encryption，基于文件的加密）设备中，即可访问该文件夹。
 
-``` shell
+``` bash
 SECURE_DIR=/data/adb
 
 # 存储常规 post-fs-data 脚本的文件夹

@@ -90,8 +90,8 @@ description=<字符串> <string>
 updateJson=<链接> <url> (可选)
 ```
 
-- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（也就是由字母、数字、点 `.` 、下划线 `_` 和减号 `-` 组成，且开头必须为字母）\
-  示例: `a_module` <Badge type="tip" text="✓" /> ，`a.module` <Badge type="tip" text="✓" /> ，`module-101` <Badge type="tip" text="✓" /> ，`a module` <Badge type="danger" text="✗" /> ，`1_module` <Badge type="danger" text="✗" /> ，`-a-module` <Badge type="danger" text="✗" />\
+- `id` 必须匹配此正则表达式：`^[a-zA-Z][a-zA-Z0-9._-]+$`（译者注：也就是由字母、数字、点 `.` 、下划线 `_` 和减号 `-` 组成，且开头必须为字母）\
+  示例: `a_module` <Badge text="✓" /> ，`a.module` <Badge text="✓" /> ，`module-101` <Badge text="✓" /> ，`a module` <Badge type="danger" text="✗" /> ，`1_module` <Badge type="danger" text="✗" /> ，`-a-module` <Badge type="danger" text="✗" />\
   这是模块的**唯一标识符**。模块发布后，您不应更改它。
 - `versionCode` 必须是**整数**。这用于对比版本，以便检查更新。
 - `updateJson` 应该指向一个 URL，该 URL 下载提供信息的 JSON，以便 Magisk app 可以更新模块。

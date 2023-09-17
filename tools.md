@@ -20,7 +20,7 @@ su -> magisk
 
 `magiskboot` 的概念是使 boot 映像修改更简单。对于解包，它解析标头并提取映像中的所有部分，如果在任何部分中检测到压缩，则会立即解压缩。对于重新打包，需要原始 boot 映像，以便可以使用原始标头，只需更改必要的内容，如节大小和校验和。如果需要，所有部分将被压缩回原始格式。该工具还支持许多 CPIO 和 DTB 操作。
 
-``` txt
+``` bash
 用法: ./magiskboot <操作> [参数...]
 
 支持的操作:
@@ -134,7 +134,7 @@ su -> magisk
 
 Magisk 守护进程派生的所有进程，包括 root shell 及其所有分支，都在上下文 `u:r:magisk:s0` 中运行。所有安装了 Magisk 的系统上使用的规则都可以被视为官方的 `sepolicy` 具有以下补丁：`magiskpolicy --magisk 'allow magisk * * *'`。
 
-``` txt
+``` bash
 用法: ./magiskpolicy [--选项...] [策略声明...]
 
 选项:
@@ -205,7 +205,7 @@ allow s2 t2 class { all-permissions-of-class }
 
 当使用名称 `magisk` 调用 magisk 二进制文件时，它作为一个实用工具，具有许多助手函数和几个 Magisk 服务的入口点。
 
-``` txt
+``` bash
 用法: magisk [小程序 [参数]...]
    或: magisk [选项]...
 
@@ -249,7 +249,7 @@ allow s2 t2 class { all-permissions-of-class }
 
 MagiskSU 入口点 `magisk` 的小程序。不错的旧 `su` 命令。
 
-``` txt
+``` bash
 用法: su [选项] [-] [user [参数...]]
 
 选项:
@@ -266,14 +266,14 @@ MagiskSU 入口点 `magisk` 的小程序。不错的旧 `su` 命令。
 ```
 
 ::: tip 注意
-尽管上面没有列出 `-Z, --context` 选项，但该选项仍然存在，以便与为 SuperSU 设计的应用程序进行 CLI 兼容。然而，该选项被默默忽略，因为它不再相应。
+尽管上面没有列出 `-Z, --context` 选项，但该选项仍然存在，以便与为 SuperSU 设计的应用程序进行 CLI 兼容。然而，该选项被默默地忽略，因为它不再相关。
 :::
 
 ## resetprop
 
 `magisk` 的小程序。高级系统属性操作实用程序。查看 [Resetprop 详细信息](details.md#重置属性-resetprop) 以了解更多背景信息。
 
-``` txt
+``` bash
 用法: resetprop [标志] [选项...]
 
 选项:
