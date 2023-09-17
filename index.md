@@ -10,7 +10,7 @@ import { useData } from 'vitepress'
 const { theme } = useData()
 </script>
 
-# Magisk 中文文档 <Badge type="tip" text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
+# Magisk 中文文档 <Badge text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
 
 ![logo](/images/logo.png)
 
@@ -34,7 +34,7 @@ const { theme } = useData()
 - [常见问题](./delta/faq.md)
 - [内部文档](./delta/internal-guide.md)
 
-## Magisk 许可（License）<Badge type="tip" text="使用 百度翻译 汉化" />
+## Magisk 许可（License）
 
 ::: warning
 中文汉化版许可仅供参考，**请以英文原版为准!**
@@ -42,7 +42,7 @@ const { theme } = useData()
 
 ::: code-group
 
-``` txt [中文汉化]
+``` txt [中文汉化 <Badge text="百度翻译" />]
 Magisk，包括所有 git 子模块都是自由软件：
 您可以根据自由软件基金会发布的 GNU 通用公共许可证的条款（许可证的第3版，
 或（根据您的选择）任何更高版本重新分发和/或修改它。
@@ -51,7 +51,7 @@ Magisk，包括所有 git 子模块都是自由软件：
 的隐含保证。有关详细信息，请参阅 GNU 通用公共许可证。
 
 你应该已经收到了GNU通用公共许可证的副本以及这个程序。如果没有，请参见
-<http://www.gnu.org/licenses/>.
+<http://www.gnu.org/licenses/>。
 ```
 
 ``` txt [英文原版]
