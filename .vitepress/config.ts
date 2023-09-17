@@ -1,4 +1,6 @@
 import { DefaultTheme, defineConfig } from "vitepress"
+import fs from "fs"
+import path from "path"
 
 interface ThemeConfig extends DefaultTheme.Config {
   [key: string]: any
@@ -8,6 +10,13 @@ interface ThemeConfig extends DefaultTheme.Config {
 const ORIGIN_DOCUMENT_DATE = "2023年05月13日"
 const ORIGIN_DELTA_DOCUMENT_DATE = "2023年08月15日"
 
+const MATCH_RELEASE_REG = /- \[(v[\d.]*)\]\((\d*).md\)/g
+
+const releaseItems: (
+  | DefaultTheme.NavItemChildren
+  | DefaultTheme.NavItemWithLink
+)[] = []
+
 const NORMAL_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
   {
     text: "面向普通用户",
@@ -15,8 +24,13 @@ const NORMAL_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
     items: [
       { text: "安装说明", link: "/install.html" },
       { text: "常见问题", link: "/faq.html" },
-      { text: "发布日志", link: "/releases/" },
-      { text: "Magisk  更新日志", link: "/changes.html" },
+      {
+        text: "发布日志",
+        link: "/releases/",
+        items: releaseItems,
+        collapsed: true,
+      },
+      { text: "Magisk 更新日志", link: "/changes.html" },
     ],
   },
 ]
@@ -46,17 +60,29 @@ const DELTA_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
   },
 ]
 
-const SIDE_BAR: DefaultTheme.Sidebar = {
+const sidebar: DefaultTheme.Sidebar = {
   "/delta/": DELTA_LINKS,
 }
 let allItems: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
   ...NORMAL_LINKS,
   ...DEVELOPER_LINKS,
 ]
+// 生成侧边栏
 for (let group of allItems)
   if (group.items)
     for (let item of group.items)
-      if (item.link) SIDE_BAR[item.link.replace(".html", "")] = [group]
+      if (item.link) sidebar[item.link.replace(".html", "")] = [group]
+
+// 匹配版本号
+const releaseFileContent = fs.readFileSync("./releases/index.md", "utf8")
+for (const iterator of releaseFileContent.matchAll(MATCH_RELEASE_REG)) {
+  const verName = iterator[1]
+  const verCode = iterator[2]
+  releaseItems.push({
+    text: verName,
+    link: `/releases/${verCode}.html`,
+  })
+}
 
 export default defineConfig({
   lang: "zh-CN",
@@ -109,7 +135,7 @@ export default defineConfig({
       ...DELTA_LINKS,
       { text: "官方文档", link: "https://topjohnwu.github.io/Magisk/" },
     ] as DefaultTheme.NavItem[],
-    sidebar: SIDE_BAR,
+    sidebar,
     footer: {
       message: `原始 Magisk 文档版本: ${ORIGIN_DOCUMENT_DATE}<br/>
             原始 Magisk Delta 文档版本: ${ORIGIN_DELTA_DOCUMENT_DATE}<br/>
