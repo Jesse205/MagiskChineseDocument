@@ -22,11 +22,10 @@
 不幸的是，有一些例外情况，因为某些设备的引导加载程序会接受 ramdisk，即使它不应该接受。 在这种情况下，您必须按照说明进行操作，就好像您的设备的 boot 分区**包含 ramdisk 一样**。 没有什么办法检测到这一点，因此唯一可以确定的方法就是实际尝试。 幸运的是，据我们所知，只有部分小米设备具有此属性，所以大多数人可以忽略这条信息。
 :::
 
-如果您使用的是华为设备，请查看[相应部分](#华为)。
-
+如果您使用的是华为设备，请查看[相应部分](#华为)。\
 如果您使用的是三星设备，请查看[相应部分](#三星设备)。
 
-如果您的设备**有启动 ramdisk**，请获取 `boot.img` 或者 `init_boot.img`（如果存在。在出厂时搭载 Android 13 的设备通常是这样的，比如红米 K60Pro）的副本。
+如果您的设备**有启动 ramdisk**，请获取 `boot.img` 或者 `init_boot.img`（如果存在。在出厂时搭载 Android 13 的设备通常是这样的）的副本。
 
 如果您的设备**没有启动 ramdisk**，请获取 `recovery.img` 的副本。
 
@@ -81,20 +80,19 @@ adb shell ls -l /dev/block/bootdevice/by-name
   ```
 
   ``` shell [recovery]
-  # 如果刚刚修补的是 recovery 映像则改用：
   fastboot flash recovery PC上magisk_patched_[随机字符].img的路径
   ```
 
   :::
   `[_x]` 应该取决于您的设备，应为 `_a` 或 `_b` 或者不写
-- <Badge type="tip" text="可选" /> 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区
+- <Badge text="可选" /> 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区
   ``` shell
   fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
   ```
   ::: warning
-  此操作可能清除您的数据
+  此操作可能清除您的数据。
   :::
-- 重启并启动 Magisk 应用程序（如果您清除数据，您将看到一个用于占位的 Magisk 应用程序），您将看到一个询问修复环境的对话框，点击它并等待重启
+- 重启并启动 Magisk 应用程序（如果您清除数据，您将看到一个用于占位的 Magisk 应用程序），您将看到一个询问修复环境的对话框，点击它并等待重启。
 - 瞧！
 
 ## 卸载
@@ -148,21 +146,14 @@ KnoxGuard 的值可能如下：
 
 启用 KnoxGuard 后，无论您的启动加载器处于何种锁定状态，都将无法安装/运行 Magisk。
 
-### 安装 Magisk 之前
-
-- 安装 Magisk **将熔断 KNOX**。
-- 首次安装 Magisk **需要完整的数据擦除**（这**不包括在解锁 bootloader 时的数据擦除**）。请在继续之前备份您的数据。
-- 下载支持您设备的 Odin (仅限 Windows 上运行) 或者 [Heimdall](https://www.glassechidna.com.au/heimdall/) (仅 Linux)。
-
 ### 解锁 Bootloader
 
 1. 允许在解锁 bootloader，在 **开发者选项 → OEM 解锁**。
 2. 重启至下载模式：关闭设备电源并按下设备的下载模式组合键
 3. 长按音量上键解锁启动加载器。**这将清除你的数据并自动重启**。
-4. Go through the initial setup. Skip through all the steps since data will be wiped again in later steps. **Connect the device to Internet during the setup.**
-5. 完成初始设置。跳过所有步骤，因为数据将在后面的步骤中再次清除。**在设置过程中将设备连接到互联网。**
-6. 启用开发者选项，**确认 OEM 解锁选项是否存在，并显示为灰色。**这意味着 KnoxGuard 尚未锁定您的设备。
-7. 您的 bootloader 现在在下载模式下可接受的非官方映像。
+4. 完成初始设置。跳过所有步骤，因为数据将在后面的步骤中再次清除。**请在设置过程中将设备连接到互联网。**
+5. 启用开发者选项，**确认 OEM 解锁选项是否存在，并显示为灰色。** 这意味着 KnoxGuard 尚未锁定您的设备。
+6. 您的 bootloader 现在在下载模式下可接受的非官方映像。
 
 ### 操作指南
 
@@ -171,10 +162,10 @@ KnoxGuard 的值可能如下：
   - [Frija](https://forum.xda-developers.com/s10-plus/how-to/tool-frija-samsung-firmware-downloader-t3910594)
   - [Samloader](https://forum.xda-developers.com/s10-plus/how-to/tool-samloader-samfirm-frija-replacement-t4105929)
   - [Bifrost](https://forum.xda-developers.com/t/tool-samsung-samsung-firmware-downloader.4240719/)
-- 解压缩固件并将 `AP` 归档文件复制到设备。它通常命名为 `AP_[device_model_sw_ver].tar.md5`
-- 按下 Magisk 主屏幕中的 **「安装」** 按钮
-- 如果您的设备**没有**启动 ramdisk，勾选 **「Recovery模式」** 选项
-- 在方式中选择 **「选择并修补一个文件」** ，然后选择 `AP` 归档文件
+- 解压缩固件并将 `AP` 归档文件复制到设备。它通常命名为 `AP_[device_model_sw_ver].tar.md5` 。
+- 按下 Magisk 主屏幕中的 **「安装」** 按钮。
+- 如果您的设备**没有**启动 ramdisk，勾选 **「Recovery模式」** 选项。
+- 在方式中选择 **「选择并修补一个文件」** ，然后选择 `AP` 归档文件。
 - 开始安装，并使用 ADB 将修补的归档文件复制到您的电脑：
   ``` shell
   adb pull /sdcard/Download/magisk_patched_[random_strings].tar
@@ -182,7 +173,7 @@ KnoxGuard 的值可能如下：
   ::: warning
   **不要使用 MTP**，因为它可能会损坏大型文件。
   :::
-  > 译者注：如果有条件，可以验证以下哈希值。
+  > 译者注：如果有条件，可以验证一下哈希值。
 - 重新启动到下载模式。在您的 PC 上打开 Odin，将 `magisk_patched.tar` 作为 `AP`，连同原始固件中的 `BL` 、`CP` 和 `CSC`（**不是** `HOME_CSC`，因为我们要**清除数据**）一起刷入。
 - 一旦 Odin 完成刷机，您的设备应该会自动重启。**如果被要求恢复出厂设置，请同意。**
 - 如果您的设备**没有**启动 ramdisk，请立即重新启动到 recovery 以启用 Magisk（原因在 [Recovery 中的 Magisk](#recovery-中的-magisk) 中说明）。
@@ -201,7 +192,7 @@ KnoxGuard 的值可能如下：
 ## 华为
 
 ::: danger
-这部分现已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 时并补充后的版本。
+这部分现已从官方文档中移除。您正在浏览的是 [2021.03.22](https://github.com/topjohnwu/Magisk/blob/408399eae095b7cbd3e05278682c4bb4c7702ec0/docs/install.md) 时并修改补充后的版本。
 :::
 
 Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloader 不可通过官方途径解锁，更重要的是他们不遵循标准的 Android 分区方案。以下只是一些一般性指导。
@@ -232,7 +223,7 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
   ``` shell
   fastboot flash ramdisk /path/to/magisk_patched.img
   ```
-  请注意，您正在刷入 `ramdisk`，而不是 `boot`！
+  请注意，您正在刷入 `ramdisk`，而不是 `boot` ！
 
 ### EMUI 9 或更高版本
 
@@ -247,11 +238,11 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
   ``` shell
   fastboot flash recovery_ramdisk /path/to/magisk_patched.img
   ```
-  请注意，您正在刷入 `recovery_ramdisk`，而不是 `boot`！
+  请注意，您正在刷入 `recovery_ramdisk`，而不是 `boot` ！
 
 ## 第三方 Recovery
 
-::: warning 警告
+::: warning
 这种安装方法已被弃用，并且可以用很小的工作量来维护。
 :::
 
@@ -263,7 +254,7 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 - 重新启动并检查是否已安装 Magisk 应用程序。如果未自动安装，请手动安装 APK。
 - 启动 Magisk 应用程序，它将显示一个让您重新安装的对话框。请**直接在 APP 内**重新安装并重新启动（MTK 设备将在重启后自动给 boot 分区上锁，请使用 fastboot 或者第三方 recovery [修补映像](#修补映像)）。
 
-::: warning 警告
+::: warning
 模块的 `sepolicy.rule` 文可能存储在 `cache` 分区中。请不要擦除 `CACHE` 分区。
 :::
 
