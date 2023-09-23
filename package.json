@@ -14,13 +14,13 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.7.0",
-    "@typescript-eslint/parser": "^6.7.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.49.0",
+    "eslint": "^8.50.0",
     "eslint-plugin-vue": "^9.17.0",
-    "sass": "^1.67.0",
-    "vitepress": "1.0.0-rc.14"
+    "sass": "^1.68.0",
+    "vitepress": "1.0.0-rc.15"
   },
   "config": {
     "commitizen": {

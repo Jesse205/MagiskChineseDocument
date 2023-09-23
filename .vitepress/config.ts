@@ -12,6 +12,8 @@ const ORIGIN_DELTA_DOCUMENT_DATE = "2023年08月15日"
 
 const MATCH_RELEASE_REG = /- \[(v[\d.]*)\]\((\d*).md\)/g
 
+const base = "/MagiskChineseDocument/"
+
 const releaseItems: (
   | DefaultTheme.NavItemChildren
   | DefaultTheme.NavItemWithLink
@@ -88,19 +90,16 @@ export default defineConfig({
   lang: "zh-CN",
   title: "Magisk 中文文档",
   description: "Magisk 中文文档，由 Jesse205 手动机翻。",
-  base: "/MagiskChineseDocument/",
+  base,
   ignoreDeadLinks: true,
   lastUpdated: true,
   head: [
-    [
-      "link",
-      { rel: "icon", href: "/MagiskChineseDocument/favicon.ico", sizes: "any" },
-    ],
+    ["link", { rel: "icon", href: `${base}/favicon.ico`, sizes: "any" }],
     [
       "link",
       {
         rel: "apple-touch-icon",
-        href: "/MagiskChineseDocument/apple-touch-icon.png",
+        href: `${base}/apple-touch-icon.png`,
       },
     ],
   ],
