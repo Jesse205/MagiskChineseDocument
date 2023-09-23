@@ -94,12 +94,12 @@ export default defineConfig({
   ignoreDeadLinks: true,
   lastUpdated: true,
   head: [
-    ["link", { rel: "icon", href: `${base}/favicon.ico`, sizes: "any" }],
+    ["link", { rel: "icon", href: `${base}favicon.ico`, sizes: "any" }],
     [
       "link",
       {
         rel: "apple-touch-icon",
-        href: `${base}/apple-touch-icon.png`,
+        href: `${base}apple-touch-icon.png`,
       },
     ],
   ],
