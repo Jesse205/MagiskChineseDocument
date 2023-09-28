@@ -137,7 +137,7 @@ export default defineConfig({
             buttonText: '搜索'
           },
           modal: {
-            displayDetails: '显示具详情信息',
+            displayDetails: '显示详情信息',
             resetButtonTitle: '清空内容',
             backButtonTitle: '关闭搜索',
             noResultsText: '未找到',
