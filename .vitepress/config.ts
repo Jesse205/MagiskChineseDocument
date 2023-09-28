@@ -86,13 +86,7 @@ export default defineConfig({
   lastUpdated: true,
   head: [
     ['link', { rel: 'icon', href: `${base}favicon.ico`, sizes: 'any' }],
-    [
-      'link',
-      {
-        rel: 'apple-touch-icon',
-        href: `${base}apple-touch-icon.png`
-      }
-    ]
+    ['link', { rel: 'apple-touch-icon', href: `${base}apple-touch-icon.png` }]
   ],
   themeConfig: {
     originDocumentDate: ORIGIN_DOCUMENT_DATE,
