@@ -33,7 +33,7 @@
 
 接下来，我们需要知道您的设备是否有单独的 `vbmeta` 分区。
 
-- 如果您的官方固件包包含 `vbmeta.img` ，那么您的设备**有一个单独的 `vbmeta` 分区**
+<!-- - 如果您的官方固件包包含 `vbmeta.img` ，那么您的设备**有一个单独的 `vbmeta` 分区**
 - 您还可以通过将设备连接到 PC 并运行以下命令进行检查：
 
 ```  shell
@@ -44,13 +44,12 @@ adb shell ls -l /dev/block/bootdevice/by-name
 ```
 
 - 如果找到 `vbmeta`、`vbmeta_a` 或 `vbmeta_b` ，那么您的设备**有一个单独的 `vbmeta` 分区**
-- 否则，您的设备**没有单独的 `vbmeta` 分区**。
+- 否则，您的设备**没有单独的 `vbmeta` 分区**。 -->
 
 快速回顾一下，此时，您应该已经知道并准备好了：
 
 1. 设备是否有启动 ramdisk
-2. 设备是否有单独的 `vbmeta` 分区
-3. 基于 (1) 的 `boot.img` 、`init_boot.img` 或 `recovery.img`
+2. 基于 (1) 的 `boot.img` 、`init_boot.img` 或 `recovery.img`
 
 让我们继续[修补映像](#修补映像).
 
@@ -59,7 +58,6 @@ adb shell ls -l /dev/block/bootdevice/by-name
 - 将 boot 、init_boot 或 recovery 映像（ `*.img` 文件）复制到设备
 - 按下 Magisk 主屏幕中的 **「安装」** 按钮
 - 如果要修补 recovery 映像，请选中 **「Recovery 模式」** 选项
-- 如果您的设备**没有单独的 `vbmeta` 分区**，请选中 **「修补 boot 映像中的 vbmeta」** 选项
 - 在方式中选择 **「选择并修补一个文件」** ，然后选择 boot 、init_boot 或 recovery 映像
 - 开始安装，并使用 ADB 将修补的映像复制到您的电脑：
   ``` shell
@@ -72,11 +70,11 @@ adb shell ls -l /dev/block/bootdevice/by-name
   ::: code-group
 
   ``` shell [boot]
-  fastboot flash boot[_x] PC上magisk_patched_[随机字符].img的路径
+  fastboot flash boot PC上magisk_patched_[随机字符].img的路径
   ```
 
   ``` shell [init_boot]
-  fastboot flash init_boot[_x] PC上magisk_patched_[随机字符].img的路径
+  fastboot flash init_boot PC上magisk_patched_[随机字符].img的路径
   ```
 
   ``` shell [recovery]
@@ -84,7 +82,6 @@ adb shell ls -l /dev/block/bootdevice/by-name
   ```
 
   :::
-  `[_x]` 应该取决于您的设备，应为 `_a` 或 `_b` 或者不写
 - <Badge text="可选" /> 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区
   ``` shell
   fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
@@ -94,6 +91,10 @@ adb shell ls -l /dev/block/bootdevice/by-name
   :::
 - 重启并启动 Magisk 应用程序（如果您清除数据，您将看到一个用于占位的 Magisk 应用程序），您将看到一个询问修复环境的对话框，点击它并等待重启。
 - 瞧！
+
+::: warning
+**千万不要**刷写其他人共享的已修补的镜像，也不要在其他设备上修补镜像，即使它们具有相同的设备型号！您可能需要执行完整的数据擦除操作以恢复您的设备。**始终**在您要安装 Magisk 的同一设备上修补引导镜像。
+:::
 
 ## 卸载
 
@@ -148,11 +149,11 @@ KnoxGuard 的值可能如下：
 
 ### 解锁 Bootloader
 
-1. 允许在解锁 bootloader，在 **开发者选项 → OEM 解锁**。
-2. 重启至下载模式：关闭设备电源并按下设备的下载模式组合键
-3. 长按音量上键解锁启动加载器。**这将清除你的数据并自动重启**。
+1. 允许解锁 bootloader，在 **开发者选项 → OEM 解锁**。
+2. 重启至下载模式：关闭设备电源并按下设备的下载模式组合键。
+3. 长按音量上键解锁 bootloader。**这将清除你的数据并自动重启**。
 4. 完成初始设置。跳过所有步骤，因为数据将在后面的步骤中再次清除。**请在设置过程中将设备连接到互联网。**
-5. 启用开发者选项，**确认 OEM 解锁选项是否存在，并显示为灰色。** 这意味着 KnoxGuard 尚未锁定您的设备。
+5. 启用开发者选项，**确认 OEM 解锁选项是否存在，并显示为灰色。**这意味着 KnoxGuard 没有锁定您的设备。
 6. 您的 bootloader 现在在下载模式下可接受的非官方映像。
 
 ### 操作指南
@@ -186,8 +187,8 @@ KnoxGuard 的值可能如下：
 
 ### 注意事项
 
-- **永远、永远不要**尝试将 `boot`、`recovery`或 `vbmeta` 分区恢复到原样！ 您这样做会破坏您的设备，并且从中恢复的唯一方法是**清除数据并进行完整的 Odin 恢复**。
-- 要使用新的固件升级您的设备，**切勿**出于上述原因直接使用原厂 `AP` 归档文件。 **始终**在 Magisk 应用程序中修补 `AP` 并改用它。
+- **永远、永远不要**尝试将 `boot`、`init_boot`、`recovery` 或 `vbmeta` 分区恢复到原样！您这样做会破坏您的设备，并且从中恢复的唯一方法是**清除数据并进行完整的 Odin 恢复**。
+- 要使用新的固件升级您的设备，**切勿**出于上述原因直接使用原厂 `AP` 归档文件。**始终**在 Magisk 应用程序中修补 `AP` 并改用它。
 
 ## 华为
 

@@ -1,11 +1,15 @@
 {
     "cSpell.words": [
+        "bootloader",
         "DATABIN",
+        "genfscon",
+        "libsepol",
         "magisk",
         "MAGISKDB",
         "magiskinit",
         "MAGISKTMP",
         "RAMDIS",
+        "ramdisk",
         "resetprop",
         "rootdir",
         "sepolicy",

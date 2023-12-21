@@ -6,8 +6,8 @@ interface ThemeConfig extends DefaultTheme.Config {
 }
 
 // 原始文档日期
-const ORIGIN_DOCUMENT_DATE = '2023年05月13日'
-const ORIGIN_DELTA_DOCUMENT_DATE = '2023年08月15日'
+const ORIGIN_DOCUMENT_DATE = '2023-12-22'
+const ORIGIN_DELTA_DOCUMENT_DATE = '2023-08-15'
 
 const MATCH_RELEASE_REG = /- \[(v[\d.]*)\]\((\d*).md\)/g
 
@@ -61,10 +61,18 @@ const DELTA_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
 const sidebar: DefaultTheme.Sidebar = {
   '/delta/': DELTA_LINKS
 }
+
 let allItems: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
 // 生成侧边栏
-for (let group of allItems)
-  if (group.items) for (let item of group.items) if (item.link) sidebar[item.link.replace('.html', '')] = [group]
+for (let group of allItems) {
+  if (group.items) {
+    for (let item of group.items) {
+      if (item.link) {
+        sidebar[item.link.replace('.html', '')] = [group]
+      }
+    }
+  }
+}
 
 // 匹配版本号
 const releaseFileContent = fs.readFileSync('./releases/index.md', 'utf8')

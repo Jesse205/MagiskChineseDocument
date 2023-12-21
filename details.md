@@ -107,7 +107,7 @@ Magisk 将修补现成的 `sepolicy` ，以确保 Root 和 Magisk 操作能够�
 
 在 Android 8.0 之后，为了减少 Android 沙盒中规则的放宽，部署了新的 SELinux 模型。 `magisk`  二进制文件标记为 `magisk_exec` 文件类型，并且执行 `magisk` 二进制文件（包括 `su` 命令）的 su 客户端域将通过使用 `type_transition` 规则传输到 `magisk_client` 。规则严格限制仅允许 `magisk` 域进程将文件归因于 `magisk_exec` 。不允许直接连接到 `magiskd` 的 sockets；访问守护进程的唯一方法是通过 `magisk_client` 进程。这些更改使我们能够保持沙盒完好无损，并将 Magisk 特定规则与其他策略分开。
 
-完整的规则可以在 `magiskpolicy/rules.cpp` 中找到。
+完整的规则可以在 `sepolicy/rules.cpp` 中找到。
 
 ## 参考链接
 

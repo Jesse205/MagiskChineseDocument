@@ -1,5 +1,29 @@
 # Magisk 更新日志
 
+## v26.4
+
+- [MagiskBoot] 如果签名启动镜像较大，则不要填充零
+- [MagiskPolicy] 修复 `genfscon` 和 `filename_trans`
+- [MagiskPolicy] 修复了 `libsepol` 中的错误
+- [Zygisk] 修复并简化文件描述符净化逻辑
+- [应用] 修补 AP tar 文件时防止 OOM
+- [应用] 修复设备配置检测中的错误
+- [Daemon] 修复 APK 的证书解析问题
+- [常规] 修复了忽略 C++ 代码中的日志记录错误
+
+::: details 英文原版
+
+- [MagiskBoot] Don't pad zeros if signed boot image is larger
+- [MagiskPolicy] Fix `genfscon` and `filename_trans`
+- [MagiskPolicy] Fix bug in `libsepol`
+- [Zygisk] Fix and simplify file descriptor sanitization logic
+- [App] Prevent OOM when patching AP tarfiles
+- [App] Fix bug in device configuration detection
+- [Daemon] Fix certificate parsing of APKs
+- [General] Fix logging errors from C++ code being ignored
+
+:::
+
 ## v26.3
 
 - [常规] 修复设备信息检测脚本
