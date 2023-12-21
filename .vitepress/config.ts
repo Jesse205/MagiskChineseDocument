@@ -7,8 +7,8 @@ interface ThemeConfig extends DefaultTheme.Config {
 
 // 原始文档日期
 const originDocumentDate = {
-  magisk: '2023-12-22',
-  delta: '2023-08-15'
+  magisk: '2023-12-10',
+  delta: '2023-12-22'
 }
 
 const MATCH_RELEASE_REG = /- \[(v[\d.]*)\]\((\d*).md\)/g
