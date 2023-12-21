@@ -1,0 +1,1 @@
+import{_ as a,o as e,c as s,R as t}from"./chunks/framework.9iTiPgUI.js";const u=JSON.parse('{"title":"常见问题","description":"","frontmatter":{},"headers":[],"relativePath":"faq.md","filePath":"faq.md","lastUpdated":1685389078000}'),i={name:"faq.md"},o=t("",16),r=[o];function l(h,p,n,d,c,k){return e(),s("div",null,r)}const m=a(i,[["render",l]]);export{u as __pageData,m as default};

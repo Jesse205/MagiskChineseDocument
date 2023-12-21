@@ -1,1 +1,0 @@
-import{_ as a,o as e,c as s,V as t}from"./chunks/framework.fc84ac3a.js";const u=JSON.parse('{"title":"常见问题","description":"","frontmatter":{},"headers":[],"relativePath":"faq.md","filePath":"faq.md","lastUpdated":1684159642000}'),o={name:"faq.md"},l=t("",16),r=[l];function i(n,p,h,d,c,m){return e(),s("div",null,r)}const g=a(o,[["render",i]]);export{u as __pageData,g as default};
