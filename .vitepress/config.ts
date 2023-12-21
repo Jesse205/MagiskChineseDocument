@@ -6,8 +6,10 @@ interface ThemeConfig extends DefaultTheme.Config {
 }
 
 // 原始文档日期
-const ORIGIN_DOCUMENT_DATE = '2023-12-22'
-const ORIGIN_DELTA_DOCUMENT_DATE = '2023-08-15'
+const originDocumentDate = {
+  magisk: '2023-12-22',
+  delta: '2023-08-15'
+}
 
 const MATCH_RELEASE_REG = /- \[(v[\d.]*)\]\((\d*).md\)/g
 
@@ -97,7 +99,7 @@ export default defineConfig({
     ['link', { rel: 'apple-touch-icon', href: `${base}apple-touch-icon.png` }]
   ],
   themeConfig: {
-    originDocumentDate: ORIGIN_DOCUMENT_DATE,
+    originDocumentDate: originDocumentDate,
     logo: '/favicon.ico',
     outlineTitle: '本页内容',
     lastUpdatedText: '更新时间',
@@ -129,8 +131,8 @@ export default defineConfig({
     ] as DefaultTheme.NavItem[],
     sidebar,
     footer: {
-      message: `原始 Magisk 文档版本: ${ORIGIN_DOCUMENT_DATE}<br/>
-            原始 Magisk Delta 文档版本: ${ORIGIN_DELTA_DOCUMENT_DATE}<br/>
+      message: `原始 Magisk 文档版本: ${originDocumentDate.magisk}<br/>
+            原始 Magisk Delta 文档版本: ${originDocumentDate.delta}<br/>
             在 GPL-3.0 许可下发布`
     },
     editLink: {
