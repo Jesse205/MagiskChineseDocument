@@ -28,11 +28,21 @@
   --vp-c-brand-3: var(--c-md-teal-300);
   --vp-c-brand-soft: var(--c-md-teal-50-alpha);
   --color-selection: var(--c-md-teal-100-alpha);
+  --vp-c-text-1: rgb(48, 48, 54);
+  --vp-c-text-2: rgba(48, 48, 54, 0.78);
+  --vp-c-text-3: rgba(48, 48, 54, 0.56);
+  --vp-code-block-color: var(--vp-c-text-1);
 
   /* Fonts */
-  --vp-font-family-mono: "JetBrains Mono", "JetBrains Mono Online", ui-monospace,
-    SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", var(--vp-font-family-base), monospace;
+  --vp-font-family-mono: "JetBrains Mono", "JetBrains Mono Online", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    Monaco, Consolas, "Liberation Mono", "Courier New", var(--vp-font-family-base), monospace;
+  --vp-code-line-height: 1.5;
+}
+
+:root.dark {
+  --vp-c-text-1: rgba(255, 255, 245, 0.86);
+  --vp-c-text-2: rgba(255, 255, 245, 0.6);
+  --vp-c-text-3: rgba(255, 255, 245, 0.38);
 }
 
 :root.delta {
@@ -46,4 +56,12 @@
 
 ::selection {
   background-color: var(--color-selection);
+}
+
+.vp-doc [class*="language-txt"] pre,
+.vp-doc [class*="language-txt"] code {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }

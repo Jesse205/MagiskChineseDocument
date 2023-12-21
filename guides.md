@@ -24,45 +24,45 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 ├── .
 ├── .
 |
-├── $MODID                  <--- 文件夹以模块的 ID 命名
+├── $MODID                  <-- 文件夹以模块的 ID 命名
 │   │
 │   │      *** 模块 ID ***
 │   │
-│   ├── module.prop         <--- 此文件存储模块的元数据（metadata）
+│   ├── module.prop         <-- 此文件存储模块的元数据（metadata）
 │   │
 │   │      *** 主要内容 ***
 │   │
-│   ├── system              <--- 如果 skip_mount 不存在，将挂载此文件夹
+│   ├── system              <-- 如果 skip_mount 不存在，将挂载此文件夹
 │   │   ├── ...
 │   │   ├── ...
 │   │   └── ...
 │   │
-│   ├── zygisk              <--- 此文件夹包含模块的 Zygisk native 库
+│   ├── zygisk              <-- 此文件夹包含模块的 Zygisk native 库
 │   │   ├── arm64-v8a.so
 │   │   ├── armeabi-v7a.so
 │   │   ├── x86.so
 │   │   ├── x86_64.so
-│   │   └── unloaded        <--- 如果存在，则 native 库不兼容
+│   │   └── unloaded        <-- 如果存在，则 native 库不兼容
 │   │
 │   │      *** 状态标志 ***
 │   │
-│   ├── skip_mount          <--- 如果存在，Magisk 将不会挂载您的 system 文件夹
-│   ├── disable             <--- 如果存在，模块将被禁用
-│   ├── remove              <--- 如果存在，模块将在下次重新启动时删除
+│   ├── skip_mount          <-- 如果存在，Magisk 将不会挂载您的 system 文件夹
+│   ├── disable             <-- 如果存在，模块将被禁用
+│   ├── remove              <-- 如果存在，模块将在下次重新启动时删除
 │   │
 │   │      *** 可选文件 ***
 │   │
-│   ├── post-fs-data.sh     <--- 此脚本将在 post-fs-data 中执行
-│   ├── service.sh          <--- 此脚本将在 late_start 服务中执行
-|   ├── uninstall.sh        <--- 当 Magisk 删除您的模块时，将执行此脚本
-│   ├── system.prop         <--- resetprop 将此文件中的属性作为系统属性加载
-│   ├── sepolicy.rule       <--- 其他自定义 sepolicy 规则
+│   ├── post-fs-data.sh     <-- 此脚本将在 post-fs-data 中执行
+│   ├── service.sh          <-- 此脚本将在 late_start 服务中执行
+|   ├── uninstall.sh        <-- 当 Magisk 删除您的模块时，将执行此脚本
+│   ├── system.prop         <-- resetprop 将此文件中的属性作为系统属性加载
+│   ├── sepolicy.rule       <-- 其他自定义 sepolicy 规则
 │   │
 │   │      *** 自动生成，请勿手动创建或修改 ***
 │   │
-│   ├── vendor              <--- $MODID/system/vendor 的符号链接
-│   ├── product             <--- $MODID/system/product 的符号链接
-│   ├── system_ext          <--- $MODID/system/system_ext 的符号链接
+│   ├── vendor              <-- $MODID/system/vendor 的符号链接
+│   ├── product             <-- $MODID/system/product 的符号链接
+│   ├── system_ext          <-- $MODID/system/system_ext 的符号链接
 │   │
 │   │      *** 允许任何其他的文件/文件夹 ***
 │   │
@@ -152,10 +152,10 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 │   └── com
 │       └── google
 │           └── android
-│               ├── update-binary      <--- 您下载 module_installer.sh
-│               └── updater-script     <--- 应只包含字符串“#MAGISK”
+│               ├── update-binary      <-- 您下载 module_installer.sh
+│               └── updater-script     <-- 应只包含字符串“#MAGISK”
 │
-├── customize.sh                       <--- （可选，稍后将详细介绍）
+├── customize.sh                       <-- （可选，稍后将详细介绍）
 │                                           此脚本将来源于 update-binary
 ├── ...
 ├── ...  /* 模块的其余文件 */
@@ -233,7 +233,7 @@ REPLACE="
 
 ## 启动脚本
 
-在Magisk中，您可以以两种不同的模式运行启动脚本：**post-fs-data** 和 **late_start service** 模式。
+在 Magisk 中，您可以以两种不同的模式运行启动脚本：**post-fs-data** 和 **late_start service** 模式。
 
 - post-fs-data 模式
   - 此阶段会阻塞。启动过程在执行完成，或过 10 秒前暂停。
@@ -280,14 +280,14 @@ ramdisk
 │
 ├── overlay.d
 │   ├── sbin
-│   │   ├── libfoo.ko      <--- 这两个文件将被复制到 Magisk 的
-│   │   └── myscript.sh    <--- 的 tmpfs 目录中
-│   ├── custom.rc          <--- 此文件将被注入到 init.rc 中
+│   │   ├── libfoo.ko      <-- 这两个文件将被复制到 Magisk 的
+│   │   └── myscript.sh    <-- 的 tmpfs 目录中
+│   ├── custom.rc          <-- 此文件将被注入到 init.rc 中
 │   ├── res
-│   │   └── random.png     <--- 此文件将替换 /res/random.png
-│   └── new_file           <--- 此文件将被忽略，因为 /new_file 不存在
+│   │   └── random.png     <-- 此文件将替换 /res/random.png
+│   └── new_file           <-- 此文件将被忽略，因为 /new_file 不存在
 ├── res
-│   └── random.png         <--- 此文件将被 /overlay.d/res/random.png
+│   └── random.png         <-- 此文件将被 /overlay.d/res/random.png
 |                               替换
 ├── ...
 ├── ...  /* 其余的 initramfs 文件 */
