@@ -30,13 +30,13 @@ function getCommitHtml(config: OriginDocConfig): string {
   return `<a href="${config.url}/commit/${config.commit}" target="_blank"><code>${config.commit}</code></a>`
 }
 
-const footerMessage = `<div class="vp-doc">
-  <div>
+const footerMessage = `<span class="vp-doc">
+  <span>
   原始 Magisk 文档版本: ${originDoc.magisk.date} ${getCommitHtml(originDoc.magisk)}<br/>
   原始 Magisk Delta 文档版本: ${originDoc.delta.date} ${getCommitHtml(originDoc.delta)}<br/>
   在 GPL-3.0 许可下发布
-  </div>
-  </div>`
+  </span>
+  </span>`
 
 const base = '/MagiskChineseDocument/'
 
