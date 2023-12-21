@@ -36,7 +36,7 @@
   /* Fonts */
   --vp-font-family-mono: "JetBrains Mono", "JetBrains Mono Online", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
     Monaco, Consolas, "Liberation Mono", "Courier New", var(--vp-font-family-base), monospace;
-  --vp-code-line-height: 1.5;
+  --vp-code-line-height: 1.5; /* 1.5对于文件树友好，可以产生连体效果 */
 }
 
 :root.dark {
