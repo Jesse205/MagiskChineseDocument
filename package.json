@@ -1,11 +1,11 @@
 {
   "name": "magisk-chinese-document",
-  "version": "26.3",
+  "version": "26.4",
   "description": "Magisk 中文文档",
   "main": "index.js",
   "author": "Jesse205",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
