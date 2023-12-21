@@ -4,12 +4,6 @@ titleTemplate: false
 
 ---
 
-<script setup>
-import { useData } from 'vitepress'
-
-const { theme } = useData()
-</script>
-
 # Magisk 中文文档 <Badge text="由 Jesse205 翻译" /> <Badge type="warning" text="非官方" />
 
 ![logo](/images/logo.png)

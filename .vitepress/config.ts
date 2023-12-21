@@ -48,11 +48,26 @@ const DEVELOPER_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
   }
 ]
 
-const DELTA_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
+const DELTA_LINK: DefaultTheme.NavItem[] = [
   {
     text: 'Magisk Delta',
     // collapsed: false,
-    activeMatch: '/delta/',
+    link: '/delta/',
+    activeMatch: '/delta/'
+  }
+]
+
+const DELTA_LINKS: DefaultTheme.SidebarItem[] = [
+  {
+    text: 'Magisk Delta',
+    items: [
+      { text: '主页', link: '/delta/main.html' },
+      { text: '日志', link: '/delta/note.html' }
+    ]
+  },
+  {
+    text: '已废弃',
+    collapsed: true,
     items: [
       { text: '常见问题', link: '/delta/faq.html' },
       { text: '内部文档', link: '/delta/internal-guide.html' }
@@ -126,7 +141,7 @@ export default defineConfig({
     nav: [
       ...NORMAL_LINKS,
       ...DEVELOPER_LINKS,
-      ...DELTA_LINKS,
+      ...DELTA_LINK,
       { text: '官方文档', link: 'https://topjohnwu.github.io/Magisk/' }
     ] as DefaultTheme.NavItem[],
     sidebar,
