@@ -65,6 +65,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 :::
 
+## 感谢
+
+- [@0ZDragon](https://github.com/0ZDragon)
+- 翻译工具：文心一言、百度翻译、Bing 翻译、DeepL
+
 ## 相关链接
 
 - [Magisk 官方仓库](https://github.com/topjohnwu/Magisk)
