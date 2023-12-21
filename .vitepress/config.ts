@@ -4,14 +4,39 @@ import fs from 'fs'
 interface ThemeConfig extends DefaultTheme.Config {
   [key: string]: any
 }
+interface OriginDocConfig {
+  date: string
+  commit: string
+  url: string
+}
 
 // 原始文档日期
-const originDocumentDate = {
-  magisk: '2023-12-10',
-  delta: '2023-12-22'
+const originDoc: { [variant: string]: OriginDocConfig } = {
+  magisk: {
+    date: '2023-12-10',
+    commit: 'c013a34',
+    url: 'https://github.com/topjohnwu/Magisk'
+  },
+  delta: {
+    date: '2023-12-22',
+    commit: '927d965',
+    url: 'https://github.com/HuskyDG/magisk-files'
+  }
 }
 
 const MATCH_RELEASE_REG = /- \[(v[\d.]*)\]\((\d*).md\)/g
+
+function getCommitHtml(config: OriginDocConfig): string {
+  return `<a href="${config.url}/commit/${config.commit}" target="_blank"><code>${config.commit}</code></a>`
+}
+
+const footerMessage = `<div class="vp-doc">
+  <div>
+  原始 Magisk 文档版本: ${originDoc.magisk.date} ${getCommitHtml(originDoc.magisk)}<br/>
+  原始 Magisk Delta 文档版本: ${originDoc.delta.date} ${getCommitHtml(originDoc.delta)}<br/>
+  在 GPL-3.0 许可下发布
+  </div>
+  </div>`
 
 const base = '/MagiskChineseDocument/'
 
@@ -114,7 +139,7 @@ export default defineConfig({
     ['link', { rel: 'apple-touch-icon', href: `${base}apple-touch-icon.png` }]
   ],
   themeConfig: {
-    originDocumentDate: originDocumentDate,
+    originDoc: originDoc,
     logo: '/favicon.ico',
     outlineTitle: '本页内容',
     lastUpdatedText: '更新时间',
@@ -146,9 +171,7 @@ export default defineConfig({
     ] as DefaultTheme.NavItem[],
     sidebar,
     footer: {
-      message: `原始 Magisk 文档版本: ${originDocumentDate.magisk}<br/>
-            原始 Magisk Delta 文档版本: ${originDocumentDate.delta}<br/>
-            在 GPL-3.0 许可下发布`
+      message: footerMessage
     },
     editLink: {
       pattern: 'https://gitee.com/Jesse205/magisk-chinese-document/edit/master/:path',
