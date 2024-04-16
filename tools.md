@@ -71,7 +71,7 @@ su -> magisk
       test
         测试 cpio 的状态
         返回值为0或或运算以下值：
-        0x1:Magisk    0x2:unsupported    0x4:Sony
+        0x1:Magisk    0x2:unsupported
       patch
         应用 ramdisk 补丁
         用 env 变量进行配置：KEEPVERITY KEEPFORCEENCRYPT

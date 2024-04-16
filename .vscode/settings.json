@@ -17,7 +17,8 @@
         "sepolicy",
         "setprop",
         "topjohnwu",
-        "vbmeta"
+        "vbmeta",
+        "Zygisk"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "markdownlint.config": {

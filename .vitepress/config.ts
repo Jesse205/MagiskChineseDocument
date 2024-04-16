@@ -13,8 +13,8 @@ interface OriginDocConfig {
 // 原始文档日期
 const originDoc: { [variant: string]: OriginDocConfig } = {
   magisk: {
-    date: '2023-12-10',
-    commit: 'c013a34',
+    date: '2024-03-07',
+    commit: '2b5fc75',
     url: 'https://github.com/topjohnwu/Magisk'
   },
   delta: {

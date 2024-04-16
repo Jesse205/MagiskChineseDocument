@@ -1,5 +1,23 @@
 # Magisk 更新日志
 
+## v27.0
+
+- [Zygisk] 引入新的代码注入机制
+- [Zygisk] 支持在 U QPR2 中引入的新签名
+- [SEPolicy] 更新 libsepol 以正确设置某些策略配置位
+- [MagiskBoot] 支持压缩 `init`，以便在具有较小启动分区的设备上安装Magisk
+- [ResetProp] 添加新的等待属性功能 `resetprop -w`
+
+::: details 英文原版
+
+- [Zygisk] Introduce new code injection mechanism
+- [Zygisk] Support new signature introduced in U QPR2
+- [SEPolicy] Update libsepol to properly set some policy config bits
+- [MagiskBoot] Support compressing `init` so Magisk is installable on devices with small boot partitions
+- [ResetProp] Add new wait for property feature `resetprop -w`
+
+:::
+
 ## v26.4
 
 - [MagiskBoot] 如果签名启动镜像较大，则不要填充零
