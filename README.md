@@ -21,8 +21,10 @@ This is a Chinese translation by Jesse205 based on [Magisk official documentatio
 
 ## 开发
 
-- 调试：`yarn dev`
-- 构建：`yarn build`
+本项目使用 pnpm，开发环境需要安装 [pnpm](https://pnpm.io/)。
+
+- 调试：`pnpm dev`
+- 构建：`pnpm build`
 
 ## 贡献
 
@@ -48,7 +50,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ```
 
-> NOTE\
+> [!NOTE]
+>
 > 如果您**只是**引用了本文档**翻译**的内容，则您的代码无需遵循 GPL 许可。
 
 ## Star 历史
