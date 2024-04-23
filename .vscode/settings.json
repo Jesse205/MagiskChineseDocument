@@ -9,6 +9,7 @@
         "MAGISKDB",
         "magiskinit",
         "MAGISKTMP",
+        "nightwatch",
         "RAMDIS",
         "ramdisk",
         "resetprop",

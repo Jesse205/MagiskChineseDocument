@@ -28,21 +28,12 @@
   --vp-c-brand-3: var(--c-md-teal-300);
   --vp-c-brand-soft: var(--c-md-teal-50-alpha);
   --color-selection: var(--c-md-teal-100-alpha);
-  --vp-c-text-1: rgb(48, 48, 54);
-  --vp-c-text-2: rgba(48, 48, 54, 0.78);
-  --vp-c-text-3: rgba(48, 48, 54, 0.56);
   --vp-code-block-color: var(--vp-c-text-1);
 
   /* Fonts */
-  --vp-font-family-mono: "JetBrains Mono", "JetBrains Mono Online", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
-    Monaco, Consolas, "Liberation Mono", "Courier New", var(--vp-font-family-base), monospace;
+  --vp-font-family-mono: 'JetBrains Mono', 'JetBrains Mono Online', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+    Monaco, Consolas, 'Liberation Mono', 'Courier New', var(--vp-font-family-base), monospace;
   --vp-code-line-height: 1.5; /* 1.5对于文件树友好，可以产生连体效果 */
-}
-
-:root.dark {
-  --vp-c-text-1: rgba(255, 255, 245, 0.86);
-  --vp-c-text-2: rgba(255, 255, 245, 0.6);
-  --vp-c-text-3: rgba(255, 255, 245, 0.38);
 }
 
 .delta {
@@ -58,14 +49,39 @@
   background-color: var(--color-selection);
 }
 
-.vp-doc [class*="language-txt"] pre,
-.vp-doc [class*="language-txt"] code {
+.vp-doc [class*='language-txt'] pre,
+.vp-doc [class*='language-txt'] code {
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
 }
 
-.VPFooter.VPFooter .vp-doc a:hover {
-  color: var(--vp-c-brand-2);
+// 当拥有侧边栏时显示底部信息
+
+.VPDoc.VPDoc {
+  padding-bottom: 48px;
+  @media (min-width: 960px) {
+    padding-bottom: 0;
+    .content {
+      padding-bottom: 48px;
+    }
+  }
+}
+
+.VPFooter.VPFooter {
+  .vp-doc a:hover {
+    color: var(--vp-c-brand-2);
+  }
+
+  &.has-sidebar {
+    display: block;
+    @media (min-width: 960px) {
+      margin-left: var(--vp-sidebar-width);
+    }
+    @media (min-width: 1440px) {
+      margin-right: calc((100vw - var(--vp-layout-max-width)) / 2);
+      margin-left: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width));
+    }
+  }
 }

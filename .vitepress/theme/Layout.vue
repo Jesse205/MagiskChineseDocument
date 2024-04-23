@@ -1,26 +1,36 @@
-<script setup>
+<script setup lang="ts">
 import DefaultTheme from 'vitepress/theme'
-import { useRouter } from 'vitepress'
-import { ref, watchEffect } from 'vue'
+import { useRoute, withBase } from 'vitepress'
+import { computed, watch } from 'vue'
 const { Layout } = DefaultTheme
 
-const router = useRouter()
-const isDeltaUrl = ref(false)
+const route = useRoute()
+const isDeltaUrl = computed(() => route.path.startsWith(withBase('/delta')))
 
-watchEffect(() => {
-  isDeltaUrl.value = router.route.path.includes('/delta/')
-})
-// Delta 主题
+// 搜索框等元素可能不在 Layout 中
 if (!import.meta.env.SSR) {
-  watchEffect(() => {
-    const classList = document.documentElement.classList
-    const contains = classList.contains('delta')
-    if (isDeltaUrl.value && !contains) classList.add('delta')
-    else if (contains) classList.remove('delta')
-  })
+  watch(
+    isDeltaUrl,
+    () => {
+      const { classList } = document.documentElement
+      const contains = classList.contains('delta')
+      if (isDeltaUrl.value && !contains) classList.add('delta')
+      else if (contains) classList.remove('delta')
+    },
+    { immediate: true },
+  )
 }
 </script>
 
 <template>
-  <Layout :class="{ delta: isDeltaUrl }"> </Layout>
+  <Layout :class="{ delta: isDeltaUrl }"></Layout>
 </template>
+
+<style>
+.footer {
+  line-height: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+}
+</style>

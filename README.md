@@ -13,7 +13,8 @@ This is a Chinese translation by Jesse205 based on [Magisk official documentatio
 - 文档链接：<https://jesse205.github.io/MagiskChineseDocument/>
 - 官方文档：<https://topjohnwu.github.io/Magisk/>
 
-> NOTE\
+> [!NOTE]
+>
 > 此仓库分别存在 Gitee 与 Github 上，Gitee 为主仓库，Github 为镜像仓库
 >
 > - [Gitee 仓库](https://gitee.com/Jesse205/magisk-chinese-document)
