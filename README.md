@@ -39,6 +39,11 @@ This is a Chinese translation by Jesse205 based on [Magisk official documentatio
 - 请尽量采用[《中文技术文档写作规范》](https://github.com/ruanyf/document-style-guide)。
 - 建议尽量使用 Gitee 提交 pr，其他镜像平台提交的内容可能会因强制推送丢失。
 
+## AI 协作
+
+- 智能体工作规则与验证命令见 [AGENTS.md](./AGENTS.md)。
+- 上游同步与翻译流程见 [.agents/skills](./.agents/skills/)。
+
 ## 许可
 
 ``` txt

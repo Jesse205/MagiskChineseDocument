@@ -74,7 +74,7 @@ const DELTA_LINKS: DefaultTheme.SidebarItem[] = [
 const ARCHIVE_LINKS: DefaultTheme.SidebarItem[] = [
   {
     text: '存档',
-    items: [{ text: '华为设备安装（历史）', link: '/archive/huawei-install.html' }],
+    items: [{ text: '安装（历史存档）', link: '/archive/install.html' }],
   },
 ]
 
@@ -163,7 +163,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       ...NORMAL_LINKS,
       ...DEVELOPER_LINKS,
       ...DELTA_LINK,
-      { text: '存档', link: '/archive/huawei-install.html' },
+      { text: '存档', link: '/archive/install.html' },
       { text: '官方文档', link: 'https://topjohnwu.github.io/Magisk/' },
     ] as DefaultTheme.NavItem[],
     sidebar,
