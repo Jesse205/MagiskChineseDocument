@@ -1,25 +1,18 @@
 <script setup lang="ts">
 import { useRoute, withBase } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import { computed, watch } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 const { Layout } = DefaultTheme
 
 const route = useRoute()
-const isDeltaUrl = computed(() => route.path.startsWith(withBase('/delta')))
+const isDeltaUrl = computed(() => route.path.startsWith(withBase('/archive/delta')))
 
 // 搜索框等元素可能不在 Layout 中
-if (!import.meta.env.SSR) {
-  watch(
-    isDeltaUrl,
-    () => {
-      const { classList } = document.documentElement
-      const contains = classList.contains('delta')
-      if (isDeltaUrl.value && !contains) classList.add('delta')
-      else if (contains) classList.remove('delta')
-    },
-    { immediate: true },
-  )
-}
+onMounted(() => {
+  watchEffect(() => {
+    document.documentElement.classList.toggle('delta', isDeltaUrl.value)
+  })
+})
 </script>
 
 <template>

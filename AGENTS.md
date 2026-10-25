@@ -31,8 +31,9 @@
 
 - `src/`：站点内容根目录（`srcDir`）
   - `*.md`：上游文档的中文翻译
-  - `archive/`：已从上游移除、仅供历史参考的页面
-  - `delta/`：Magisk Delta 文档的中文翻译与归档（独立上游，来源见 `originDocument.delta`）
+  - `archive/`：已从上游移除或停止维护、仅供历史参考的页面
+    - `install.md`：安装文档中已移除的章节
+    - `delta/`：Magisk Delta / Kitsune Mask 历史文档
   - `releases/`：Magisk 各版本发布日志
   - `public/`：静态资源，`/images/...` 等站内绝对路径指向这里
 - `.vitepress/`：站点配置、主题、侧边栏与页脚
@@ -47,7 +48,7 @@
 - 上游来源是 `topjohnwu/Magisk` 仓库的 `docs/` 目录。只同步该目录下的文件，不引入上游代码；按 diff 更新，不整篇覆盖。
 - 同步前用 `git diff <记录commit> <最新稳定commit> -- docs/` 生成变更清单（临时仓库放在 `.temp/`），再逐项翻译；不要逐文件猜差异。
 - 上游删除或本站决定不再保留的章节，先归档到 `src/archive/`，再从正文移除；不要在无记录的情况下直接删除。
-- 不要覆盖本站自己的内容或独立上游的译稿：`src/index.md`、`src/delta/`（Magisk Delta 文档翻译）、`src/archive/`、`src/public/` 中的自定义资源。
+- 不要覆盖本站自己的内容或独立上游的译稿：`src/index.md`、`src/archive/delta/`（Magisk Delta 历史文档）、`src/archive/`、`src/public/` 中的自定义资源。
 - 同步完成后必须更新页脚的上游日期与 commit，并补齐期间所有稳定版本的发布日志。
 - 详细流程见 `.agents/skills/sync-upstream/SKILL.md`。
 

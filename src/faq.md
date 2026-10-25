@@ -34,7 +34,7 @@ Magisk 不再处理 Root 隐藏。有大量 Magisk/Zygisk 模块专门提供这�
 比较流行的模块是 [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases/latest) 。
 
 ::: warning 警告
-如果你使用的是「[Magisk Delta](https://huskydg.github.io/magisk-files/)」，则[无法使用](https://huskydg.github.io/magisk-files/docs/faq.html#should-i-install-shxxxxo-module-to-hide-root)此模块！
+如果你使用的是「[Magisk Delta](./archive/delta/index.md)」，则[无法使用](./archive/delta/faq.md)此模块！
 :::
 
 ## Q: 如何在模拟器中使用 Magisk？

@@ -13,6 +13,10 @@ This is a Chinese translation by Jesse205 based on [Magisk official documentatio
 - 文档链接：<https://jesse205.github.io/MagiskChineseDocument/>
 - 官方文档：<https://topjohnwu.github.io/Magisk/>
 
+> [!WARNING]
+>
+> 本项目正在改造升级，Agent Skills、`src/` 目录结构及相关规范可能尚未稳定，后续仍会调整。
+
 > [!NOTE]
 >
 > 此仓库分别存在 Gitee 与 Github 上，Gitee 为主仓库，Github 为镜像仓库

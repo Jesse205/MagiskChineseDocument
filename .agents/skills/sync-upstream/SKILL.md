@@ -85,7 +85,7 @@ git -C .temp/upstream diff <旧完整SHA> <新完整SHA> -- docs/
 注意：
 
 - 上游 `README.md` 与本站根目录 `README.md` 用途不同，不要同步。
-- `src/delta/` 是 Magisk Delta 文档的中文翻译（独立上游），不属于 `topjohnwu/Magisk` 的同步范围；`src/index.md`、`src/archive/`、`src/public/` 中的自定义资源也不参与本次同步。
+- `src/archive/delta/` 是 Magisk Delta 文档的中文翻译（独立上游），不属于 `topjohnwu/Magisk` 的同步范围；`src/index.md`、`src/archive/`、`src/public/` 中的自定义资源也不参与本次同步。
 
 ### 3. 逐文件比对与翻译
 

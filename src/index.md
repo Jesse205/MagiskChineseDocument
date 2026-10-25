@@ -8,7 +8,7 @@ titleTemplate: false
 
 ![logo](/images/logo.png)
 
-> 本文档翻译了 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 和 [Magisk Delta 文档](https://huskydg.github.io/magisk-files/) 并补充了很多内容。
+> 本文档翻译了 [Magisk 官方文档](https://topjohnwu.github.io/Magisk/) 和 [Magisk Delta 文档（存档）](./archive/delta/) 并补充了很多内容。
 
 - [安装说明](install.md)
 - [常见问题](faq.md)
@@ -25,8 +25,8 @@ titleTemplate: false
 
 **Magisk Delta**:
 
-- [常见问题](./delta/faq.md)
-- [内部文档](./delta/internal-guide.md)
+- [常见问题](./archive/delta/faq.md)
+- [内部文档](./archive/delta/internal-guide.md)
 
 ## Magisk 许可（License）
 
@@ -74,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 - [Magisk 官方仓库](https://github.com/topjohnwu/Magisk)
 - [Magisk 官方文档](https://topjohnwu.github.io/Magisk/)
-- [Magisk Delta](https://huskydg.github.io/magisk-files/)
+- [Magisk Delta（存档）](./archive/delta/)
 
 ## 友情链接
 

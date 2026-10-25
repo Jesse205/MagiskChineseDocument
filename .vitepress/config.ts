@@ -48,25 +48,25 @@ const DELTA_LINK: DefaultTheme.NavItem[] = [
   {
     text: 'Magisk Delta',
     // collapsed: false,
-    link: '/delta/',
-    activeMatch: '/delta/',
+    link: '/archive/delta/',
+    activeMatch: '/archive/delta/',
   },
 ]
 
 const DELTA_LINKS: DefaultTheme.SidebarItem[] = [
   {
-    text: 'Magisk Delta',
+    text: 'Magisk Delta（存档）',
     items: [
-      { text: '主页', link: '/delta/main.html' },
-      { text: '日志', link: '/delta/note.html' },
+      { text: '主页', link: '/archive/delta/main.html' },
+      { text: '日志', link: '/archive/delta/note.html' },
     ],
   },
   {
     text: '已废弃',
     collapsed: true,
     items: [
-      { text: '常见问题', link: '/delta/faq.html' },
-      { text: '内部文档', link: '/delta/internal-guide.html' },
+      { text: '常见问题', link: '/archive/delta/faq.html' },
+      { text: '内部文档', link: '/archive/delta/internal-guide.html' },
     ],
   },
 ]
@@ -74,12 +74,15 @@ const DELTA_LINKS: DefaultTheme.SidebarItem[] = [
 const ARCHIVE_LINKS: DefaultTheme.SidebarItem[] = [
   {
     text: '存档',
-    items: [{ text: '安装（历史存档）', link: '/archive/install.html' }],
+    items: [
+      { text: '安装（历史存档）', link: '/archive/install.html' },
+      { text: 'Magisk Delta（存档）', link: '/archive/delta/' },
+    ],
   },
 ]
 
 const sidebar: DefaultTheme.Sidebar = {
-  '/delta/': DELTA_LINKS,
+  '/archive/delta/': DELTA_LINKS,
   '/archive/': ARCHIVE_LINKS,
 }
 
@@ -125,6 +128,20 @@ export default defineConfigWithTheme<ThemeConfig>({
   description: 'Magisk 中文文档，由 Jesse205 手动机翻。',
   base,
   srcDir: 'src',
+  // 构建时写入 html 类，避免 Delta 主题在 SSR 后才生效
+  transformHtml(code, _id, ctx) {
+    if (!ctx.page.replace(/\\/g, '/').startsWith('archive/delta/')) return
+
+    return code.replace(/<html([^>]*)>/, (tag, attrs) => {
+      const classMatch = attrs.match(/class=(["'])(.*?)\1/)
+      if (classMatch) {
+        const [, quote, classes] = classMatch
+        if (/(^|\s)delta(\s|$)/.test(classes)) return tag
+        return tag.replace(classMatch[0], `class=${quote}${classes} delta${quote}`)
+      }
+      return `<html${attrs} class="delta">`
+    })
+  },
   ignoreDeadLinks: true,
   lastUpdated: true,
   head: [

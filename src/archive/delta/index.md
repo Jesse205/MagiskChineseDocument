@@ -7,6 +7,10 @@ aside: false
 
 ![WARNING! STOP!](./images/warning-stop.webp)
 
+::: warning 存档说明
+本页为 Magisk Delta / Kitsune Mask 的历史文档。原维护者 HuskyDG 的 GitHub 账号与仓库已失效，项目已停止维护，下载与源码链接可能不可用。
+:::
+
 ## 停下，你在找什么？
 
 :::danger

@@ -65,24 +65,24 @@
 
 1. 在模拟器设置中启用 Root 访问。
 2. 安装并打开 Kitsune Mask。
-3. Grant root access to Kitsune Mask, click "Install" under the Magisk field, and use "Direct Install into system partition" option instead of "Direct Install" option. (If you don't see this option, close and re-open Kitsune Mask app.) Don't restart now!
-4. Backup built-in `su` (`/system/bin/su` and `/system/xbin/su`) and delete them (in case you want to uninstall Magisk and restore to built-in `su`), then reboot. Because emulators like LDPlayer will remove any `su` after disabling ROOT from settings, **DO NOT** disable Root access in emulator settings.
-5. Enjoy Magisk!
+3. 授予 Kitsune Mask root 权限，在 Magisk 区域点击“安装”，使用“直接安装到系统分区”选项，而不是“直接安装”选项。（如果没有看到该选项，请关闭并重新打开 Kitsune Mask。）现在不要重启！
+4. 备份内置 `su`（`/system/bin/su` 和 `/system/xbin/su`）并删除它们（以防你想卸载 Magisk 并恢复内置 `su`），然后重启。由于 LDPlayer 等模拟器会在设置中禁用 ROOT 后删除所有 `su`，**请勿**在模拟器设置中禁用 Root 访问。
+5. 享受 Magisk！
 
 #### 在 Bluestacks 上安装 Magisk 的步骤
 
-1. Download Bluestacks Tweaker [here](https://bstweaker.ru).
-2. Use Bluestacks Tweaker and click "Unlock" to unlock Bluestacks instance, and then launch it. Otherwise, you can't install Magisk.
-3. When the instance starts up successfully, click "Patch" to open root access, install Kitsune Mask, and execute the "Direct Install into system partition" action.
-4. When you are done, click "UnPatch" and then restart the instance.
-5. Enjoy Magisk!
+1. 从[此处](https://bstweaker.ru)下载 Bluestacks Tweaker。
+2. 使用 Bluestacks Tweaker 并点击“Unlock”解锁 Bluestacks 实例，然后启动它。否则无法安装 Magisk。
+3. 实例成功启动后，点击“Patch”打开 root 访问，安装 Kitsune Mask，并执行“直接安装到系统分区”操作。
+4. 完成后，点击“UnPatch”，然后重新启动实例。
+5. 享受 Magisk！
 
-## 捐赠我
+## 捐赠
 
 - Paypal: [paypal.me/huskydg](http://paypal.me/huskydg)
 - 感谢您的支持，祝您有美好的一天！👍
 
-## Credits
+## 致谢
 
 - Magisk 作者：[topjohnwu](https://github.com/topjohnwu/magisk)
 - Magisk 贡献者：[vvb2060](https://github.com/vvb2060), [yujincheng08](https://github.com/yujincheng08), [RikkaW](https://github.com/RikkaW), [canyie](https://github.com/canyie)
