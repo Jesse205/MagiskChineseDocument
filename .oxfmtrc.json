@@ -26,7 +26,7 @@
     ".temp",
     "pnpm-lock.yaml",
     "yarn.lock",
-    "public/api",
+    "src/public/api",
     ".rumdl_cache",
     "*.tsbuildinfo"
   ]

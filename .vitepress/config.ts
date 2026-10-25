@@ -71,8 +71,16 @@ const DELTA_LINKS: DefaultTheme.SidebarItem[] = [
   },
 ]
 
+const ARCHIVE_LINKS: DefaultTheme.SidebarItem[] = [
+  {
+    text: '存档',
+    items: [{ text: '华为设备安装（历史）', link: '/archive/huawei-install.html' }],
+  },
+]
+
 const sidebar: DefaultTheme.Sidebar = {
   '/delta/': DELTA_LINKS,
+  '/archive/': ARCHIVE_LINKS,
 }
 
 const allItems: DefaultTheme.SidebarItem[] = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
@@ -88,7 +96,7 @@ for (const group of allItems) {
 }
 
 // 匹配版本号
-const releaseFileContent = fs.readFileSync('./releases/index.md', 'utf8')
+const releaseFileContent = fs.readFileSync('./src/releases/index.md', 'utf8')
 for (const iterator of releaseFileContent.matchAll(MATCH_RELEASE_REG)) {
   const verName = iterator[1]
   const verCode = iterator[2]
@@ -116,6 +124,7 @@ export default defineConfigWithTheme<ThemeConfig>({
   title: 'Magisk 中文文档',
   description: 'Magisk 中文文档，由 Jesse205 手动机翻。',
   base,
+  srcDir: 'src',
   ignoreDeadLinks: true,
   lastUpdated: true,
   head: [
@@ -154,6 +163,7 @@ export default defineConfigWithTheme<ThemeConfig>({
       ...NORMAL_LINKS,
       ...DEVELOPER_LINKS,
       ...DELTA_LINK,
+      { text: '存档', link: '/archive/huawei-install.html' },
       { text: '官方文档', link: 'https://topjohnwu.github.io/Magisk/' },
     ] as DefaultTheme.NavItem[],
     sidebar,
@@ -168,7 +178,7 @@ export default defineConfigWithTheme<ThemeConfig>({
 `,
     },
     editLink: {
-      pattern: 'https://gitee.com/Jesse205/magisk-chinese-document/edit/master/:path',
+      pattern: 'https://gitee.com/Jesse205/magisk-chinese-document/edit/master/src/:path',
       text: '在 Gitee 上编辑此页面',
     },
     search: {

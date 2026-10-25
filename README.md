@@ -24,14 +24,15 @@ This is a Chinese translation by Jesse205 based on [Magisk official documentatio
 
 本项目使用 pnpm，开发环境需要 Node.js 20.19+ 和 [pnpm](https://pnpm.io/) 12（推荐通过 Corepack 启用）。
 
+- 文档内容与静态资源：`src/`
+- 站点配置与主题：`.vitepress/`
 - 安装依赖：`pnpm install`
 - 调试：`pnpm dev`
 - 构建：`pnpm build`
 - 预览构建结果：`pnpm preview`
 - 类型检查：`pnpm typecheck`（TypeScript 7 通过 `typescript-native-bridge` 桥接 Vue 工具链）
-- 代码检查：`pnpm lint`（oxlint），自动修复使用 `pnpm lint:fix`
-- 代码格式化：`pnpm format`（oxfmt），校验使用 `pnpm format:check`
-- Markdown 检查：`pnpm md:lint`（rumdl），自动修复使用 `pnpm md:fix`
+- 代码与 Markdown 检查：`pnpm lint`（oxlint + rumdl），自动修复使用 `pnpm lint:fix`
+- 代码与 Markdown 格式化：`pnpm format`（oxfmt + rumdl fmt），校验使用 `pnpm format:check`
 
 ## 贡献
 

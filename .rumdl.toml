@@ -1,5 +1,5 @@
 [global]
-exclude = [".git", "node_modules", ".vitepress", ".temp", "public", "images", "delta/images"]
+exclude = [".git", "node_modules", ".vitepress", ".temp", "src/public", "src/delta/images"]
 respect-gitignore = true
 
 [MD013]
