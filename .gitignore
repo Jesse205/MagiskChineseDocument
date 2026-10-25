@@ -2,3 +2,5 @@
 .vitepress/cache
 .vitepress/dist
 .temp
+.rumdl_cache
+*.tsbuildinfo

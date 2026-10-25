@@ -35,17 +35,44 @@ su -> magisk
     在重新打包期间修改标头配置。
 
     返回值：
-    0:valid    1:error    2:chromeos
+    0:valid    1:error    3:vendor_boot
 
   repack [-n] <原始bootimg> [输出bootimg]
       使用当前目录中的文件将启动映像组件重新打包到 [输出bootimg]，如果未指
-    定，则为“new-boot.img”。
+    定，则为“new-boot.img”。当前目录应只包含 [输出bootimg] 所需
+    的文件，否则可能生成错误的 [输出bootimg]。
       <原始bootimg> 是用于解压缩组件的原始启动映像。
       默认情况下，每个组件将使用 <原始bootimg> 中检测到的相应格式自动压缩。如
     果当前目录中的组件文件已被压缩，则不会对该特定组件执行任何附加压缩。
       如果提供“-n”，则将跳过所有压缩操作。
     如果 env 变量 PATCHVBMETAFLAG 设置为 true，则将设置启动映像的 vbmeta
     header 中的所有禁用标志。
+    ChromeOS 启动映像将自动使用可执行文件中捆绑的开发者密钥重新签名。
+
+  verify <bootimg> [x509.pem]
+    检查启动映像是否使用 AVB 1.0 签名。
+    可选地提供证书，以验证映像是否由该公钥证书签名。
+    返回值：
+    0:valid    1:error
+
+  sign-avb1 <bootimg> [name] [x509.pem pk8]
+    使用 AVB 1.0 签名对 <bootimg> 进行签名。
+    可选地提供映像的名称（默认值：“/boot”）。
+    可选地提供证书/私钥对用于签名。
+    如果未提供证书/私钥对，则将使用可执行文件中捆绑的 AOSP
+    verity 密钥。
+
+  sign-chromeos <bootimg> [outbootimg]
+    使用可执行文件中捆绑的开发者密钥，以 ChromeOS 验证启动内核签名
+    对 <bootimg> 进行签名。
+    输出到 [outbootimg]，如果未指定，则覆盖 <bootimg>。
+
+  extract <payload.bin> [partition] [outfile]
+    从 <payload.bin> 中提取 [partition] 到 [outfile]。
+    如果未指定 [outfile]，则输出到“[partition].img”。
+    如果未指定 [partition]，则尝试提取“init_boot”或“boot”。
+    选择的哪个分区可以通过存在的“init_boot.img”或“boot.img”确定。
+    <payload.bin> 可以是“-”，以作为 STDIN。
 
   hexpatch <文件> <hexpattern1> <hexpattern2>
     在 <文件> 中搜索 <hexpattern1>，并将其替换为 <hexpattern2>
@@ -56,6 +83,8 @@ su -> magisk
     支持的命令:
       exists ENTRY
         如果 ENTRY 存在，则返回 0，否则返回 1
+      ls [-r] [PATH]
+        列出 PATH（默认为“/”）；指定 [-r] 以递归列出
       rm [-r] ENTRY
         删除 ENTRY，指定 [-r] 以递归删除
       mkdir MODE ENTRY
@@ -70,13 +99,13 @@ su -> magisk
         将 ENTRY 解压到 OUT，或将所有条目解压到当前目录
       test
         测试 cpio 的状态
-        返回值为0或或运算以下值：
-        0x1:Magisk    0x2:unsupported
+        返回值：
+        0:stock    1:Magisk    2:unsupported
       patch
         应用 ramdisk 补丁
         用 env 变量进行配置：KEEPVERITY KEEPFORCEENCRYPT
-      backup ORIG
-        从 ORIG 创建 ramdisk 备份
+      backup ORIG [-n]
+        从 ORIG 创建 ramdisk 备份，指定 [-n] 以跳过压缩
       restore
         从 incpio 中存储的 ramdisk 备份恢复 ramdisk
       sha1
@@ -97,8 +126,10 @@ su -> magisk
         返回值:
         0:valid    1:error
 
-  split <文件>
-    将 image.*-dtb 拆分为 kernel + kernel_dtb
+  split [-n] <文件>
+    将 image.*-dtb 拆分为 kernel + kernel_dtb。
+    如果提供“-n”，则将跳过解压缩操作；内核将保持不
+    变，以其原始格式拆分。
 
   sha1 <文件>
     出 <文件> 的 SHA1 校验和
@@ -112,14 +143,14 @@ su -> magisk
     如果未指定 [格式]，则将使用 gzip。
     如果未指定 [输出文件]，则 <输入文件> 将被替换为
     后缀为匹配文件扩展名的另一个文件。
-    支持格式: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
+    支持格式: gzip xz lzma bzip2 lz4 lz4_legacy lz4_lg 
 
   decompress <输入文件> [输出文件]
     检测格式并将 <输入文件> 解压缩到 [输出文件]。
     <输入文件>/[输出文件] 可以是“-”，以作为 STDIN/STDOUT。
     如果未指定 [输出文件]，则 <输入文件> 将替换为另一个文件，
     删除其文件格式文件扩展名。
-    支持格式: gzip zopfli xz lzma bzip2 lz4 lz4_legacy lz4_lg 
+    支持格式: gzip xz lzma bzip2 lz4 lz4_legacy lz4_lg 
 ```
 
 ## magiskinit
@@ -147,6 +178,7 @@ Magisk 守护进程派生的所有进程，包括 root shell 及其所有分支�
    --magisk          应用内置 Magisk sepolicy 规则
    --apply FILE      应用 FILE 中的规则，作为策略语句逐行读取和分析
                      (允许多重 --apply)
+   --print-rules     打印已加载 sepolicy 中的所有规则
 
 如果既没有指定 --load、--load-split，也没有指定 --compile-split，则它
 将从当前活动策略（/sys/fs/selinux/policy）加载
@@ -167,6 +199,13 @@ allow s1 t2 class { all-permissions-of-class }
 allow s2 t1 class { all-permissions-of-class }
 allow s2 t2 class { all-permissions-of-class }
 
+扩展权限（xperm）是 16 位值（0x0000-0xFFFF），可对 ioctl 等操作进行细粒度过滤。xperm_set 可以是：
+  - 单个十六进制值：0x8910
+  - 用大括号括起来的十六进制值和范围列表：{ 0x8910 0x8920-0x8926 }
+  - 单个值或列表的补集（~）：~0x8910、~{ 0x8910 0x892A }
+  - 全部匹配（*）：表示完整范围 0x0000-0xFFFF
+  - 重置（0）：清除目标的所有规则（allow、auditallow、dontaudit）
+
 支持的策略声明：
 
 "allow *source_type *target_type *class *perm_set"
@@ -178,12 +217,9 @@ allow s2 t2 class { all-permissions-of-class }
 "auditallowxperm *source_type *target_type *class operation xperm_set"
 "dontauditxperm *source_type *target_type *class operation xperm_set"
 - 唯一支持的操作是“ioctl”
-- xperm_set 格式为 “low-high”、“value”或“*”。
-  “*”将被视为“0x0000-0xFFFF”。
-  所有值应以十六进制书写。
 
-"permissive ^type"
-"enforce ^type"
+"permissive *type"
+"enforce *type"
 
 "typeattribute ^type ^attribute"
 
@@ -250,46 +286,67 @@ allow s2 t2 class { all-permissions-of-class }
 MagiskSU 入口点 `magisk` 的小程序。不错的旧 `su` 命令。
 
 ``` bash
-用法: su [选项] [-] [user [参数...]]
+用法: su [选项] [--] [user [参数...]]
 
 选项:
-  -c, --command 命令         将命令传递给调用的 shell
-  -h, --help                    显示此帮助消息并退出
-  -, -l, --login                将 shell 伪装成一个登录 shell
+  -c, --command 命令           将命令传递给调用的 shell
+  -s, --shell SHELL            使用 SHELL 而不是默认的 /system/bin/sh
+  -i, --interactive            使用 -c 时强制分配伪终端
+  -g, --group GROUP            指定主组
+  -G, --supp-group GROUP       指定附加组
+                                如果未指定 -g 选项，第一个指定的附加组也会用作
+                                主组
+  -Z, --context CONTEXT        更改 SELinux 上下文
+  -t, --target PID             从中获取挂载命名空间的 PID
+                                PID 为 0 表示 Magisk 全局挂载命名空间
+  -M, --mount-master           强制在全局挂载命名空间中运行（等同于 -t 0）
+  -d, --drop-cap               丢弃所有 Linux 能力
   -m, -p,
-  --preserve-environment        保护整个环境
-  -s, --shell SHELL             使用 SHELL 而不是默认的 /system/bin/sh
-  -v, --version                 显示版本名并退出
-  -V                            显示版本号并退出
-  -mm, -M,
-  --mount-master                在全局装载命名空间中强制运行
-```
+  --preserve-environment       保留整个环境
+  -v, --version                显示版本号并退出
+  -V                           显示版本代码并退出
+  -h, --help                   显示此帮助消息并退出
 
-::: tip 注意
-尽管上面没有列出 `-Z, --context` 选项，但该选项仍然存在，以便与为 SuperSU 设计的应用程序进行 CLI 兼容。然而，该选项被默默地忽略，因为它不再相关。
-:::
+--: 强制停止选项解析，并在遇到未知选项时停止
+User: 要切换到的用户（默认为 root），可以是名称或 uid
+Argument: 原样传递给 shell
+```
 
 ## resetprop
 
-`magisk` 的小程序。高级系统属性操作实用程序。查看 [Resetprop 详细信息](details.md#重置属性-resetprop) 以了解更多背景信息。
+`magisk` 的小程序。高级系统属性操作实用程序。查看 [Resetprop 详细信息](details.md#重置属性resetprop) 以了解更多背景信息。
 
 ``` bash
-用法: resetprop [标志] [选项...]
+用法: resetprop [标志] [参数...]
 
-选项:
-   -h, --help        显示此消息
-   (no arguments)    输出所有属性
+读取模式参数:
+   （无参数）        打印所有属性
    NAME              获取 NAME 属性
-   NAME VALUE        使用 VALUE 设置 NAME 属性
-   --file FILE       从 FILE 加载属性
-   --delete NAME     删除 NAME 属性
 
-标志:
-   -v      将详细输出打印到 stderr
-   -n      设置 props 而不经过 property_service
-           (此标志仅影响 setprop)
-   -p      从/向持久存储读取/写入属性
-           (此标志仅影响 getprop 和 delprop)
+写入模式参数:
+   NAME VALUE        将属性 NAME 设置为 VALUE
+   -f,--file   FILE  从 FILE 加载并设置属性
+   -d,--delete NAME  删除属性
+
+等待模式参数（使用 -w 切换）:
+    NAME             等待属性 NAME 发生变化
+    NAME OLD_VALUE   如果属性 NAME 的值不是 OLD_VALUE，则获取该值
+                     否则等待属性 NAME 发生变化
+
+通用标志:
+   -h,--help         显示此消息
+   -v,--verbose      将详细输出打印到 stderr
+   -w                切换到等待模式
+   -c,--compact      压缩属性区域（可选：上下文标签）
+
+读取模式标志:
+   -p      同时从存储中读取持久属性
+   -P      仅从存储中读取持久属性
+   -Z      获取属性上下文而不是值
+
+写入模式标志:
+   -n      绕过 property_service 设置属性
+   -p      始终将持久属性更改写入存储
 ```
 
 ## 参考链接

@@ -23,13 +23,11 @@
 :::
 
 如果您使用的是华为设备，请查看[相应部分](#华为)。\
-如果您使用的是三星设备，请查看[相应部分](#三星设备)。
+如果您使用的是 Googlebook 或三星设备，请查看 [Googlebooks](#googlebooks) 或[三星设备](#三星设备)部分。
 
-如果您的设备**有启动 ramdisk**，请获取 `boot.img` 或者 `init_boot.img`（如果存在。在出厂时搭载 Android 13 的设备通常是这样的）的副本。
-
-如果您的设备**没有启动 ramdisk**，请获取 `recovery.img` 的副本。
-
-您可以从官方固件包或第三方 ROM 刷机包中提取所需文件。
+如果您的设备**有启动 ramdisk**，您需要修补包含 ramdisk 的分区映像（`boot.img`、`init_boot.img` 或 `vendor_boot.img`）。\
+如果您的设备**没有启动 ramdisk**，您需要修补 `recovery.img`。\
+您可以自行提取原始 `.img` 文件，也可以提供完整的官方固件包（OTA `.zip`、`payload.bin` 或出厂映像 `.zip`），甚至直接提供指向它的 HTTPS 链接，让 Magisk app 自动提取目标映像。
 
 接下来，我们需要知道您的设备是否有单独的 `vbmeta` 分区。
 
@@ -49,48 +47,58 @@ adb shell ls -l /dev/block/bootdevice/by-name
 快速回顾一下，此时，您应该已经知道并准备好了：
 
 1. 设备是否有启动 ramdisk
-2. 基于 (1) 的 `boot.img` 、`init_boot.img` 或 `recovery.img`
+2. 基于 (1) 的固件包（或已提取的 `boot.img`、`init_boot.img`、`vendor_boot.img` 或 `recovery.img`）
 
 让我们继续[修补映像](#修补映像).
 
 ## 修补映像
 
-- 将 boot 、init_boot 或 recovery 映像（ `*.img` 文件）复制到设备
-- 按下 Magisk 主屏幕中的 **「安装」** 按钮
-- 如果要修补 recovery 映像，请选中 **「Recovery 模式」** 选项
-- 在方式中选择 **「选择并修补一个文件」** ，然后选择 boot 、init_boot 或 recovery 映像
-- 开始安装，并使用 ADB 将修补的映像复制到您的电脑：
-  ``` shell
-  adb pull /sdcard/Download/magisk_patched_[随机字符].img PC上magisk_patched.img的路径
-  ```
-  > 提示，你可以将文件从资源管理器直接拖到终端中来获得文件绝对路径。
-  **不要使用 MTP**，因为它可能会损坏大文件。
-- 将修补好的 boot 、init_boot 或 recovery 映像刷入到您的设备。\
-  对于大多数设备，可以重启到 fastboot 模式，并使用以下命令刷入：
-  ::: code-group
+1. 按下 Magisk 主屏幕中的 **「安装」** 按钮
+2. 如果要修补 recovery 映像，请选中 **「Recovery 模式」** 选项
+3. 在方式中选择 **「修补固件 / 映像」** ，然后选择提供源映像的方式：
+   - **从存储中选择**：选择原始 `.img` （`boot.img`、`init_boot.img`、`vendor_boot.img`、`recovery.img`）、OTA `.zip` / `payload.bin` 或出厂映像 `.zip`
+   - **输入映像 URL**：粘贴远程 OTA `.zip`、出厂映像 `.zip` 或 `.img` 文件的直接 HTTPS URL，以流式方式提取目标映像，无需先下载完整归档
+   - **下载最新的 Pixel 出厂映像**（仅限 Pixel 设备）：自动从 Google 服务器获取并提取与您当前 Pixel 构建匹配的映像
+4. 开始安装，并使用 ADB 将修补的映像复制到您的电脑：
 
-  ``` shell [boot]
-  fastboot flash boot PC上magisk_patched_[随机字符].img的路径
-  ```
+   ``` shell
+   adb pull /sdcard/Download/magisk_patched-[版本]_[随机字符].img PC上magisk_patched.img的路径
+   ```
 
-  ``` shell [init_boot]
-  fastboot flash init_boot PC上magisk_patched_[随机字符].img的路径
-  ```
+   > 提示，你可以将文件从资源管理器直接拖到终端中来获得文件绝对路径。
+   **不要使用 MTP**，因为它可能会损坏大文件。
+5. 将修补好的 boot 、init_boot 、vendor_boot 或 recovery 映像刷入到您的设备。\
+   对于大多数设备，可以重启到 fastboot 模式，并使用以下命令刷入：
+   ::: code-group
 
-  ``` shell [recovery]
-  fastboot flash recovery PC上magisk_patched_[随机字符].img的路径
-  ```
+   ``` shell [boot]
+   fastboot flash boot PC上magisk_patched-[版本]_[随机字符].img的路径
+   ```
 
-  :::
-- <Badge text="可选" /> 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区
-  ``` shell
-  fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
-  ```
-  ::: warning
-  此操作可能清除您的数据。
-  :::
-- 重启并启动 Magisk 应用程序（如果您清除数据，您将看到一个用于占位的 Magisk 应用程序），您将看到一个询问修复环境的对话框，点击它并等待重启。
-- 瞧！
+   ``` shell [init_boot]
+   fastboot flash init_boot PC上magisk_patched-[版本]_[随机字符].img的路径
+   ```
+
+   ``` shell [vendor_boot]
+   fastboot flash vendor_boot PC上magisk_patched-[版本]_[随机字符].img的路径
+   ```
+
+   ``` shell [recovery]
+   fastboot flash recovery PC上magisk_patched-[版本]_[随机字符].img的路径
+   ```
+
+   :::
+6. <Badge text="可选" /> 如果您的设备有单独的 `vbmeta` 分区，则可以使用以下命令修补 `vbmeta` 分区
+
+   ``` shell
+   fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
+   ```
+
+   ::: warning
+   此操作可能清除您的数据。
+   :::
+7. 重启并启动 Magisk 应用程序（如果您清除数据，请先重新安装 Magisk APK），您将看到一个询问修复环境的对话框，点击它并等待重启。
+8. 瞧！
 
 ::: warning
 **千万不要**刷写其他人共享的已修补的镜像，也不要在其他设备上修补镜像，即使它们具有相同的设备型号！您可能需要执行完整的数据擦除操作以恢复您的设备。**始终**在您要安装 Magisk 的同一设备上修补引导镜像。
@@ -114,6 +122,20 @@ adb shell ls -l /dev/block/bootdevice/by-name
 
 （注意：在这种情况下，您**不能使用 第三方 Recovery 来安装或升级 Magisk**！！）
 
+## Googlebooks
+
+1. 按照官方的[引导加载程序解锁说明](https://support.google.com/googlebook/answer/17389679)解锁您的 Googlebook 的引导加载程序。
+2. 下载并安装最新的 [Magisk 应用程序](https://github.com/topjohnwu/Magisk/releases/latest)，按下 Magisk 卡片中的 **「安装」** 按钮，然后选择 **「修补固件 / 映像」**。
+3. 选择 recovery 映像来源：选择自动建议的 **「下载最新的 Googlebook recovery 映像」** 选项，或者通过 **「从存储中选择」** / **「输入映像 URL」** 手动选择 recovery 映像文件。
+4. 在 **输出目标** 下，您可以将 USB 闪存盘插入 Googlebook 并选择它，直接创建已修补的 recovery 介质（注意，所选 USB 驱动器上的所有数据都将被擦除），或者选择 **「保存到文件」** ，然后使用 [Device Recovery Utility](https://chromewebstore.google.com/detail/chromebook-recovery-utili/pocpnlppkickgojjlmhdmidojbmbodfm) 扩展稍后将 recovery 映像写入 USB 驱动器。
+5. 按照官方说明[启动到 recovery 模式](https://support.google.com/googlebook/answer/17452429#enter_recovery)，并选择外部 / USB 驱动器启动。
+   - **注意：** 您的数据**不会**被擦除，因为 Magisk 在修补过程中会自动从 recovery 映像中移除恢复出厂设置步骤。
+6. USB 驱动器将重新刷写设备，完成后，Magisk 即已安装。
+
+### 系统更新
+
+Googlebook 支持无缝 A/B 系统更新，允许您应用官方 OTA 更新并保留 Magisk，而无需从 USB 驱动器重新刷写。请按照 [OTA 升级指南](ota.md) 安装系统更新并保留 root 访问权限。
+
 ## 三星设备
 
 在继续之前，请确认：
@@ -121,15 +143,9 @@ adb shell ls -l /dev/block/bootdevice/by-name
 - 安装 Magisk **将熔断您的 Knox 保修位**，此操作无论如何都是不可逆的。
 - 首次安装 Magisk **需要完整的数据擦除**(这**不包括在解锁 bootloader 时的数据擦除**）。请备份您的数据。
 
-### 刷机工具
-
-- [Samsung Odin3](https://dl2018.sammobile.com/Odin.zip)（仅限 Windows）（需要 [Samsung USB Drivers](https://developer.samsung.com/android-usb-driver)）
-- [Samsung Odin4](https://forum.xda-developers.com/t/official-samsung-odin-v4-1-2-1-dc05e3ea-for-linux.4453423/)（仅限Linux）
-- [Heimdall](https://www.glassechidna.com.au/heimdall/)（或 [Grimler's fork](https://git.sr.ht/~grimler/Heimdall)）
-
 ### 要求
 
-要验证三星设备是否可以安装 Magisk，首先必须检查 OEM 锁和 KnoxGuard (RMM) 状态，为此请使用组合键在下载模式下启动设备。
+要验证三星设备是否可以安装 Magisk，首先必须检查 OEM 锁和 KnoxGuard (RMM) 状态。为此，请转到 `设置` -> `设备维护` -> `维护模式` 并将其启用，然后使用组合键在下载模式下启动设备。
 
 OEM 锁的值可能如下：
 
@@ -158,36 +174,34 @@ KnoxGuard 的值可能如下：
 
 ### 操作指南
 
-- 为您的设备下载最新固件包，您可以使用以下工具之一直接从三星服务器下载：
-  - [SamFirm.NET](https://github.com/jesec/SamFirm.NET)，[samfirm.js](https://github.com/jesec/samfirm.js)
-  - [Frija](https://forum.xda-developers.com/s10-plus/how-to/tool-frija-samsung-firmware-downloader-t3910594)
-  - [Samloader](https://forum.xda-developers.com/s10-plus/how-to/tool-samloader-samfirm-frija-replacement-t4105929)
-  - [Bifrost](https://forum.xda-developers.com/t/tool-samsung-samsung-firmware-downloader.4240719/)
-- 解压缩固件并将 `AP` 归档文件复制到设备。它通常命名为 `AP_[device_model_sw_ver].tar.md5` 。
-- 按下 Magisk 主屏幕中的 **「安装」** 按钮。
-- 如果您的设备**没有**启动 ramdisk，勾选 **「Recovery模式」** 选项。
-- 在方式中选择 **「选择并修补一个文件」** ，然后选择 `AP` 归档文件。
-- 开始安装，并使用 ADB 将修补的归档文件复制到您的电脑：
-  ``` shell
-  adb pull /sdcard/Download/magisk_patched_[random_strings].tar
-  ```
-  ::: warning
-  **不要使用 MTP**，因为它可能会损坏大型文件。
-  :::
-  > 译者注：如果有条件，可以验证一下哈希值。
-- 重新启动到下载模式。在您的 PC 上打开 Odin，将 `magisk_patched.tar` 作为 `AP`，连同原始固件中的 `BL` 、`CP` 和 `CSC`（**不是** `HOME_CSC`，因为我们要**清除数据**）一起刷入。
-- 一旦 Odin 完成刷机，您的设备应该会自动重启。**如果被要求恢复出厂设置，请同意。**
-- 如果您的设备**没有**启动 ramdisk，请立即重新启动到 recovery 以启用 Magisk（原因在 [Recovery 中的 Magisk](#recovery-中的-magisk) 中说明）。
-- 安装您已经下载的 [Magisk 应用程序](https://github.com/topjohnwu/Magisk/releases/latest) 并启动该应用程序。 它应该显示一个对话框，要求进行额外的设置。
-- 让应用程序完成它的工作并自动重启设备。瞧！
+1. 使用 [samloader-rs](https://github.com/topjohnwu/samloader-rs) 直接从三星服务器下载适用于您设备的最新固件包。
+2. 解压缩固件并将 `AP` 归档文件复制到设备。它通常命名为 `AP_[device_model_sw_ver].tar.md5` 。
+3. 按下 Magisk 主屏幕中的 **「安装」** 按钮。
+4. 如果您的设备**没有**启动 ramdisk，勾选 **「Recovery模式」** 选项。
+5. 在方式中选择 **「修补固件 / 映像」** ，选择 **「从存储中选择」** ，然后选择 `AP` 归档文件。
+6. 开始安装，并使用 ADB 将修补的归档文件复制到您的电脑：
+
+   ``` shell
+   adb pull /sdcard/Download/magisk_patched-[版本]_[随机字符].tar
+   ```
+
+   ::: warning
+   **不要使用 MTP**，因为它可能会损坏大型文件。
+   :::
+   > 译者注：如果有条件，可以验证一下哈希值。
+7. 重新启动到下载模式。在您的 PC 上使用 `samloader` 将 `magisk_patched-[版本]_[随机字符].tar` 作为 `AP`，连同原始固件中的 `BL` 、`CP` 和 `CSC`（**不是** `HOME_CSC`，因为我们要**清除数据**）一起刷入。
+8. 一旦 `samloader` 完成刷机，您的设备应该会自动重启。**如果被要求恢复出厂设置，请同意。**
+9. 如果您的设备**没有**启动 ramdisk，请立即重新启动到 recovery 以启用 Magisk（原因在 [Recovery 中的 Magisk](#recovery-中的-magisk) 中说明）。
+10. 安装您已经下载的 [Magisk 应用程序](https://github.com/topjohnwu/Magisk/releases/latest) 并启动该应用程序。 它应该显示一个对话框，要求进行额外的设置。
+11. 让应用程序完成它的工作并自动重启设备。瞧！
 
 ### 系统更新
 
-一旦你的三星设备获得了 root 权限，你就不能再通过 OTA 进行 Android 系统更新了。要进行系统更新，您必须手动下载新的固件归档文件并完成上一节中编写的相同 `AP` 修补过程。这里唯一的区别在于Odin刷入步骤：**不要使用 `CSC` 归档文件，而是使用 `HOME_CSC` 归档文件，因为我们正在执行升级，而不是初始安装**。
+一旦你的三星设备获得了 root 权限，你就不能再通过 OTA 进行 Android 系统更新了。要进行系统更新，您必须手动下载新的固件归档文件并完成上一节中编写的相同 `AP` 修补过程。这里唯一的区别在于刷入步骤：**不要使用 `CSC` 归档文件，而是使用 `HOME_CSC` 归档文件，因为我们正在执行升级，而不是初始安装**。
 
 ### 注意事项
 
-- **永远、永远不要**尝试将 `boot`、`init_boot`、`recovery` 或 `vbmeta` 分区恢复到原样！您这样做会破坏您的设备，并且从中恢复的唯一方法是**清除数据并进行完整的 Odin 恢复**。
+- **永远、永远不要**尝试将 `boot`、`init_boot`、`recovery` 或 `vbmeta` 分区恢复到原样！您这样做会破坏您的设备，并且从中恢复的唯一方法是**清除数据并进行完整的固件恢复**。
 - 要使用新的固件升级您的设备，**切勿**出于上述原因直接使用原厂 `AP` 归档文件。**始终**在 Magisk 应用程序中修补 `AP` 并改用它。
 
 ## 华为
@@ -221,9 +235,11 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 - 如果您打算使用第三方 Recovery，只需按照[第三方 Recovery](#第三方-recovery) 的说明进行操作即可。
 - 如果您不打算使用第三方 Recovery，则必须从您的固件中提取 `RAMDISK.img` 。 按照上面的[修补映像](#修补映像)说明进行操作，但使用 `RAMDISK.img` 文件而不是 boot 映像！
 - 要将修补后的映像刷入您的设备，请使用 fastboot 命令：
+
   ``` shell
   fastboot flash ramdisk /path/to/magisk_patched.img
   ```
+
   请注意，您正在刷入 `ramdisk`，而不是 `boot` ！
 
 ### EMUI 9 或更高版本
@@ -236,9 +252,11 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 **警告：Magisk 将覆盖第三方 Recovery。**
 - 如果您不打算使用第三方 Recovery，则必须从固件中提取 `RECOVERY_RAMDIS.img` （这不是拼写错误），而不是 `recovery.img`（部分设备依旧需要修补 `recovery.img` ）。 按照上面的引导映像修补说明进行操作，但使用 `RECOVERY_RAMDIS.img` 文件而不是 boot 映像！
 - 要将修补后的映像刷入您的设备，请使用 fastboot 命令：
+
   ``` shell
   fastboot flash recovery_ramdisk /path/to/magisk_patched.img
   ```
+
   请注意，您正在刷入 `recovery_ramdisk`，而不是 `boot` ！
 
 ## 第三方 Recovery
@@ -249,14 +267,14 @@ Magisk 不再正式支持较新的华为设备，因为其设备上的 bootloade
 
 仅当您的设备启动 ramdisk 时，才能使用第三方 Recovery 进行安装。不建议在新的设备上通过第三方 Recovery 安装 Magisk。如果您遇到任何问题，请使用正确的[修补映像](#修补映像)方法。
 
-- 下载 [Magisk 安装包](https://github.com/topjohnwu/Magisk/releases)
-- 将 `.apk` 文件扩展名重命名为 `.zip` ，例如：`Magisk-v26.1.apk` → `Magisk-v26.1.zip` 。如果重命名文件扩展名时遇到问题（比如在 Windows 文件资源管理器中默认不显示文件扩展名），请使用 Android 上的文件管理器或第三方 Recovery 中的文件管理功能重命名文件。
-- 像其他普通的刷机包一样刷 zip。
-- 重新启动并检查是否已安装 Magisk 应用程序。如果未自动安装，请手动安装 APK。
-- 启动 Magisk 应用程序，它将显示一个让您重新安装的对话框。请**直接在 APP 内**重新安装并重新启动（MTK 设备将在重启后自动给 boot 分区上锁，请使用 fastboot 或者第三方 recovery [修补映像](#修补映像)）。
+1. 下载 [Magisk 安装包](https://github.com/topjohnwu/Magisk/releases)
+2. 将 `.apk` 文件扩展名重命名为 `.zip` ，例如：`Magisk-v31.0.apk` → `Magisk-v31.0.zip` 。如果重命名文件扩展名时遇到问题（比如在 Windows 文件资源管理器中默认不显示文件扩展名），请使用 Android 上的文件管理器或第三方 Recovery 中的文件管理功能重命名文件。
+3. 像其他普通的刷机包一样刷 zip。
+4. 重新启动；如果 Magisk 应用程序尚未安装，请像安装普通应用一样安装 Magisk APK。
+5. 启动 Magisk 应用程序，它将显示一个让您重新安装的对话框。请**直接在 APP 内**重新安装并重新启动（MTK 设备将在重启后自动给 boot 分区上锁，请使用 fastboot 或者第三方 recovery [修补映像](#修补映像)）。
 
 ::: warning
-模块的 `sepolicy.rule` 文可能存储在 `cache` 分区中。请不要擦除 `CACHE` 分区。
+模块的 `sepolicy.rule` 文件可能存储在 `cache` 或 `metadata`（预初始化分区）分区中。请**不要**擦除 `CACHE` 或 `METADATA` 分区，否则活动模块的 `sepolicy.rule` 文件将丢失，直到重新安装这些模块。
 :::
 
 ::: tip

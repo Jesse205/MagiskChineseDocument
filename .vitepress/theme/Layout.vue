@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DefaultTheme from 'vitepress/theme'
 import { useRoute, withBase } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
 import { computed, watch } from 'vue'
 const { Layout } = DefaultTheme
 

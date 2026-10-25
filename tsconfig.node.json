@@ -1,17 +1,13 @@
 {
-  "extends": "@tsconfig/node21/tsconfig.json",
-  "include": [
-    "vite.config.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "nightwatch.conf.*",
-    "playwright.config.*",
-    ".vitepress/**/*"
-  ],
+  "extends": "@tsconfig/node24/tsconfig.json",
+  "include": [".vitepress/config.ts", ".vitepress/theme/ts/**/*.ts"],
+  "exclude": [".vitepress/cache", ".vitepress/dist"],
   "compilerOptions": {
     "composite": true,
+    "noEmit": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
     "types": ["node"],
     "resolveJsonModule": true
   }

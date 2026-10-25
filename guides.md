@@ -40,6 +40,7 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 │   ├── zygisk              <-- 此文件夹包含模块的 Zygisk native 库
 │   │   ├── arm64-v8a.so
 │   │   ├── armeabi-v7a.so
+│   │   ├── riscv64.so
 │   │   ├── x86.so
 │   │   ├── x86_64.so
 │   │   └── unloaded        <-- 如果存在，则 native 库不兼容
@@ -54,7 +55,8 @@ Magisk 模块是放置在 `/data/adb/modules` 中的文件夹，结构如下：
 │   │
 │   ├── post-fs-data.sh     <-- 此脚本将在 post-fs-data 中执行
 │   ├── service.sh          <-- 此脚本将在 late_start 服务中执行
-|   ├── uninstall.sh        <-- 当 Magisk 删除您的模块时，将执行此脚本
+│   ├── uninstall.sh        <-- 当 Magisk 删除您的模块时，将执行此脚本
+|   ├── action.sh           <-- 当用户在 Magisk app 中点击操作按钮时，将执行此脚本
 │   ├── system.prop         <-- resetprop 将此文件中的属性作为系统属性加载
 │   ├── sepolicy.rule       <-- 其他自定义 sepolicy 规则
 │   │
@@ -111,7 +113,9 @@ updateJson=<链接> <url> (可选)
 
 ### Shell 脚本 (`*.sh`)
 
-请阅读 [启动脚本](#启动脚本) 部分，了解 `post-fs-data.sh` 和 `service.sh` 之间的区别。对于大多数模块开发人员来说，如果您只需要运行引导脚本，`service.sh` 应该足够好了。
+请阅读 [启动脚本](#启动脚本) 部分，了解 `post-fs-data.sh` 和 `service.sh` 之间的区别。对于大多数模块开发人员来说，如果您只需要运行引导脚本，`service.sh` 应该足够好了。如果您需要等待引导完成，可以使用 `resetprop -w sys.boot_completed 0` 。
+
+如果您的模块包含 `action.sh` 脚本，Magisk app 将在“模块”选项卡的模块卡片上显示一个**操作**按钮。点击它会在 app 内置的控制台中执行 `action.sh`，并启用 BusyBox 独立模式（`BOOTMODE=true`）。
 
 在模块的所有脚本中，请使用 `MODDIR=${0%/*}` 获取模块的基本目录路径；**不要**在脚本中硬编码模块路径。\
 如果启用了Zygisk，则环境变量 `ZYGISK_ENABLED` 将设置为 `1` 。
@@ -123,6 +127,8 @@ updateJson=<链接> <url> (可选)
 如果您将名为 `.replace` 的文件放在任何文件夹中，而不是合并其内容，则该文件夹将直接替换实际系统中的文件夹。这对于交换整个文件夹非常方便。
 
 如果要替换 `/vendor` 、 `/product` 或 `/system_ext` 中的文件，请分别将它们放在 `system/vendor` 、`system/product` 和 `system/system_ext` 下。Magisk 将透明地处理这些分区是否位于单独的分区中。
+
+如果要删除特定文件或文件夹，请在同一路径中放置一个主设备号为 0、次设备号为 0 的虚拟字符设备。例如，如果要删除 `/system/app/GoogleCamera`，可以在 `$MODDIR/system/app` 中执行 `mknod GoogleCamera c 0 0`（或在 `customize.sh` 的 `REMOVE` 变量中声明 `/system/app/GoogleCamera`；请参阅[自定义](#自定义)）。
 
 ### zygisk
 
@@ -138,7 +144,7 @@ Zygisk 是 Magisk 的一项功能，它允许高级模块开发人员在每个 A
 
 ## Magisk 模块安装程序
 
-Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在 Magisk 应用程序或第三方recovery（如 TWRP）中刷入。最简单的 Magisk 模块安装程序只是一个打包为 zip 文件的 Magisk 模块，此外还有以下文件：
+Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在 Magisk 应用程序或第三方recovery（如 TWRP）中刷入。最简单的 Magisk 模块安装程序只是一个打包为 zip 文件的 Magisk 模块，此外仅在模块支持在 recovery 中刷入时，才需要以下文件：
 
 - `update-binary`：下载最新的 [module_installer.sh](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh) 并将该脚本重命名或复制为 `update-binary`
 - `updater-script`：这个文件应该只包含字符串 “`#MAGISK`”
@@ -148,7 +154,7 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 ``` txt
 模块module.zip
 │
-├── META-INF
+├── META-INF                           <-- 仅在 recovery 中刷入时需要
 │   └── com
 │       └── google
 │           └── android
@@ -178,9 +184,9 @@ Magisk 模块安装程序是打包在 zip 文件中的 Magisk 模块，可以在
 - `MODPATH` (path): 模块文件应安装的路径
 - `TMPDIR` (path): 可以临时存储文件的地方
 - `ZIPFILE` (path): your module's installation zip 模块的压缩文件
-- `ARCH` (string): 设备的 CPU 架构。值为 `arm` 、`arm64` 、`x86` 或 `x64`
-- `IS64BIT` (bool): 如果 `$ARCH` 是 `arm64` 或 `x64` ，则为 `true`
-- `API` (int): 设备的 API 级别（安卓版本）（例如，Android 6.0 的 `23` ）
+- `ARCH` (string): 设备的 CPU 架构。值为 `arm` 、`arm64` 、`x86` 、`x64` 或 `riscv64`
+- `IS64BIT` (bool): 如果 `$ARCH` 是 `arm64` 、`x64` 或 `riscv64` ，则为 `true`
+- `API` (int): 设备的 API 级别（安卓版本）（例如，Android 7.0 的 `24` ）
 
 ::: tip 提示
 您可以在 [这里](https://source.android.google.cn/docs/setup/about/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases) 找到所有 Android 版本对应的 API 级别
@@ -225,6 +231,17 @@ REPLACE="
 
 上面的列表将对应创建以下文件：`$MODPATH/system/app/YouTube/.replace` 和 `$MODPATH/system/app/Bloatware/.replace` 。
 
+为方便起见，您还可以在变量名称 `REMOVE` 中声明要删除的文件/文件夹列表。模块安装程序脚本将创建相应的虚拟设备。例如：
+
+``` sh
+REMOVE="
+/system/app/YouTube
+/system/fonts/Roboto.ttf
+"
+```
+
+上面的列表将对应创建以下虚拟设备：`$MODPATH/system/app/YouTube` 和 `$MODPATH/system/fonts/Roboto.ttf` 。
+
 ### 注意
 
 - 使用 Magisk 应用程序下载模块时，`update-binary` 将**强制替换为最新的 [`module_installer.sh`](https://github.com/topjohnwu/Magisk/blob/master/scripts/module_installer.sh)** 。 **不要尝试在 `update-binary` 中添加任何自定义逻辑**。
@@ -236,7 +253,7 @@ REPLACE="
 在 Magisk 中，您可以以两种不同的模式运行启动脚本：**post-fs-data** 和 **late_start service** 模式。
 
 - post-fs-data 模式
-  - 此阶段会阻塞。启动过程在执行完成，或过 10 秒前暂停。
+  - 此阶段会阻塞。启动过程在执行完成，或过 40 秒前暂停（`post-fs-data` 脚本限制在 35 秒内，以便 Magisk 仍有时间挂载模块）。
   - 脚本在装入任何模块之前运行。这允许模块开发人员在安装模块之前动态调整其模块。
   - 这个阶段发生在 Zygote 启动之前，这几乎意味着是 Android 的一切
   - **警告**：使用 `setprop` 将导致启动过程死锁！请改用 `resetprop -n <prop_name> <prop_value>` 。
@@ -283,6 +300,7 @@ ramdisk
 │   │   ├── libfoo.ko      <-- 这两个文件将被复制到 Magisk 的
 │   │   └── myscript.sh    <-- 的 tmpfs 目录中
 │   ├── custom.rc          <-- 此文件将被注入到 init.rc 中
+│   │                          因为 /custom.rc 不存在
 │   ├── res
 │   │   └── random.png     <-- 此文件将替换 /res/random.png
 │   └── new_file           <-- 此文件将被忽略，因为 /new_file 不存在

@@ -1,40 +1,49 @@
 {
-    "cSpell.words": [
-        "bootloader",
-        "DATABIN",
-        "genfscon",
-        "Kitsune",
-        "libsepol",
-        "magisk",
-        "MAGISKDB",
-        "magiskinit",
-        "MAGISKTMP",
-        "nightwatch",
-        "RAMDIS",
-        "ramdisk",
-        "resetprop",
-        "Rikka",
-        "rootdir",
-        "sepolicy",
-        "setprop",
-        "topjohnwu",
-        "vbmeta",
-        "Zygisk"
-    ],
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "markdownlint.config": {
-        "default": true,
-        "MD033": {
-            "allowed_elements": [
-                "Badge",
-                "br",
-                "script",
-                "img",
-                "p"
-            ]
-        },
-        "MD025": false,
-        "MD041": false,
-        "MD031": false
-    }
+  "cSpell.words": [
+    "bootloader",
+    "DATABIN",
+    "genfscon",
+    "Kitsune",
+    "libsepol",
+    "magisk",
+    "MAGISKDB",
+    "magiskinit",
+    "MAGISKTMP",
+    "nightwatch",
+    "RAMDIS",
+    "ramdisk",
+    "resetprop",
+    "Rikka",
+    "rootdir",
+    "sepolicy",
+    "setprop",
+    "topjohnwu",
+    "vbmeta",
+    "Zygisk"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "rvben.rumdl"
+  }
 }

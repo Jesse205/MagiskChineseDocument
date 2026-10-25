@@ -18,10 +18,10 @@
   - 在 Windows 上，在[官方网站](https://git-scm.com/download/win)上下载并安装最新的 Git 版本。\
     请确保在安装过程前 **“启用符号链接”**。
 - 安装 Android Studio 并按照说明进行初始设置。
-- 将环境变量 `ANDROID_SDK_ROOT` 设置为 Android SDK 文件夹。此路径可以在 Android Studio 设置中找到。
+- 将环境变量 `ANDROID_HOME` 设置为 Android SDK 文件夹。此路径可以在 Android Studio 设置中找到。
 - 设置 JDK：
   - 建议的选项是将环境变量 `ANDROID_STUDIO` 设置为 Android Studio 的安装路径。构建脚本将自动查找并使用捆绑的 JDK。
-  - 您也可以自己设置 JDK 17，但本指南不再赘述。
+  - 您也可以自己设置 JDK 25，但本指南不再赘述。
 - 克隆源代码：
 
 ``` bash
@@ -33,33 +33,51 @@ git clone --recurse-submodules https://github.com/topjohnwu/Magisk.git
 ## 构建
 
 - 要构建所有内容并创建最终的 Magisk APK，请运行 `./build.py all` 。
-- 您还可以构建特定的子组件。调用 `build.py` 查看您的选项\
-  对于每个操作，使用 `-h` 访问帮助（例如 `./build.py binary -h` ）
+- 您还可以构建特定的子组件。运行 `./build.py -h` 查看所有可用的操作。\
+  对于每个操作，使用 `-h` 访问帮助（例如 `./build.py native -h` ）。
 - 使用 `config.prop` 配置构建。提供了示例 `config.prop.sample` 。
+- 如果已安装 `sccache` 或 `ccache` 且可在 `PATH` 中使用，`build.py` 将自动使用它们来加速 C++ 和 Rust 构建。
+- 若要使用 `build.py` 配置的相同环境变量运行独立工具（例如 `./gradlew`、`cargo` 或 `ndk-build`），请在命令前加上 `scripts/env.py`（例如 `scripts/env.py ./gradlew :apk:assembleDebug`）。您也可以运行 `./build.py clippy` 来检查 Rust 代码，或运行 `./build.py cargo ...` 直接对原生工作区调用 Cargo。
 
 ## IDE 支持
 
-- [Magisk 的存储库](https://github.com/topjohnwu/Magisk/)可以作为一个项目直接使用 Android Studio 打开。
-- 项目中的 Kotlin、Java、C++ 和 C 代码应该在 Android Studio 中得到适当的开箱即用的支持。
-- 在处理原生（native）代码之前运行 `./build.py binary` ，因为某些生成的代码仅在构建过程中创建。
+- 项目中的 Kotlin、Java、C++ 和 C 代码应该在 Android Studio 中得到适当的开箱即用的支持。此仓库可以作为一个项目直接使用 Android Studio 打开。
+- 有关 Rust 开发，请参阅下一节。
+- 在处理任何原生（native）代码之前，请运行 `./build.py gen`（或使用 `./build.py native` 构建全部原生代码），它会生成构建标志、C++/Rust FFI 绑定、protobuf 源文件以及供 C/C++ 语言服务器使用的 `native/compile_commands.json`。
 
-### 在 Android Studio 中开发 Rust
+### 开发 Rust
 
-由于 Magisk NDK 软件包 [ONDK](https://github.com/topjohnwu/ondk)（与 `./build.py ndk` 一起安装的软件包）包含一个完全独立的 Clang + Rust 工具链，因此单独构建 Magisk 项目不需要配置工具链。但是，由于 Intellij Rust 插件的工作方式，您必须进行一些额外的设置才能使 Android Studio 与 Magisk 的 Rust 代码库一起使用：
+首先安装官方 Rust 工具链管理器 [rustup](https://www.rust-lang.org/tools/install)。Magisk NDK 软件包 [ONDK](https://github.com/topjohnwu/ondk)（与 `./build.py ndk` 一起安装的软件包）捆绑了完整的 Rust 工具链，因此**构建** Magisk 项目本身不需要任何进一步配置。
 
-- 安装官方 Rust 工具链管理器 [rustup](https://rustup.rs/)
-- 链接 ONDK Rust 工具链并将其设置为默认值：
+但是，如果您想开发 Rust 代码库，将 ONDK 的 Rust 工具链链接到 `rustup` 并将其设置为默认值会更容易，这样许多开发工具和 IDE 就能正常工作：
 
 ```bash
 # 将 ONDK 工具链与名称“magisk”链接起来
-rustup toolchain link magisk "$ANDROID_SDK_ROOT/ndk/magisk/toolchains/rust"
-# 设置为默认
+rustup toolchain link magisk "$ANDROID_HOME/ndk/magisk/toolchains/rust"
+# 将 magisk 设置为默认
 rustup default magisk
 ```
 
-- 在 Android Studio 中安装 [Intellij Rust 插件](https://www.jetbrains.com/rust/)
-- 在 首选项（Preferences） > 语言和框架（Languages & Frameworks） > Rust 中，将 `$ANDROID_SDK_ROOT/ndk/magisk/toolchains/rust/bin` 设置为工具链位置
-- 打开 `native/src/Cargo.toml` ，然后在“未找到 Cargo 项目（No Cargo projects found）”横幅中选择“附加（Attach）”
+如果您打算使用 VSCode，可以安装 [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) 插件，一切就绪。如果您打算使用 JetBrains IDE（例如 [RustRover](https://www.jetbrains.com/rust/)，或其 Rust 插件），则需要一些额外设置：
+
+- 安装官方 nightly 工具链并添加一些组件。我们实际上不会用 nightly 工具链做任何事情，只是为了“骗过”IDE；真正的魔法发生在下一步设置的包装器中。
+
+```bash
+rustup toolchain install nightly
+# 添加一些 ONDK 中也包含的组件
+rustup +nightly component add rust-src clippy
+```
+
+- 创建一个包装用的 cargo bin 目录，以绕过 `rustup` 的限制
+
+```bash
+# 这里以 ~/.cargo/wrapper 为例（也是一个不错的推荐）
+# 您可以选择任何路径，只需在下一步中使用该路径即可
+./build.py rustup ~/.cargo/wrapper
+```
+
+- 在“设置（Settings） > Rust > 工具链位置（Toolchain location）”中，将其设置为我们刚刚创建的包装器目录的路径。
+- 现在 IDE 应该可以完全正常工作了，您可以启用 `rustfmt` 并将 `Clippy` 用作外部 linter。
 
 ## 签名和分发
 

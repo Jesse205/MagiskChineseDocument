@@ -1,11 +1,12 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["**/*.vue", "**/*.ts", "**/*", ".vitepress/theme/**/*", ".vitepress/theme/**/*.vue"],
+  "include": ["**/*.vue", "**/*.ts", ".vitepress/**/*"],
+  "exclude": [".vitepress/cache", ".vitepress/dist", "node_modules"],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
+    "noEmit": true,
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["./*"]
     },
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
@@ -14,9 +15,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "noEmit": false,
-    "emitDeclarationOnly": true,
     "lib": ["ESNext", "DOM", "WebWorker"],
-    "types": ["vite/client"],
+    "types": ["vite/client"]
   }
 }

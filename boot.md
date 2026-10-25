@@ -15,7 +15,7 @@
 - **LV**：推出版本。设备**推出时**使用的安卓版本。也就是说，设备首次上市时预装的 Android 版本。
 - **RV**：运行版本。设备当前运行的 Android 版本。
 
-我们将使用 **Android API 级别** 来表示 LV 和 RV 。API 级别和 Android 版本之间的映射可以在[这张表格](https://source.android.google.cn/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases)中看到。例如：Pixel XL 随 Android 7.1 发布，并运行 Android 10，这些参数将为 `(LV = 25, RV = 29)` 。
+我们将使用 **Android API 级别** 来表示 LV 和 RV 。API 级别和 Android 版本之间的映射可以在[这张表格](https://source.android.google.cn/docs/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases)中看到。例如：Pixel XL 随 Android 7.1 发布，并运行 Android 10，这些参数将为 `(LV = 25, RV = 29)` 。
 
 ## 引导方法
 
@@ -50,37 +50,39 @@ Android 启动可以大致分为 3 种主要的不同方法。我们提供了一
 - 任何运行 Android 10+ 的设备都将自动使用方法 C
 - **方法 B 设备卡在方法 B 上**，唯一的例外是 Pixel 3 和 3a，Google 对设备进行了改造以适应新方法。
 
-SAR 是 [Project Treble](https://source.android.google.cn/devices/architecture#hidl) 中非常重要的一部分，因为 rootdir 应该与平台绑定。这也是方法 B 和 C 带有 `(LV >= ver)` 标准的原因，因为谷歌每年都强制所有 OEM 遵守更新的要求。
+SAR 是 [Project Treble](https://source.android.google.cn/docs/core/architecture#hidl) 中非常重要的一部分，因为 rootdir 应该与平台绑定。这也是方法 B 和 C 带有 `(LV >= ver)` 标准的原因，因为谷歌每年都强制所有 OEM 遵守更新的要求。
 
 ## 一些历史
 
-当谷歌发布第一代 Pixel 时，它还推出了 [A/B（无缝）系统更新](https://source.android.google.cn/devices/tech/ota/ab)。由于[存储大小问题](https://source.android.google.cn/devices/tech/ota/ab/ab_faqs)，与仅 A 相比有几个区别，最相关的是删除 `recovery` 分区和 recovery ramdisk ，合并到`boot`中。
+当谷歌发布第一代 Pixel 时，它还推出了 [A/B（无缝）系统更新](https://source.android.google.cn/docs/core/ota/ab)。由于[存储大小问题](https://source.android.google.cn/docs/core/ota/ab/ab_faqs)，与仅 A 相比有几个区别，最相关的是删除 `recovery` 分区和 recovery ramdisk ，合并到`boot`中。
 
 让我们回到 Google 第一次设计 A/B 的时候。如果使用 SAR（当时只有引导方法 B 存在），内核不需要 `initramfs` 来引导 Android（因为 rootdir 在 `system` 中）。这意味着我们可以很聪明，只需将 recovery ramdisk（包含极简的 Linux 环境）塞入 `boot` ，删除 `recovery` ，然后让内核根据引导加载程序的信息选择要使用的任何根目录（ramdisk 或 `system`）。
 
-随着时间从 Android 7.1 到 Android 10 的流逝，谷歌推出了[动态分区](https://source.android.google.cn/devices/tech/ota/dynamic_partitions/implement)。这对 SAR 来说是个坏消息，因为 Linux 内核无法直接理解这种新的分区格式，因此无法直接将 `system` 挂载为 rootdir。这是他们想出引导方法 C 的时候：总是引导到 `initramfs` ，并让 userspace 处理其余的引导。这包括决定启动到 Android 或 recovery，或者他们正式称之为 `USES_RECOVERY_AS_BOOT` 。
+随着时间从 Android 7.1 到 Android 10 的流逝，谷歌推出了[动态分区](https://source.android.google.cn/docs/core/ota/dynamic_partitions/implement)。这对 SAR 来说是个坏消息，因为 Linux 内核无法直接理解这种新的分区格式，因此无法直接将 `system` 挂载为 rootdir。这是他们想出引导方法 C 的时候：总是引导到 `initramfs` ，并让 userspace 处理其余的引导。这包括决定启动到 Android 或 recovery，或者他们正式称之为 `USES_RECOVERY_AS_BOOT` 。
 
 一些使用带有 2SI 的 A/B 的现代设备还带有 `recovery_a/_b` 分区。谷歌的标准正式支持这一点。当 recovery 存储在单独的分区中时，这些设备将只使用 boot ramdisk 引导到 Android。
+
+从 Android 13（`LV >= 33`）和[通用内核映像（GKI）2.0](https://source.android.google.cn/docs/core/architecture/kernel/generic-kernel-image)开始，谷歌将通用内核与通用 ramdisk 解耦，使 `boot` 分区只包含 GKI 内核，并将通用第一阶段 ramdisk 移动到单独的 `init_boot` 分区（部分设备上为 `vendor_boot`）。从引导过程来看，这些设备仍然使用引导方法 C（2SI）；引导加载程序只是在将控制权交给 `/init` 之前，从内存中的 `init_boot` / `vendor_boot` 加载并拼接 ramdisk。
 
 ## 将这些拼凑在一起
 
 有了上面的所有知识，现在我们可以将所有 Android 设备分类为以下不同类型：
 
-|  类型   | 引导方式 |  分区  |  2SI  | 在 `boot` 里的 ramdisk |
-| :-----: | :------: | :----: | :---: | :--------------------: |
-|  **I**  |    A     | A-only |  No   |     `boot` ramdisk     |
-| **II**  |    B     |  A/B   |  Any  |   `recovery` ramdisk   |
-| **III** |    B     | A-only |  Any  |       ***N/A***        |
-| **IV**  |    C     |  Any   |  Yes  |      混合 ramdisk      |
+|  类型   | 引导方式 |  分区  |  2SI  | 在 `boot`（或 `init_boot` / `vendor_boot`）里的 ramdisk |
+| :-----: | :------: | :----: | :---: | :-----------------------------------------------------: |
+|  **I**  |    A     | A-only |  No   |                     `boot` ramdisk                      |
+| **II**  |    B     |  A/B   |  Any  |                   `recovery` ramdisk                    |
+| **III** |    B     | A-only |  Any  |                       ***N/A***                         |
+| **IV**  |    C     |  Any   |  Yes  |                混合 / 2SI ramdisk                       |
 
 这些类型按首次可用时的时间顺序排序。
 
 - **I 类**：好的旧传统 ramdisk 引导
 - **II 类**：旧版 A/B 设备。Pixel 1 是这种类型的第一个设备，同时也是第一个 A/B 和 SAR 设备。
 - **III 类**：2018 年末 - 2019 年 A-only 的设备。**就 Magisk 而言，这是迄今为止最糟糕的一种设备类型**
-- **IV 类**：所有使用引导方法 C 的设备都是 IV 型设备。A/B IV 类 ramdisk 可以根据引导加载程序的信息启动到 Android 或 recovery；A-only IV 类 ramdisk 只能引导到 Android。
+- **IV 类**：所有使用引导方法 C 的设备都是 IV 型设备。A/B IV 类 ramdisk 可以根据引导加载程序的信息启动到 Android 或 recovery；A-only IV 类 ramdisk（或带有专用 `recovery` / `vendor_boot` recovery ramdisk 的设备）只能引导到 Android。在 Android 13+ 的 GKI 设备上，该 ramdisk 位于 `init_boot`（或 `vendor_boot`）而不是 `boot` 中。
 
-关于 III 类设备的更多详细信息：Magisk 始终安装在引导映像的 ramdisk 中。对于所有其他类型的设备，由于其 `boot` 分区包含 ramdisk，因此可以通过 Magisk app 或第三方 recovery 中的刷入 ZIP 修补引导映像来轻松安装 Magisk。然而，对于 III 型设备，它们**仅限于将 Magisk 安装到 `recovery` 分区**中。Magisk 在正常启动时无法运行；相反，III 类设备用户必须始终重新启动到 recovery，以保持 Magisk 访问。
+关于 III 类设备的更多详细信息：Magisk 始终安装在引导映像的 ramdisk 中。对于所有其他类型的设备，由于其引导分区（`boot`、`init_boot` 或 `vendor_boot`）包含 ramdisk，因此可以通过 Magisk app 修补映像来轻松安装 Magisk。然而，对于 III 型设备，它们**仅限于将 Magisk 安装到 `recovery` 分区**中。Magisk 在正常启动时无法运行；相反，III 类设备用户必须始终重新启动到 recovery，以保持 Magisk 访问。
 
 一些 III 类设备的引导加载程序仍然会接受并提供手动添加到内核 `boot` 映像中的 `initramfs`（例如一些小米手机），但许多设备不接受（例如三星 S10，Note 10）。这完全取决于 OEM 如何实现其引导加载程序。
 

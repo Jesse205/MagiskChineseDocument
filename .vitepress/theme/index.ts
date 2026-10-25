@@ -6,5 +6,4 @@ import './styles/custom.scss'
 export default {
   Layout: Layout,
   extends: DefaultTheme,
-  enhanceApp(ctx) {},
 } satisfies Theme

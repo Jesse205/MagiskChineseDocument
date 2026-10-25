@@ -1,0 +1,21 @@
+[global]
+exclude = [".git", "node_modules", ".vitepress", ".temp", "public", "images", "delta/images"]
+respect-gitignore = true
+
+[MD013]
+enabled = false
+
+[MD026]
+enabled = false
+
+[MD033]
+allowed-elements = ["a", "Badge", "br", "details", "div", "img", "p", "script", "span", "summary"]
+
+[MD036]
+enabled = false
+
+[MD059]
+enabled = false
+
+[MD064]
+enabled = false

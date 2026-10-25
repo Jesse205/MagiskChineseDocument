@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 120,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": false,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": false,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "css",
+  "vueIndentScriptAndStyle": false,
+  "endOfLine": "lf",
+  "embeddedLanguageFormatting": "auto",
+  "singleAttributePerLine": false,
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "*.md",
+    "node_modules",
+    ".vitepress/cache",
+    ".vitepress/dist",
+    ".temp",
+    "pnpm-lock.yaml",
+    "yarn.lock",
+    "public/api",
+    ".rumdl_cache",
+    "*.tsbuildinfo"
+  ]
+}

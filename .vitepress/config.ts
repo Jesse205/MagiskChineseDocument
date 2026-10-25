@@ -1,6 +1,7 @@
 import fs from 'fs'
-import { DefaultTheme, defineConfigWithTheme } from 'vitepress'
-import { OriginDocumentConfig, ThemeConfig } from './theme/ts/theme.interfaces'
+import type { DefaultTheme } from 'vitepress'
+import { defineConfigWithTheme } from 'vitepress'
+import type { OriginDocumentConfig, ThemeConfig } from './theme/ts/theme.interfaces.ts'
 
 const MATCH_RELEASE_REG = /- \[(v[\d.]*)\]\((\d*).md\)/g
 
@@ -10,9 +11,9 @@ function getCommitHtmlLink(config: OriginDocumentConfig): string {
 
 const base = '/MagiskChineseDocument/'
 
-const releaseItems: (DefaultTheme.NavItemChildren | DefaultTheme.NavItemWithLink)[] = []
+const releaseItems: DefaultTheme.SidebarItem[] = []
 
-const NORMAL_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
+const NORMAL_LINKS: DefaultTheme.SidebarItem[] = [
   {
     text: '面向普通用户',
     // collapsed: false,
@@ -29,7 +30,7 @@ const NORMAL_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
     ],
   },
 ]
-const DEVELOPER_LINKS: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [
+const DEVELOPER_LINKS: DefaultTheme.SidebarItem[] = [
   {
     text: '面向开发人员',
     // collapsed: false,
@@ -74,11 +75,11 @@ const sidebar: DefaultTheme.Sidebar = {
   '/delta/': DELTA_LINKS,
 }
 
-let allItems: DefaultTheme.NavItem[] | DefaultTheme.SidebarItem[] = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
+const allItems: DefaultTheme.SidebarItem[] = [...NORMAL_LINKS, ...DEVELOPER_LINKS]
 // 生成侧边栏
-for (let group of allItems) {
+for (const group of allItems) {
   if (group.items) {
-    for (let item of group.items) {
+    for (const item of group.items) {
       if (item.link) {
         sidebar[item.link.replace('.html', '')] = [group]
       }
@@ -99,8 +100,8 @@ for (const iterator of releaseFileContent.matchAll(MATCH_RELEASE_REG)) {
 
 const originDocument: Record<string, OriginDocumentConfig> = {
   magisk: {
-    date: '2024-03-07',
-    commit: '2b5fc75',
+    date: '2026-10-25',
+    commit: '0972f67',
     url: 'https://github.com/topjohnwu/Magisk',
   },
   delta: {
@@ -123,8 +124,13 @@ export default defineConfigWithTheme<ThemeConfig>({
   ],
   themeConfig: {
     logo: '/favicon.ico',
-    outlineTitle: '本页内容',
-    lastUpdatedText: '更新时间',
+    outline: {
+      level: [2, 3],
+      label: '本页内容',
+    },
+    lastUpdated: {
+      text: '更新时间',
+    },
     darkModeSwitchLabel: '深色模式',
     sidebarMenuLabel: '菜单',
     returnToTopLabel: '回到顶部',
@@ -132,7 +138,6 @@ export default defineConfigWithTheme<ThemeConfig>({
       prev: '上一篇',
       next: '下一篇',
     },
-    outline: [2, 3],
     socialLinks: [
       {
         icon: {
