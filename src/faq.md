@@ -29,7 +29,11 @@ adb shell magisk --remove-modules
 
 ## Q: 为什么 XXX应用会检测到 Root？
 
-Magisk 不再处理 Root 隐藏。有大量 Magisk/Zygisk 模块专门提供这些功能，请在网络上查找它们。😉（您可以在“酷安”或者“哔哩哔哩”中搜索）
+Magisk 不再处理 Root 隐藏。有大量 Magisk/Zygisk 模块专门提供这些功能，请在网络上查找它们。😉
+
+::: tip 译者提示
+您可以在“酷安”或“哔哩哔哩”中搜索相关模块。
+:::
 
 比较流行的模块是 [Shamiko](https://github.com/LSPosed/LSPosed.github.io/releases/latest) 。
 
